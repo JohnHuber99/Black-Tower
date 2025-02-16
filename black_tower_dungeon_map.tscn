@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3k7r0r8cwhcl"]
+
+[ext_resource type="Script" path="res://DungeonRooms.gd" id="4_u276a"]
+
+[node name="Black Tower Dungeon Map" type="Node2D"]
+
+[node name="DungeonRooms" type="Node2D" parent="."]
+script = ExtResource("4_u276a")
