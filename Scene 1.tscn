@@ -1,4 +1,30 @@
-[gd_scene format=3 uid="uid://68rilbiuk437"]
+[gd_scene load_steps=4 format=3 uid="uid://gwogaltd85ob"]
+
+[ext_resource type="Texture2D" uid="uid://41nh76j4su4u" path="res://icon.svg" id="2_w2ke0"]
+
+[sub_resource type="GDScript" id="GDScript_gxldu"]
+script/source = "extends CharacterBody2D
+
+@export var speed = 400
+
+func get_input():
+	var input_direction = Input.get_vector(\"left\",\"right\",\"up\",\"down\")
+	velocity = input_direction * speed
+
+func _physics_process(delta):
+	get_input()
+	move_and_slide()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_43ncm"]
 
 [node name="Node2D" type="Node2D"]
-position = Vector2(106, 130)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = SubResource("GDScript_gxldu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_43ncm")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D/CollisionShape2D"]
+texture = ExtResource("2_w2ke0")
