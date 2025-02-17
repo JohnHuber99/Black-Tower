@@ -22,96 +22,110 @@ var room_symbols = {
 	BIG: "□"
 }
 
+# Store placed room coordinates
+var normal_room_list = []
+
+var long_h_count = 0  # Track number of LONG_H rooms
+var big_room_count = 0  # Track if at least one BIG room exists
+
+#To implement limits later
+var is_shop_spawn = false
+var treasure_room_count = 0
+
+#Create the starting coordinates
+var x = int(ceilf(float(WIDTH) / 2.0 ))
+var y = int(ceilf(float(HEIGHT) / 2.0))
+
 # Called when the scene starts
 func _ready():
 	generate_dungeon()
 	print_dungeon()
 
 func generate_dungeon():
-	# Creates Dungeon Grid
+	# Initialize Dungeon Grid
 	dungeon = []
 	for y in range(HEIGHT):
 		dungeon.append([])
 		for x in range(WIDTH):
 			dungeon[y].append(EMPTY)
 
-	# Creates the Start Room in the Center of the Grid
-	var start_x = int(float(WIDTH) / 2.0)
-	var start_y = int(float(HEIGHT) / 2.0)
-	dungeon[start_y][start_x] = START
-
+	# Place Start Room in the Center
 	var num_rooms = 1
-	var x = start_x
-	var y = start_y
+	dungeon[y][x] = START
 
-	#Runs code below until we reach the room creation limit
+	# Room placement loop
 	while num_rooms < MAX_ROOMS:
 		var dir = directions[randi() % directions.size()]
-		var new_x = x + int(dir.x)
-		var new_y = y + int(dir.y)
-		var room_type = pick_room_type(new_x, new_y)
+		var new_x = x + dir.x
+		var new_y = y + dir.y
 		
-		#Checks if room is inbounds of the dungeon grid
-		if room_type != EMPTY and is_within_bounds(new_x, new_y, room_type):
+		# Ensure new room is within bounds
+		if new_x >= 0 and new_x < WIDTH and new_y >= 0 and new_y < HEIGHT:
+			var room_type = pick_room_type(new_x, new_y)
 			if room_type != EMPTY:
-				dungeon[new_y][new_x] = room_type
 				x = new_x
 				y = new_y
+				if room_type == NORMAL:
+					normal_room_list.append(Vector2(x, y))
 				num_rooms += 1
-
+	
+	# Place treasure and shop rooms
 	place_special_rooms()
 
-func place_special_rooms():
-	for y in range(HEIGHT):
-		for x in range(WIDTH):
-			if dungeon[y][x] == NORMAL:
-				if randf() < 0.2: # 20% Chance for a regular room to turn into a treasure room
-					dungeon[y][x] = TREASURE
-				elif randf() < 0.1: # 10% Chance for a regular room to turn into a treasure room
-					dungeon[y][x] = SHOP
 
-#Need to update the is_within_bounds function to include long rooms and big rooms
-func is_within_bounds(x, y, room_type) -> bool:
-	if room_type == NORMAL or room_type == START or room_type == BOSS or room_type == TREASURE or room_type == SHOP:
-		return x >= 0 and x < WIDTH and y >= 0 and y < HEIGHT and dungeon[y][x] == EMPTY
-	elif room_type == LONG_H:
-		return (x >= 0 and x < WIDTH - 1 and y >= 0 and y < HEIGHT and 
-				dungeon[y][x] == EMPTY and dungeon[y][x + 1] == EMPTY)
-	elif room_type == BIG:
-		return (x >= 0 and x < WIDTH - 1 and y >= 0 and y < HEIGHT - 1 and 
-				dungeon[y][x] == EMPTY and dungeon[y][x + 1] == EMPTY and 
-				dungeon[y + 1][x] == EMPTY and dungeon[y + 1][x + 1] == EMPTY)
-	return false
+func place_special_rooms():
+	# Randomly convert rooms to special types
+	for pos in normal_room_list:
+		if randf() < 0.1 and treasure_room_count < 2:  # 20% chance for a treasure room
+			dungeon[pos.y][pos.x] = TREASURE
+			treasure_room_count += 1
+		elif randf() < 0.35 and !is_shop_spawn:  # 10% chance for a shop
+			dungeon[pos.y][pos.x] = SHOP
+			is_shop_spawn = true
+	if treasure_room_count == 0:
+		var rand = randi() % normal_room_list.size()
+		dungeon[normal_room_list[rand].y][normal_room_list[rand].x] = TREASURE
+		treasure_room_count += 1
 
 # Picks a room type while ensuring no overlap
 func pick_room_type(x, y) -> int:
+	if dungeon[y][x] != EMPTY:
+		return EMPTY  # Avoid overwriting existing rooms
+	
 	var possible_types = [NORMAL]
-	var chosen_type = NORMAL
-	var roomChance = randi() % 100 #Picks a random number between and including 0 - 99.
-	
-	# Check if we can place a horizontal long or big room
-	if x < WIDTH - 1 and dungeon[y][x + 1] == EMPTY:
-		possible_types.append(LONG_H)
-	if x < WIDTH - 1 and y < HEIGHT - 1 and dungeon[y][x + 1] == EMPTY and dungeon[y + 1][x] == EMPTY and dungeon[y + 1][x + 1] == EMPTY:
-		possible_types.append(BIG)
-	
-	if possible_types.size() > 1:
-		if roomChance < 90: # 90% Chacne to spawn a regular room
-			chosen_type = NORMAL
-		elif roomChance == 99: # 1% Chance to spawn a Big Room
-			chosen_type = BIG
-		else: # 9% Chance to spawn a regular room
-			chosen_type = LONG_H
-	
-	# Mark additional tiles for big/long rooms
-	if chosen_type == LONG_H:
-		dungeon[y][x + 1] = LONG_H
-	elif chosen_type == BIG:
-		dungeon[y + 1][x] = BIG
-		dungeon[y][x + 1] = BIG
-		dungeon[y + 1][x + 1] = BIG
 
-	return chosen_type
+	# Check space for LONG_H (1x2 Horizontal Room)
+	if long_h_count < 2 and x < WIDTH - 1 and dungeon[y][x + 1] == EMPTY:
+		possible_types.append(LONG_H)
+	
+	# Check space for BIG (2x2 Room)
+	if big_room_count < 1 and x < WIDTH - 1 and y < HEIGHT - 1:
+		if (dungeon[y][x + 1] == EMPTY and dungeon[y + 1][x] == EMPTY and dungeon[y + 1][x + 1] == EMPTY):
+			possible_types.append(BIG)
+	
+	# Weighted Random Selection
+	var randRoomNum = randf()
+	if randRoomNum < 0.01 and BIG in possible_types:
+		placeBIG(y,x)
+		return BIG
+	elif randRoomNum < 0.1 and LONG_H in possible_types:
+		placeLONG_H(y,x)
+		return LONG_H
+		
+	dungeon[y][x] = NORMAL
+	return NORMAL
+
+func placeBIG(y, x):
+	dungeon[y][x] = BIG
+	dungeon[y][x + 1] = BIG
+	dungeon[y + 1][x] = BIG
+	dungeon[y + 1][x + 1] = BIG
+	big_room_count += 1
+
+func placeLONG_H(y, x):
+	dungeon[y][x] = LONG_H
+	dungeon[y][x + 1] = LONG_H  
+	long_h_count += 1
 
 # Prints the dungeon to the Godot console as ASCII
 func print_dungeon():
