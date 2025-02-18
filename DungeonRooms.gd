@@ -127,15 +127,80 @@ func placeLONG_H(y, x):
 
 func add_random_connection(room: Vector2):
 	var possible_neighbors = []
+
+	# Check for all valid directions (up, down, left, right) to find neighbors
 	for dir in directions:
 		var neighbor = room + dir
-		if room_connections.has(neighbor):
-			possible_neighbors.append(neighbor)
-	
+		
+		# Ensure the neighbor is within bounds
+		if neighbor.x >= 0 and neighbor.x < WIDTH and neighbor.y >= 0 and neighbor.y < HEIGHT:
+			# Check for LONG_H room (1x2) - Can connect vertically or horizontally
+			if dungeon[room.y][room.x] == LONG_H:
+				# Prevent connection to the other part of the LONG_H room horizontally
+				if dir == Vector2.RIGHT and room.x + 1 < WIDTH and dungeon[room.y][room.x + 1] == LONG_H:
+					continue  # Skip connection to the other part of the LONG_H room
+				# Prevent connection to the other part of the LONG_H room vertically
+				elif dir == Vector2.DOWN and room.y + 1 < HEIGHT and dungeon[room.y + 1][room.x] == LONG_H:
+					continue  # Skip connection to the other part of the LONG_H room
+				# Prevent vertical connection to the same LONG_H room when it's already part of the same room
+				elif dir == Vector2.UP and room.y > 0 and dungeon[room.y - 1][room.x] == LONG_H:
+					continue
+				# Valid directions for LONG_H rooms (checking up, down, left)
+				elif dir == Vector2.LEFT and room.x > 0 and dungeon[room.y][room.x - 1] != EMPTY:
+					possible_neighbors.append(neighbor)
+				elif dir == Vector2.RIGHT and room.x + 1 < WIDTH and dungeon[room.y][room.x + 1] != EMPTY:
+					possible_neighbors.append(neighbor)
+				elif dir == Vector2.UP and room.y > 0 and dungeon[room.y - 1][room.x] != EMPTY:
+					possible_neighbors.append(neighbor)
+				elif dir == Vector2.DOWN and room.y + 1 < HEIGHT and dungeon[room.y + 1][room.x] != EMPTY:
+					possible_neighbors.append(neighbor)
+				
+			# Check for BIG room (2x2) - Can connect on all four sides but not within itself
+			elif dungeon[room.y][room.x] == BIG:
+				# Prevent horizontal connections within the BIG room (left-right)
+				if dir == Vector2.LEFT and room.x > 0 and dungeon[room.y][room.x - 1] == BIG:
+					continue  # Skip connection to the other part of the BIG room
+				elif dir == Vector2.RIGHT and room.x + 1 < WIDTH and dungeon[room.y][room.x + 1] == BIG:
+					continue  # Skip connection to the other part of the BIG room
+				# Prevent vertical connections within the BIG room (top-bottom)
+				elif dir == Vector2.UP and room.y > 0 and dungeon[room.y - 1][room.x] == BIG:
+					continue  # Skip connection to the other part of the BIG room
+				elif dir == Vector2.DOWN and room.y + 1 < HEIGHT and dungeon[room.y + 1][room.x] == BIG:
+					continue  # Skip connection to the other part of the BIG room
+
+				# If the direction is valid and not blocked, add it to possible_neighbors
+				if dir == Vector2.LEFT and room.x > 0 and dungeon[room.y][room.x - 1] != EMPTY:
+					possible_neighbors.append(neighbor)
+				elif dir == Vector2.RIGHT and room.x + 1 < WIDTH and dungeon[room.y][room.x + 1] != EMPTY:
+					possible_neighbors.append(neighbor)
+				elif dir == Vector2.UP and room.y > 0 and dungeon[room.y - 1][room.x] != EMPTY:
+					possible_neighbors.append(neighbor)
+				elif dir == Vector2.DOWN and room.y + 1 < HEIGHT and dungeon[room.y + 1][room.x] != EMPTY:
+					possible_neighbors.append(neighbor)
+
+			# For normal rooms, check for valid connections to neighboring rooms
+			elif dungeon[room.y][room.x] == NORMAL:
+				if dungeon[neighbor.y][neighbor.x] != EMPTY:  # Ensure neighbor is not empty
+					possible_neighbors.append(neighbor)
+
+	# If there are valid neighbors, randomly choose one to connect
 	if possible_neighbors.size() > 0:
-		var chosen_neighbor = possible_neighbors[randi() % possible_neighbors.size()]
-		room_connections[room].append(chosen_neighbor)
-		room_connections[chosen_neighbor].append(room)
+		# Randomly decide the number of connections to create
+		var num_connections = randi() % (possible_neighbors.size()) + 1
+		
+		# Ensure each room only connects to a limited number of other rooms
+		for i in range(num_connections):
+			var chosen_neighbor = possible_neighbors[randi() % possible_neighbors.size()]
+			# Avoid redundant connections
+			if chosen_neighbor not in room_connections.get(room, []):
+				if not room_connections.has(room):
+					room_connections[room] = []
+				if not room_connections.has(chosen_neighbor):
+					room_connections[chosen_neighbor] = []
+				
+				# Add bidirectional connections between rooms
+				room_connections[room].append(chosen_neighbor)
+				room_connections[chosen_neighbor].append(room)
 
 func ensure_full_connectivity():
 	var visited = {}
