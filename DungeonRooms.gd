@@ -44,14 +44,16 @@ var y = int(ceilf(float(HEIGHT) / 2.0 ))
 func _ready():
 	# Randomizes the set seed for all rand calls
 	randomize()
-	
+	var seed_value = randi() #generate seed
+	seed(seed_value)
+	print("Generate Seed : ", seed_value)
 	# Initializes the creation of the Dungeon Map
 	generate_dungeon()
 	ensure_full_connectivity()
 	
 	# Prints the Dungeon in ASCII
 	print_dungeon()
-
+	
 #Generates the Dungeon
 func generate_dungeon():
 	
