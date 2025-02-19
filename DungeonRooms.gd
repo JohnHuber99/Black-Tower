@@ -42,12 +42,15 @@ var y = int(ceilf(float(HEIGHT) / 2.0 ))
 
 # Initializes the creation of the Dungeon Map
 func _ready():
-	# Randomizes the set seed for all rand calls
-	randomize()
+	# Generates the Seed for the Dungeon Layout that we can reuse
+	var seed_value = randi() 
+	seed(seed_value)
+	print("Generate Seed : ", seed_value)
 	
 	# Initializes the creation of the Dungeon Map
 	generate_dungeon()
-	ensure_full_connectivity()
+	place_final_room()
+	place_special_rooms()
 	
 	# Prints the Dungeon in ASCII
 	print_dungeon()
@@ -94,8 +97,6 @@ func generate_dungeon():
 				# Creates a random connection to neighboring (adjacent) rooms
 				add_random_connection(Vector2(x, y))
 				num_rooms += 1
-	
-	place_special_rooms()
 
 func place_special_rooms():
 	for pos in normal_room_list:
@@ -229,25 +230,32 @@ func add_random_connection(room: Vector2):
 				room_connections[room].append(chosen_neighbor)
 				room_connections[chosen_neighbor].append(room)
 
-# Ensures all rooms can be connected to each other at the end
-func ensure_full_connectivity():
-	var visited = {} # Dictionary to track visited rooms
-	var queue = [Vector2(x, y)] # BFS queue initialized with the starting room 
-	visited[Vector2(x, y)] = true # Mark the starting room as visited
+func place_final_room():
+	var start_room = Vector2(int(ceilf(float(WIDTH) / 2.0 )), int(ceilf(float(HEIGHT) / 2.0 ))) 
+	var visited = {}
+	var queue = []
+	var last_normal_room = null  # Stores the last NORMAL room found during BFS
+
+	queue.append(start_room)
 
 	while queue.size() > 0:
-		# Adds neighboring rooms to the queue and visits them
-		var current = queue.pop_front() 
-		for neighbor in room_connections[current]:
-			if !visited.has(neighbor):
-				visited[neighbor] = true
+		var current_room = queue.pop_front()
+
+		if current_room in visited:
+			continue
+
+		visited[current_room] = true
+
+		# Update last NORMAL room encountered
+		if dungeon[current_room.y][current_room.x] == NORMAL:
+			last_normal_room = current_room
+
+		for neighbor in room_connections.get(current_room, []):
+			if neighbor not in visited:
 				queue.append(neighbor)
-	
-	# Checks if there are disconnected rooms by iterating over every room in the grid
-	for room in room_connections.keys():
-		# For all rooms not visited in the BFS it adds a random connection to another room
-		if !visited.has(room):
-			add_random_connection(room)
+
+	dungeon[last_normal_room.y][last_normal_room.x] = BOSS
+	normal_room_list.erase(last_normal_room)
 	
 func print_dungeon():
 	print("\nDungeon Layout:\n")
