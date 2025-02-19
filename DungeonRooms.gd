@@ -213,10 +213,10 @@ func add_random_connection(room: Vector2):
 	# If there are valid neighbors, randomly choose one to connect
 	if possible_neighbors.size() > 0:
 		# Randomly decide the number of connections to create (can increase the "+ 1" to a "+ 2" or higher for a larger chance of room connectivity)
-		var num_connections = randi() % (possible_neighbors.size()) + 1
+		var num_connection_chances = randi() % (possible_neighbors.size()) + 1
 		
 		# Ensure each room only connects to a limited number of other rooms
-		for i in range(num_connections):
+		for i in range(num_connection_chances):
 			var chosen_neighbor = possible_neighbors[randi() % possible_neighbors.size()]
 			# Avoid redundant connections
 			if chosen_neighbor not in room_connections.get(room, []):
