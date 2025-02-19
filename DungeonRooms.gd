@@ -4,6 +4,7 @@ extends Node2D
 const WIDTH = 5
 const HEIGHT = 5
 const MAX_ROOMS = 7
+const MAX_LOOPS = 100
 
 # Contains a list of directions
 var directions = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
@@ -12,7 +13,7 @@ var directions = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
 var dungeon = []
 
 # Dictionary of room connections (Uses the room coordinates as a key to find what rooms it is connected to)
-var room_connections = {}  
+var room_connections = {}
 
 # List of Room Types
 enum { EMPTY, NORMAL, START, BOSS, TREASURE, SHOP, LONG_H, BIG}
@@ -38,10 +39,14 @@ var long_h_count = 0
 var big_room_count = 0  
 var treasure_room_count = 0
 var is_shop_spawn = false
+var num_loops = 0
 
 #Creates x and y and centers them on the 2D Array
-var x = int(ceilf(float(WIDTH) / 2.0 )) - 1
-var y = int(ceilf(float(HEIGHT) / 2.0 )) - 1
+const start_x = int(ceilf(float(WIDTH) / 2.0 )) - 1
+const start_y = int(ceilf(float(HEIGHT) / 2.0 )) - 1
+
+var x = start_x
+var y = start_y
 
 # Initializes the creation of the Dungeon Map
 func _ready():
@@ -50,30 +55,58 @@ func _ready():
 	seed(seed_value) 
 	print("Generate Seed : ", seed_value)
 	
-	# Initializes the creation of the Dungeon Map
-	generate_dungeon()
-	place_final_room()
-	place_special_rooms()
+	var attempts = 0
+	while true:
+		generate_dungeon()
+		place_final_room()
+		place_special_rooms()
+		attempts += 1
+		
+		if is_valid_dungeon():
+			print("Dungeon generated successfully after ", attempts, " attempts!")
+			break
+		
+		if attempts % 100 == 0:
+			print("Still generating... Attempt: ", attempts, "\n")  # Debugging output
+			print("Unfinished Dungeon Attempt: \n")
+			print_dungeon()
+		
+		if attempts == 1001:
+			break
 	
 	# Prints the Dungeon in ASCII
 	print_dungeon()
 		
 #Generates the Dungeon
 func generate_dungeon():
+	dungeon = []
+	room_connections = {}  
+	long_room_list = []
+	big_room_list = []
+	normal_room_list = []
+	long_h_count = 0
+	big_room_count = 0
+	treasure_room_count = 0
+	is_shop_spawn = false
+	x = start_x
+	y = start_y
 	
 	# Creates the 2D Array for the Dungeon
-	for y in range(HEIGHT):
+	for gridHeight in range(HEIGHT):
 		dungeon.append([])
-		for x in range(WIDTH):
-			dungeon[y].append(EMPTY)
+		for gridWidth in range(WIDTH):
+			dungeon[gridHeight].append(EMPTY)
 	
 	# Creates the starting room and sets up possible room connections
 	var num_rooms = 1
-	dungeon[y][x] = START
-	room_connections[Vector2(x, y)] = []
+	dungeon[start_y][start_x] = START
+	room_connections[Vector2(start_x, start_y)] = []
 
 	# Ensures the Dungeon creates the desired amount of rooms
 	while num_rooms < MAX_ROOMS:
+		if num_loops > MAX_LOOPS:
+			break
+		num_loops += 1
 		# Picks a random direction
 		var dir = directions[randi() % directions.size()]
 		var new_x = x + dir.x
@@ -285,7 +318,7 @@ func valid_neighbors(dir, room, neighbor):
 		possible_neighbors.append(neighbor)
 
 func place_final_room():
-	var start_room = Vector2(int(ceilf(float(WIDTH) / 2.0 ) - 1), int(ceilf(float(HEIGHT) / 2.0 )) - 1) 
+	var start_room = Vector2(start_x, start_y) 
 	var visited = {}
 	var queue = []
 	var last_normal_room = null  # Stores the last NORMAL room found during BFS
@@ -326,6 +359,49 @@ func place_special_rooms():
 		var rand = randi() % normal_room_list.size()
 		dungeon[normal_room_list[rand].y][normal_room_list[rand].x] = TREASURE
 		treasure_room_count += 1
+
+func is_valid_dungeon() -> bool:
+	# Ensure at least one BOSS and TREASURE room exist
+	var has_treasure = false
+	var has_final = false
+	for y in range(HEIGHT):
+		for x in range(WIDTH):
+			if dungeon[y][x] == TREASURE:
+				has_treasure = true
+			if dungeon[y][x] == BOSS:
+				has_final = true
+
+	# Ensure all rooms are connected (if needed)
+	var all_connected = check_connectivity()
+	
+	# Define your criteria
+	return has_treasure and all_connected and has_final
+
+func check_connectivity() -> bool:
+	var visited = {}
+	var queue = []
+	
+	# The START room is always at (start_x, start_y), so use it as the BFS starting point
+	var start_room = Vector2(start_x, start_y)  
+
+	queue.append(start_room)
+	visited[start_room] = true
+
+	while queue.size() > 0:
+		var current_room = queue.pop_front()
+
+		for neighbor in room_connections.get(current_room, []):
+			if neighbor not in visited:
+				visited[neighbor] = true
+				queue.append(neighbor)
+
+	# Ensure all filled rooms were visited
+	for y in range(HEIGHT):
+		for x in range(WIDTH):
+			if dungeon[y][x] != EMPTY and Vector2(x, y) not in visited:
+				return false  # If any room is unvisited, the dungeon is disconnected
+
+	return true  # All rooms are connected
 
 func print_dungeon():
 	print("\nDungeon Layout:\n")
