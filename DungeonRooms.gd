@@ -54,7 +54,7 @@ func _ready():
 	
 	# Prints the Dungeon in ASCII
 	print_dungeon()
-
+	
 #Generates the Dungeon
 func generate_dungeon():
 	
