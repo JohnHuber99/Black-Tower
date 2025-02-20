@@ -4,7 +4,7 @@ extends Node2D
 const WIDTH = 5
 const HEIGHT = 5
 const MAX_ROOMS = 7
-const MAX_LOOPS = 100
+const MAX_LOOPS = 40
 
 # Contains a list of directions
 var directions = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
@@ -40,6 +40,7 @@ var big_room_count = 0
 var treasure_room_count = 0
 var is_shop_spawn = false
 var num_loops = 0
+var num_rooms = 1
 
 #Creates x and y and centers them on the 2D Array
 const start_x = int(ceilf(float(WIDTH) / 2.0 )) - 1
@@ -87,6 +88,8 @@ func generate_dungeon():
 	long_h_count = 0
 	big_room_count = 0
 	treasure_room_count = 0
+	num_loops = 0
+	num_rooms = 1
 	is_shop_spawn = false
 	x = start_x
 	y = start_y
@@ -98,7 +101,6 @@ func generate_dungeon():
 			dungeon[gridHeight].append(EMPTY)
 	
 	# Creates the starting room and sets up possible room connections
-	var num_rooms = 1
 	dungeon[start_y][start_x] = START
 	room_connections[Vector2(start_x, start_y)] = []
 
@@ -107,6 +109,7 @@ func generate_dungeon():
 		if num_loops > MAX_LOOPS:
 			break
 		num_loops += 1
+		
 		# Picks a random direction
 		var dir = directions[randi() % directions.size()]
 		var new_x = x + dir.x
@@ -135,7 +138,6 @@ func generate_dungeon():
 				room_connections[Vector2(x, y)] = []
 				# Creates a random connection to neighboring (adjacent) rooms
 				add_random_connection(Vector2(x, y))
-				
 
 func pick_room_type(x, y) -> int:
 	if dungeon[y][x] != EMPTY:
@@ -375,7 +377,7 @@ func is_valid_dungeon() -> bool:
 	var all_connected = check_connectivity()
 	
 	# Define your criteria
-	return has_treasure and all_connected and has_final
+	return has_treasure and all_connected and has_final and num_rooms == MAX_ROOMS and big_room_count < 1 and long_h_count < 2
 
 func check_connectivity() -> bool:
 	var visited = {}
