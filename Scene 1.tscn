@@ -1,12 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://68rilbiuk437"]
+[gd_scene load_steps=10 format=3 uid="uid://68rilbiuk437"]
 
 [ext_resource type="Texture2D" uid="uid://d0k50ef44x2x4" path="res://sprites/PlagueDoctorSprite-Sheetv1.png" id="1_wjrbh"]
-[ext_resource type="Texture2D" uid="uid://bgemqup8jls7v" path="res://sprites/PlagueDoctor_WalkRight_Sprite-Sheet_v1.png" id="2_kiclj"]
 
 [sub_resource type="GDScript" id="GDScript_gxldu"]
 script/source = "extends CharacterBody2D
 
-@export var speed = 64
+@export var speed = 150
 @onready var _animated_sprite = $AnimatedSprite2D
 var walk_direction = \"walk_left\"
 
@@ -19,27 +18,24 @@ func _physics_process(delta):
 	move_and_slide()
 	
 func _process(_delta):
+	var mouse_pos = get_global_mouse_position()
+	var pos = global_position
+	
+	if (mouse_pos > pos):
+		_animated_sprite.flip_h = true
+	if (mouse_pos < pos):
+		_animated_sprite.flip_h = false
+	
 	if !velocity.is_zero_approx():
-		if (velocity.x > 0):
-			walk_direction = \"walk_right\"
-		if (velocity.x < 0):
-			walk_direction = \"walk_left\"
-		_animated_sprite.play(walk_direction)
+		_animated_sprite.play(\"walk\")
 	else:
-		if (walk_direction == \"walk_right\"):
-			_animated_sprite.play(\"idle_right\")
-		if (walk_direction == \"walk_left\"):
-			_animated_sprite.play(\"idle_left\")
+		_animated_sprite.play(\"idle\")
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_43ncm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4xt65"]
 atlas = ExtResource("1_wjrbh")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q5dqp"]
-atlas = ExtResource("2_kiclj")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tw108"]
@@ -58,22 +54,6 @@ region = Rect2(96, 0, 32, 32)
 atlas = ExtResource("1_wjrbh")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7i0h1"]
-atlas = ExtResource("2_kiclj")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f04ev"]
-atlas = ExtResource("2_kiclj")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jii5m"]
-atlas = ExtResource("2_kiclj")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4os06"]
-atlas = ExtResource("2_kiclj")
-region = Rect2(0, 0, 32, 32)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_chjaw"]
 animations = [{
 "frames": [{
@@ -81,16 +61,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_4xt65")
 }],
 "loop": true,
-"name": &"idle_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q5dqp")
-}],
-"loop": true,
-"name": &"idle_right",
-"speed": 5.0
+"name": &"idle",
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -106,25 +78,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_wrxc3")
 }],
 "loop": true,
-"name": &"walk_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7i0h1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f04ev")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jii5m")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4os06")
-}],
-"loop": true,
-"name": &"walk_right",
-"speed": 5.0
+"name": &"walk",
+"speed": 8.0
 }]
 
 [node name="Node2D" type="Node2D"]
@@ -138,4 +93,4 @@ shape = SubResource("RectangleShape2D_43ncm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 sprite_frames = SubResource("SpriteFrames_chjaw")
-animation = &"walk_left"
+animation = &"idle"
