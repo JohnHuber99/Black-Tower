@@ -6,26 +6,39 @@
 script/source = "extends CharacterBody2D
 
 @export var speed = 150
-@onready var _animated_sprite = $AnimatedSprite2D
-var walk_direction = \"walk_left\"
+@export var acceleration = 800
+@export var friction = 800
+@export var direction_change_accel = 2000
 
-func get_input():
-	var input_direction = Input.get_vector(\"left\",\"right\",\"up\",\"down\")
-	velocity = input_direction * speed
+@onready var _animated_sprite = $AnimatedSprite2D
+
+func get_input(delta):
+	var input_direction = Input.get_vector(\"left\", \"right\", \"up\", \"down\")
+
+	if input_direction != Vector2.ZERO:
+		# Check if moving in the opposite direction
+		if velocity.dot(input_direction) < 0:
+			# Apply stronger acceleration when switching directions
+			velocity = velocity.move_toward(input_direction * speed, direction_change_accel * delta)
+		else:
+			# Normal acceleration
+			velocity = velocity.move_toward(input_direction * speed, acceleration * delta)
+	else:
+		# Apply friction when no input is given
+		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 
 func _physics_process(delta):
-	get_input()
+	get_input(delta)
 	move_and_slide()
-	
+
 func _process(_delta):
 	var mouse_pos = get_global_mouse_position()
 	var pos = global_position
 	
-	if (mouse_pos > pos):
-		_animated_sprite.flip_h = true
-	if (mouse_pos < pos):
-		_animated_sprite.flip_h = false
-	
+	# Flip sprite based on mouse position
+	_animated_sprite.flip_h = mouse_pos.x > pos.x  
+
+	# Play animations based on movement
 	if !velocity.is_zero_approx():
 		_animated_sprite.play(\"walk\")
 	else:
