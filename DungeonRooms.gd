@@ -93,6 +93,7 @@ func generate_dungeon():
 	is_shop_spawn = false
 	x = start_x
 	y = start_y
+	var prevDir = null
 	
 	# Creates the 2D Array for the Dungeon
 	for gridHeight in range(HEIGHT):
@@ -115,8 +116,14 @@ func generate_dungeon():
 		var new_x = x + dir.x
 		var new_y = y + dir.y
 		
+		if (prevDir == dir):
+			dir = directions[randi() % directions.size()]
+			new_x = start_x + dir.x
+			new_y = start_y + dir.y
+		
 		# Checks if the random direction is within the 2D Array Bounds
 		if new_x >= 0 and new_x < WIDTH and new_y >= 0 and new_y < HEIGHT:
+			prevDir = dir
 			x = new_x
 			y = new_y
 			
@@ -138,6 +145,9 @@ func generate_dungeon():
 				room_connections[Vector2(x, y)] = []
 				# Creates a random connection to neighboring (adjacent) rooms
 				add_random_connection(Vector2(x, y))
+		else:
+			new_x = start_x
+			new_y = start_y
 
 func pick_room_type(x, y) -> int:
 	if dungeon[y][x] != EMPTY:
@@ -281,7 +291,7 @@ func add_random_connection(room: Vector2):
 		# Go through each valid neighbor and randomly decide if it should be connected
 		for neighbor in possible_neighbors:
 			# Random chance to connect (could be adjusted to a percentage if needed)
-			if randf() < 0.5:  # 50% chance to connect to this neighbor
+			if randf() < 0.65:  # 65% chance to connect to this neighbor
 				if neighbor not in room_connections.get(room, []):
 					# If the room is not in the dictionary, add it
 					if not room_connections.has(room):
