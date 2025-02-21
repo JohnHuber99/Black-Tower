@@ -382,38 +382,9 @@ func is_valid_dungeon() -> bool:
 				has_treasure = true
 			if dungeon[y][x] == BOSS:
 				has_final = true
-
-	# Ensure all rooms are connected (if needed)
-	var all_connected = check_connectivity()
 	
 	# Define your criteria
-	return has_treasure and all_connected and has_final and num_rooms == MAX_ROOMS and big_room_count < 1 and long_h_count < 2
-
-func check_connectivity() -> bool:
-	var visited = {}
-	var queue = []
-	
-	# The START room is always at (start_x, start_y), so use it as the BFS starting point
-	var start_room = Vector2(start_x, start_y)  
-
-	queue.append(start_room)
-	visited[start_room] = true
-
-	while queue.size() > 0:
-		var current_room = queue.pop_front()
-
-		for neighbor in room_connections.get(current_room, []):
-			if neighbor not in visited:
-				visited[neighbor] = true
-				queue.append(neighbor)
-
-	# Ensure all filled rooms were visited
-	for y in range(HEIGHT):
-		for x in range(WIDTH):
-			if dungeon[y][x] != EMPTY and Vector2(x, y) not in visited:
-				return false  # If any room is unvisited, the dungeon is disconnected
-
-	return true  # All rooms are connected
+	return has_treasure and has_final and num_rooms == MAX_ROOMS
 
 func print_dungeon():
 	print("\nDungeon Layout:\n")
