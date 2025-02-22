@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkypinx6hg7rj"]
+
+[sub_resource type="GDScript" id="GDScript_2wynp"]
+script/source = "extends CharacterBody2D
+
+
+var SPEED = 300
+var vel : float
+
+
+func _physics_process(delta):
+	
+	
+	move_local_x(vel * SPEED * delta)
+"
+
+[node name="Grenade" type="CharacterBody2D"]
+script = SubResource("GDScript_2wynp")
