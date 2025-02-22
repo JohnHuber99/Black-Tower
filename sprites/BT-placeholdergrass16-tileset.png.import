@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ck6cmn3k1hvni"
-path="res://.godot/imported/BT-placeholdergrass16-tileset.png-e0489a3662c92684daef31a8daeffcaf.ctex"
+path="res://.godot/imported/BT-placeholdergrass16-tileset.png-8a0c359e82da48f20a8d2ff084821311.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/BT-placeholdergrass16-tileset.png"
-dest_files=["res://.godot/imported/BT-placeholdergrass16-tileset.png-e0489a3662c92684daef31a8daeffcaf.ctex"]
+source_file="res://Sprites/BT-placeholdergrass16-tileset.png"
+dest_files=["res://.godot/imported/BT-placeholdergrass16-tileset.png-8a0c359e82da48f20a8d2ff084821311.ctex"]
 
 [params]
 

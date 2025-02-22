@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://b4uixgwclv3j8"]
 
-[ext_resource type="Texture2D" uid="uid://d0k50ef44x2x4" path="res://sprites/PlagueDoctorSprite-Sheetv1.png" id="1_xvc0r"]
+[ext_resource type="Texture2D" uid="uid://d0k50ef44x2x4" path="res://Sprites/PlagueDoctorSprite-Sheetv1.png" id="1_xvc0r"]
 
 [sub_resource type="GDScript" id="GDScript_gxldu"]
 script/source = "extends CharacterBody2D
