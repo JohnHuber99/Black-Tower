@@ -4,7 +4,6 @@ extends Node2D
 const WIDTH = 5
 const HEIGHT = 5
 const MAX_ROOMS = 7
-const MAX_LOOPS = 40
 
 # Contains a list of directions
 var directions = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
@@ -13,17 +12,17 @@ var directions = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
 var dungeon = []
 
 # Dictionary of room connections (Uses the room coordinates as a key to find what rooms it is connected to)
-var room_connections = {}
+var room_connections = {}  
 
 # List of Room Types
-enum { EMPTY, NORMAL, START, BOSS, TREASURE, SHOP, LONG_H, BIG}
+enum { EMPTY, NORMAL, START, END, TREASURE, SHOP, LONG_H, BIG}
 
 # ASCII representation of each room type
 var room_symbols = {
 	EMPTY: " ",
 	START: "S",
 	NORMAL: "N",
-	BOSS: "B",
+	END: "E",
 	TREASURE: "T",
 	SHOP: "$",
 	LONG_H: "=",
@@ -39,15 +38,10 @@ var long_h_count = 0
 var big_room_count = 0  
 var treasure_room_count = 0
 var is_shop_spawn = false
-var num_loops = 0
-var num_rooms = 1
 
 #Creates x and y and centers them on the 2D Array
-const start_x = int(ceilf(float(WIDTH) / 2.0 )) - 1
-const start_y = int(ceilf(float(HEIGHT) / 2.0 )) - 1
-
-var x = start_x
-var y = start_y
+var x = int(ceilf(float(WIDTH) / 2.0 )) - 1
+var y = int(ceilf(float(HEIGHT) / 2.0 )) - 1
 
 # Initializes the creation of the Dungeon Map
 func _ready():
@@ -56,74 +50,37 @@ func _ready():
 	seed(seed_value) 
 	print("Generate Seed : ", seed_value)
 	
-	var attempts = 0
-	while true:
-		generate_dungeon()
-		place_final_room()
-		place_special_rooms()
-		attempts += 1
-		
-		if is_valid_dungeon():
-			print("Dungeon generated successfully after ", attempts, " attempts!")
-			break
-		
-		if attempts % 100 == 0:
-			print("Still generating... Attempt: ", attempts, "\n")  # Debugging output
-			print("Unfinished Dungeon Attempt: \n")
-			print_dungeon()
-		
-		if attempts == 1001:
-			break
+	# Initializes the creation of the Dungeon Map
+	generate_dungeon()
+	place_final_room()
+	place_special_rooms()
 	
 	# Prints the Dungeon in ASCII
 	print_dungeon()
 		
 #Generates the Dungeon
 func generate_dungeon():
-	dungeon = []
-	room_connections = {}  
-	long_room_list = []
-	big_room_list = []
-	normal_room_list = []
-	long_h_count = 0
-	big_room_count = 0
-	treasure_room_count = 0
-	num_loops = 0
-	num_rooms = 1
-	is_shop_spawn = false
-	x = start_x
-	y = start_y
-	var prevDir = null
 	
 	# Creates the 2D Array for the Dungeon
-	for gridHeight in range(HEIGHT):
+	for y in range(HEIGHT):
 		dungeon.append([])
-		for gridWidth in range(WIDTH):
-			dungeon[gridHeight].append(EMPTY)
+		for x in range(WIDTH):
+			dungeon[y].append(EMPTY)
 	
 	# Creates the starting room and sets up possible room connections
-	dungeon[start_y][start_x] = START
-	room_connections[Vector2(start_x, start_y)] = []
+	var num_rooms = 1
+	dungeon[y][x] = START
+	room_connections[Vector2(x, y)] = []
 
 	# Ensures the Dungeon creates the desired amount of rooms
 	while num_rooms < MAX_ROOMS:
-		if num_loops > MAX_LOOPS:
-			break
-		num_loops += 1
-		
 		# Picks a random direction
 		var dir = directions[randi() % directions.size()]
 		var new_x = x + dir.x
 		var new_y = y + dir.y
 		
-		if (prevDir == dir):
-			dir = directions[randi() % directions.size()]
-			new_x = start_x + dir.x
-			new_y = start_y + dir.y
-		
 		# Checks if the random direction is within the 2D Array Bounds
 		if new_x >= 0 and new_x < WIDTH and new_y >= 0 and new_y < HEIGHT:
-			prevDir = dir
 			x = new_x
 			y = new_y
 			
@@ -145,9 +102,7 @@ func generate_dungeon():
 				room_connections[Vector2(x, y)] = []
 				# Creates a random connection to neighboring (adjacent) rooms
 				add_random_connection(Vector2(x, y))
-		else:
-			new_x = start_x
-			new_y = start_y
+				
 
 func pick_room_type(x, y) -> int:
 	if dungeon[y][x] != EMPTY:
@@ -291,7 +246,7 @@ func add_random_connection(room: Vector2):
 		# Go through each valid neighbor and randomly decide if it should be connected
 		for neighbor in possible_neighbors:
 			# Random chance to connect (could be adjusted to a percentage if needed)
-			if randf() < 0.65:  # 65% chance to connect to this neighbor
+			if randf() < 0.5:  # 50% chance to connect to this neighbor
 				if neighbor not in room_connections.get(room, []):
 					# If the room is not in the dictionary, add it
 					if not room_connections.has(room):
@@ -330,7 +285,7 @@ func valid_neighbors(dir, room, neighbor):
 		possible_neighbors.append(neighbor)
 
 func place_final_room():
-	var start_room = Vector2(start_x, start_y) 
+	var start_room = Vector2(int(ceilf(float(WIDTH) / 2.0 ) - 1), int(ceilf(float(HEIGHT) / 2.0 )) - 1) 
 	var visited = {}
 	var queue = []
 	var last_normal_room = null  # Stores the last NORMAL room found during BFS
@@ -354,10 +309,10 @@ func place_final_room():
 				queue.append(neighbor)
 
 	if last_normal_room != null:
-		dungeon[last_normal_room.y][last_normal_room.x] = BOSS
+		dungeon[last_normal_room.y][last_normal_room.x] = END
 		normal_room_list.erase(last_normal_room)
 	else:
-		print("Error: No NORMAL room found to place BOSS room!\n")
+		print("Error: No NORMAL room found to place End room!\n")
 
 func place_special_rooms():
 	for pos in normal_room_list:
@@ -371,20 +326,6 @@ func place_special_rooms():
 		var rand = randi() % normal_room_list.size()
 		dungeon[normal_room_list[rand].y][normal_room_list[rand].x] = TREASURE
 		treasure_room_count += 1
-
-func is_valid_dungeon() -> bool:
-	# Ensure at least one BOSS and TREASURE room exist
-	var has_treasure = false
-	var has_final = false
-	for y in range(HEIGHT):
-		for x in range(WIDTH):
-			if dungeon[y][x] == TREASURE:
-				has_treasure = true
-			if dungeon[y][x] == BOSS:
-				has_final = true
-	
-	# Define your criteria
-	return has_treasure and has_final and num_rooms == MAX_ROOMS
 
 func print_dungeon():
 	print("\nDungeon Layout:\n")
