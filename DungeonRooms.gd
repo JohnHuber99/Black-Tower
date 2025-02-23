@@ -52,33 +52,46 @@ var y = start_y
 
 # Initializes the creation of the Dungeon Map
 func _ready():
-	# Generates the Seed for the Dungeon Layout that we can reuse
-	var seed_value = randi() 
-	seed(seed_value) 
-	print("Generate Seed : ", seed_value)
+	generate_dungeon()
+	place_boss_room()
+	place_special_rooms()
 	
-	var attempts = 0
-	while true:
-		generate_dungeon()
-		#place_final_room()
-		place_boss_room()
-		place_special_rooms()
-		attempts += 1
-		
-		if is_valid_dungeon():
-			print("Dungeon generated successfully after ", attempts, " attempts!")
-			break
-		
-		if attempts % 100 == 0:
-			print("Still generating... Attempt: ", attempts, "\n")  # Debugging output
-			print("Unfinished Dungeon Attempt: \n")
-			print_dungeon()
-		
-		if attempts == 1001:
-			break
+	if is_valid_dungeon():
+		print("Dungeon generated successfully!")
+	else:
+		print("Dungeon generation failed.")
 	
-	# Prints the Dungeon in ASCII
+	# Print ASCII dungeon
 	print_dungeon()
+
+	# Call a function to draw the dungeon on screen
+	draw_dungeon()
+
+func draw_dungeon():
+	var cell_size = 32  # Adjust size as needed
+	for y in range(HEIGHT):
+		for x in range(WIDTH):
+			var room_type = dungeon[y][x]
+			if room_type != EMPTY:
+				var color = Color(0.5, 0.5, 0.5)  # Default color for normal rooms
+				match room_type:
+					START:
+						color = Color(0, 1, 0)  # Green for start room
+					FINAL:
+						color = Color(1, 0, 0)  # Red for final room
+					TREASURE:
+						color = Color(1, 1, 0)  # Yellow for treasure
+					SHOP:
+						color = Color(0, 0, 1)  # Blue for shop
+					BOSS:
+						color = Color(0.5, 0, 0.5)  # Purple for boss
+
+				# Draw the room as a rectangle
+				var rect = ColorRect.new()
+				rect.color = color
+				rect.size = Vector2(cell_size, cell_size)
+				rect.position = Vector2(x * cell_size, y * cell_size)
+				add_child(rect)
 		
 #Generates the Dungeon
 func generate_dungeon():
