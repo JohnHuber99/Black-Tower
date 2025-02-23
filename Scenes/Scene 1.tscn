@@ -1,6 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://68rilbiuk437"]
+[gd_scene load_steps=20 format=3 uid="uid://68rilbiuk437"]
 
-[ext_resource type="Texture2D" uid="uid://d0k50ef44x2x4" path="res://Sprites/PlagueDoctorSprite-Sheetv1.png" id="1_wjrbh"]
+[ext_resource type="Texture2D" uid="uid://bgemqup8jls7v" path="res://sprites/PlagueDoctor_WalkRight_Sprite-Sheet_v1.png" id="1_o2bq8"]
+[ext_resource type="Texture2D" uid="uid://dhbo1pdw7f62m" path="res://sprites/grenade_throw.png" id="2_60nbi"]
+[ext_resource type="Texture2D" uid="uid://bat4rjdsewfqn" path="res://sprites/Throwing_Idle.png" id="3_fmfcf"]
 
 [sub_resource type="GDScript" id="GDScript_gxldu"]
 script/source = "extends CharacterBody2D
@@ -11,6 +13,9 @@ script/source = "extends CharacterBody2D
 @export var direction_change_accel = 2000
 
 @onready var _animated_sprite = $AnimatedSprite2D
+
+var throwing = false
+var can_move = true
 
 func get_input(delta):
 	var input_direction = Input.get_vector(\"left\", \"right\", \"up\", \"down\")
@@ -36,61 +41,152 @@ func _process(_delta):
 	var pos = global_position
 	
 	# Flip sprite based on mouse position
-	_animated_sprite.flip_h = mouse_pos.x > pos.x  
-
-	# Play animations based on movement
-	if !velocity.is_zero_approx():
-		_animated_sprite.play(\"walk\")
-	else:
-		_animated_sprite.play(\"idle\")
+	_animated_sprite.flip_h = mouse_pos.x < pos.x  
+	
+	# Plays first half of throwing animation once
+	if !throwing and Input.is_action_pressed(\"Throw\"):
+		throwing = true
+		can_move = false
+		_animated_sprite.play(\"throw_start\")
+	
+	# Throwing idle if held down, finish if released
+	if throwing and !_animated_sprite.is_playing():
+		if Input.is_action_pressed(\"Throw\"):
+			_animated_sprite.play(\"throw_idle\")
+		else:
+			throwing = false
+			_animated_sprite.play(\"throw_finish\")
+	
+	# No other ongoing animations
+	if !_animated_sprite.is_playing() and !throwing:
+		can_move = true
+	
+	# Walking/idle animation when no other stuff is going on
+	if can_move:
+		# Play animations based on movement
+		if !velocity.is_zero_approx():
+			_animated_sprite.play(\"walk\")
+		else:
+			_animated_sprite.play(\"idle\")
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_43ncm"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4xt65"]
-atlas = ExtResource("1_wjrbh")
+[sub_resource type="AtlasTexture" id="AtlasTexture_p62ss"]
+atlas = ExtResource("1_o2bq8")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tw108"]
-atlas = ExtResource("1_wjrbh")
+[sub_resource type="AtlasTexture" id="AtlasTexture_b80a2"]
+atlas = ExtResource("2_60nbi")
+region = Rect2(0, 66, 60, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nxqsy"]
+atlas = ExtResource("2_60nbi")
+region = Rect2(60, 66, 60, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kqfs"]
+atlas = ExtResource("2_60nbi")
+region = Rect2(120, 66, 60, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hypwl"]
+atlas = ExtResource("2_60nbi")
+region = Rect2(0, 132, 60, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykxbr"]
+atlas = ExtResource("3_fmfcf")
+region = Rect2(0, 0, 60, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f14m1"]
+atlas = ExtResource("2_60nbi")
+region = Rect2(0, 0, 60, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41e37"]
+atlas = ExtResource("2_60nbi")
+region = Rect2(60, 0, 60, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oqdpl"]
+atlas = ExtResource("2_60nbi")
+region = Rect2(120, 0, 60, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4k76"]
+atlas = ExtResource("1_o2bq8")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1o3bs"]
-atlas = ExtResource("1_wjrbh")
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjiyc"]
+atlas = ExtResource("1_o2bq8")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mkfd3"]
-atlas = ExtResource("1_wjrbh")
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqfru"]
+atlas = ExtResource("1_o2bq8")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wrxc3"]
-atlas = ExtResource("1_wjrbh")
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dfjx"]
+atlas = ExtResource("1_o2bq8")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_chjaw"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4xt65")
+"texture": SubResource("AtlasTexture_p62ss")
 }],
-"loop": true,
+"loop": false,
 "name": &"idle",
 "speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tw108")
+"texture": SubResource("AtlasTexture_b80a2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1o3bs")
+"texture": SubResource("AtlasTexture_nxqsy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mkfd3")
+"texture": SubResource("AtlasTexture_1kqfs")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wrxc3")
+"texture": SubResource("AtlasTexture_hypwl")
 }],
-"loop": true,
+"loop": false,
+"name": &"throw_finish",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykxbr")
+}],
+"loop": false,
+"name": &"throw_idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f14m1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41e37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oqdpl")
+}],
+"loop": false,
+"name": &"throw_start",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e4k76")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjiyc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vqfru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dfjx")
+}],
+"loop": false,
 "name": &"walk",
 "speed": 8.0
 }]
