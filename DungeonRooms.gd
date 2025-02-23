@@ -16,18 +16,19 @@ var dungeon = []
 var room_connections = {}
 
 # List of Room Types
-enum { EMPTY, NORMAL, START, BOSS, TREASURE, SHOP, LONG_H, BIG}
+enum { EMPTY, NORMAL, START, FINAL, TREASURE, SHOP, LONG_H, BIG, BOSS}
 
 # ASCII representation of each room type
 var room_symbols = {
 	EMPTY: " ",
 	START: "S",
 	NORMAL: "N",
-	BOSS: "B",
+	FINAL: "F",
 	TREASURE: "T",
 	SHOP: "$",
 	LONG_H: "=",
-	BIG: "□"
+	BIG: "□",
+	BOSS: "B"
 }
 
 # Tracking variables
@@ -59,7 +60,8 @@ func _ready():
 	var attempts = 0
 	while true:
 		generate_dungeon()
-		place_final_room()
+		#place_final_room()
+		place_boss_room()
 		place_special_rooms()
 		attempts += 1
 		
@@ -223,6 +225,20 @@ func placeBIGLeft(y, x):
 	dungeon[y - 1][x - 1] = BIG
 	big_room_list.append([[x, y],[x - 1, y],[x, y - 1],[x - 1, y - 1]])
 
+# Creates a Big Room on the right
+func placeBossRight(y, x):
+	dungeon[y][x] = BOSS
+	dungeon[y][x + 1] = BOSS
+	dungeon[y + 1][x] = BOSS
+	dungeon[y + 1][x + 1] = BOSS
+	
+# Creates a Big Room on the left
+func placeBossLeft(y, x):
+	dungeon[y][x] = BOSS
+	dungeon[y][x - 1] = BOSS
+	dungeon[y - 1][x] = BOSS
+	dungeon[y - 1][x - 1] = BOSS
+
 # Creates a Horizontal Long Room on the right
 func placeLONG_HRight(y, x):
 	dungeon[y][x] = LONG_H
@@ -329,6 +345,54 @@ func valid_neighbors(dir, room, neighbor):
 	elif dir == Vector2.DOWN and room.y + 1 < HEIGHT and dungeon[room.y + 1][room.x] != EMPTY:
 		possible_neighbors.append(neighbor)
 
+func place_boss_room():
+	var start_room = Vector2(start_x, start_y) 
+	var visited = {}
+	var queue = []
+	var last_normal_room = null  # Stores the last NORMAL room found during BFS
+	var isBossLeft = false
+	var isBossRight = false
+
+	queue.append(start_room)
+
+	while queue.size() > 0:
+		var current_room = queue.pop_front()
+
+		if current_room in visited:
+			continue
+
+		visited[current_room] = true
+
+		# Update last NORMAL room encountered
+		if dungeon[current_room.y][current_room.x] == NORMAL:
+			last_normal_room = current_room
+
+		for neighbor in room_connections.get(current_room, []):
+			if neighbor not in visited:
+				queue.append(neighbor)
+
+	if last_normal_room != null:
+		# Check space for BIG (2x2 Room)
+		if big_room_count < 1 and x < WIDTH - 1 and y < HEIGHT - 1:
+			if (dungeon[y][x + 1] == EMPTY and dungeon[y + 1][x] == EMPTY and dungeon[y + 1][x + 1] == EMPTY):
+				isBossRight = true
+			if x > 1 and y > 1:
+				if (dungeon[y][x - 1] == EMPTY and dungeon[y - 1][x] == EMPTY and dungeon[y - 1][x - 1] == EMPTY):
+					isBossRight = true	
+		
+		if isBossLeft == true or isBossRight == true: 
+			if isBossLeft and isBossRight:
+				if randf() < 0.5:
+					placeBossLeft(y, x)
+				else:
+					placeBossRight(y, x)
+			elif isBossRight:
+				placeBossRight(y, x)
+			else:
+				placeBossLeft(y, x)
+	else:
+		print("Error: No NORMAL room found to place FINAL room!\n")
+		
 func place_final_room():
 	var start_room = Vector2(start_x, start_y) 
 	var visited = {}
@@ -354,10 +418,10 @@ func place_final_room():
 				queue.append(neighbor)
 
 	if last_normal_room != null:
-		dungeon[last_normal_room.y][last_normal_room.x] = BOSS
+		dungeon[last_normal_room.y][last_normal_room.x] = FINAL
 		normal_room_list.erase(last_normal_room)
 	else:
-		print("Error: No NORMAL room found to place BOSS room!\n")
+		print("Error: No NORMAL room found to place FINAL room!\n")
 
 func place_special_rooms():
 	for pos in normal_room_list:
@@ -373,18 +437,18 @@ func place_special_rooms():
 		treasure_room_count += 1
 
 func is_valid_dungeon() -> bool:
-	# Ensure at least one BOSS and TREASURE room exist
+	# Ensure at least one FINAL and TREASURE room exist
 	var has_treasure = false
-	var has_final = false
+	var has_boss = false
 	for y in range(HEIGHT):
 		for x in range(WIDTH):
 			if dungeon[y][x] == TREASURE:
 				has_treasure = true
 			if dungeon[y][x] == BOSS:
-				has_final = true
+				has_boss = true
 	
 	# Define your criteria
-	return has_treasure and has_final and num_rooms == MAX_ROOMS
+	return has_treasure and has_boss and num_rooms == MAX_ROOMS
 
 func print_dungeon():
 	print("\nDungeon Layout:\n")
