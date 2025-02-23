@@ -8,8 +8,8 @@
 script/source = "extends CharacterBody2D
 
 @export var speed = 150
-@export var acceleration = 800
-@export var friction = 800
+@export var acceleration = 900
+@export var friction = 600
 @export var direction_change_accel = 2000
 
 @onready var _animated_sprite = $AnimatedSprite2D
