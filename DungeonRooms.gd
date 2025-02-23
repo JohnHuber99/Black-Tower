@@ -1,8 +1,8 @@
 extends Node2D
 
 # Dungeon Grid Conditions
-const WIDTH = 5
-const HEIGHT = 5
+const WIDTH = 7
+const HEIGHT = 7
 const MAX_ROOMS = 7
 const MAX_LOOPS = 40
 
@@ -225,14 +225,14 @@ func placeBIGLeft(y, x):
 	dungeon[y - 1][x - 1] = BIG
 	big_room_list.append([[x, y],[x - 1, y],[x, y - 1],[x - 1, y - 1]])
 
-# Creates a Big Room on the right
+# Creates a Boss Room on the right
 func placeBossRight(y, x):
 	dungeon[y][x] = BOSS
 	dungeon[y][x + 1] = BOSS
 	dungeon[y + 1][x] = BOSS
 	dungeon[y + 1][x + 1] = BOSS
 	
-# Creates a Big Room on the left
+# Creates a Boss Room on the left
 func placeBossLeft(y, x):
 	dungeon[y][x] = BOSS
 	dungeon[y][x - 1] = BOSS
@@ -352,6 +352,7 @@ func place_boss_room():
 	var last_normal_room = null  # Stores the last NORMAL room found during BFS
 	var isBossLeft = false
 	var isBossRight = false
+	var isBossRoom = false
 
 	queue.append(start_room)
 
@@ -373,25 +374,26 @@ func place_boss_room():
 
 	if last_normal_room != null:
 		# Check space for BIG (2x2 Room)
-		if big_room_count < 1 and x < WIDTH - 1 and y < HEIGHT - 1:
-			if (dungeon[y][x + 1] == EMPTY and dungeon[y + 1][x] == EMPTY and dungeon[y + 1][x + 1] == EMPTY):
+		if x < WIDTH - 1 and y < HEIGHT - 1:
+			if (dungeon[last_normal_room.y][last_normal_room.x + 1] == EMPTY and dungeon[last_normal_room.y + 1][last_normal_room.x] == EMPTY and dungeon[last_normal_room.y + 1][last_normal_room.x + 1] == EMPTY):
 				isBossRight = true
 			if x > 1 and y > 1:
-				if (dungeon[y][x - 1] == EMPTY and dungeon[y - 1][x] == EMPTY and dungeon[y - 1][x - 1] == EMPTY):
-					isBossRight = true	
+				if (dungeon[last_normal_room.y][last_normal_room.x - 1] == EMPTY and dungeon[last_normal_room.y - 1][last_normal_room.x] == EMPTY and dungeon[last_normal_room.y - 1][last_normal_room.x - 1] == EMPTY):
+					isBossLeft = true	
 		
-		if isBossLeft == true or isBossRight == true: 
+		if isBossLeft or isBossRight: 
+			normal_room_list.erase(last_normal_room)
 			if isBossLeft and isBossRight:
 				if randf() < 0.5:
-					placeBossLeft(y, x)
+					placeBossLeft(last_normal_room.y, last_normal_room.x)
 				else:
-					placeBossRight(y, x)
+					placeBossRight(last_normal_room.y, last_normal_room.x)
 			elif isBossRight:
-				placeBossRight(y, x)
-			else:
-				placeBossLeft(y, x)
+				placeBossRight(last_normal_room.y, last_normal_room.x)
+			elif isBossLeft:
+				placeBossLeft(last_normal_room.y, last_normal_room.x)
 	else:
-		print("Error: No NORMAL room found to place FINAL room!\n")
+		print("Error: No NORMAL room found to place BOSS room!\n")
 		
 func place_final_room():
 	var start_room = Vector2(start_x, start_y) 
@@ -425,16 +427,17 @@ func place_final_room():
 
 func place_special_rooms():
 	for pos in normal_room_list:
-		if randf() < 0.1 and treasure_room_count < 2:
+		if randf() < 0.1 and treasure_room_count < 2 and dungeon[pos.y][pos.x] == NORMAL:
 			dungeon[pos.y][pos.x] = TREASURE
 			treasure_room_count += 1
-		elif randf() < 0.35 and !is_shop_spawn:
+		elif randf() < 0.35 and !is_shop_spawn and dungeon[pos.y][pos.x] == NORMAL:
 			dungeon[pos.y][pos.x] = SHOP
 			is_shop_spawn = true
-	if treasure_room_count == 0:
+	while treasure_room_count == 0:
 		var rand = randi() % normal_room_list.size()
-		dungeon[normal_room_list[rand].y][normal_room_list[rand].x] = TREASURE
-		treasure_room_count += 1
+		if dungeon[normal_room_list[rand].y][normal_room_list[rand].x] == NORMAL:
+			dungeon[normal_room_list[rand].y][normal_room_list[rand].x] = TREASURE
+			treasure_room_count += 1
 
 func is_valid_dungeon() -> bool:
 	# Ensure at least one FINAL and TREASURE room exist
@@ -448,7 +451,7 @@ func is_valid_dungeon() -> bool:
 				has_boss = true
 	
 	# Define your criteria
-	return has_treasure and has_boss and num_rooms == MAX_ROOMS
+	return has_treasure and has_boss and num_rooms == MAX_ROOMS and dungeon[start_y][start_x] == START
 
 func print_dungeon():
 	print("\nDungeon Layout:\n")
