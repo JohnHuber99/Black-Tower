@@ -52,19 +52,33 @@ var y = start_y
 
 # Initializes the creation of the Dungeon Map
 func _ready():
-	generate_dungeon()
-	place_boss_room()
-	place_special_rooms()
-	
-	if is_valid_dungeon():
-		print("Dungeon generated successfully!")
-	else:
-		print("Dungeon generation failed.")
-	
-	# Print ASCII dungeon
-	print_dungeon()
+	# Generates the Seed for the Dungeon Layout that we can reuse
+	var seed_value = randi() 
+	seed(seed_value) 
+	print("Generate Seed : ", seed_value)
+
+	var attempts = 0
+	while true:
+		generate_dungeon()
+		#place_final_room()
+		place_boss_room()
+		place_special_rooms()
+		attempts += 1
+		
+		if is_valid_dungeon():
+			print("Dungeon generated successfully after ", attempts, " attempts!")
+			break
+		
+		if attempts % 100 == 0:
+			print("Still generating... Attempt: ", attempts, "\n")  # Debugging output
+			print("Unfinished Dungeon Attempt: \n")
+			print_dungeon()
+		
+		if attempts == 1001:
+			break
 
 	# Call a function to draw the dungeon on screen
+	print_dungeon()
 	draw_dungeon()
 
 func draw_dungeon():
