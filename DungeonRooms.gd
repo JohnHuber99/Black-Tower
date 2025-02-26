@@ -387,10 +387,10 @@ func place_boss_room():
 
 	if last_normal_room != null:
 		# Check space for BIG (2x2 Room)
-		if x < WIDTH - 1 and y < HEIGHT - 1:
+		if last_normal_room.x < WIDTH - 1 and last_normal_room.y < HEIGHT - 1:
 			if (dungeon[last_normal_room.y][last_normal_room.x + 1] == EMPTY and dungeon[last_normal_room.y + 1][last_normal_room.x] == EMPTY and dungeon[last_normal_room.y + 1][last_normal_room.x + 1] == EMPTY):
 				isBossRight = true
-			if x > 1 and y > 1:
+			if last_normal_room.x > 1 and last_normal_room.y > 1:
 				if (dungeon[last_normal_room.y][last_normal_room.x - 1] == EMPTY and dungeon[last_normal_room.y - 1][last_normal_room.x] == EMPTY and dungeon[last_normal_room.y - 1][last_normal_room.x - 1] == EMPTY):
 					isBossLeft = true	
 		
