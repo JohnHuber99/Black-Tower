@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dcb2mgjnpto4f"]
+[gd_scene load_steps=7 format=3 uid="uid://dcb2mgjnpto4f"]
 
+[ext_resource type="Script" path="res://camera_2d.gd" id="2_moeqb"]
 [ext_resource type="PackedScene" uid="uid://fwh7s1rxc85i" path="res://Rooms/Normal_Room.tscn" id="2_x6iiq"]
 [ext_resource type="PackedScene" uid="uid://beqodim8out42" path="res://Rooms/Long_Room.tscn" id="3_yeb0g"]
 [ext_resource type="PackedScene" uid="uid://cp7k1vt1f3ge5" path="res://Rooms/Big_Room.tscn" id="4_btf2l"]
@@ -10,6 +11,9 @@
 
 [node name="DungeonRooms" type="Node2D" parent="."]
 script = ExtResource("4_u276a")
+
+[node name="Camera2D" type="Camera2D" parent="DungeonRooms"]
+script = ExtResource("2_moeqb")
 
 [node name="Normal Room" parent="." instance=ExtResource("2_x6iiq")]
 visible = false
