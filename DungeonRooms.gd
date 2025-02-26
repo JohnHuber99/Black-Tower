@@ -1,5 +1,11 @@
 extends Node2D
 
+# Loading Room Objects
+const NORMAL_ROOM = preload("res://Rooms/Normal_Room.tscn")
+const LONG_ROOM = preload("res://Rooms/Long_Room.tscn")
+const BIG_ROOM = preload("res://Rooms/Big_Room.tscn")
+const BOSS_ROOM = preload("res://Rooms/Big_Room.tscn")
+
 # Dungeon Grid Conditions
 const WIDTH = 7
 const HEIGHT = 7
@@ -79,7 +85,30 @@ func _ready():
 
 	# Call a function to draw the dungeon on screen
 	print_dungeon()
-	draw_dungeon()
+	# draw_dungeon()
+	spawn_dungeon()
+
+func spawn_dungeon():
+	var tile_size = 16  # Change this based on your actual tile size
+	var room_size = 15 * tile_size  # 15 tiles per room
+	for y in HEIGHT:
+		for x in WIDTH:
+			var room_type = dungeon[y][x]
+			if room_type != EMPTY:
+				var room_instance
+				
+				match room_type:
+					NORMAL: room_instance = NORMAL_ROOM.instantiate()
+					LONG_H: room_instance = LONG_ROOM.instantiate()
+					BIG: room_instance = BIG_ROOM.instantiate()
+					BOSS: room_instance = BOSS_ROOM.instantiate()
+					TREASURE: room_instance = NORMAL_ROOM.instantiate()
+					SHOP: room_instance = NORMAL_ROOM.instantiate()
+					START: room_instance = NORMAL_ROOM.instantiate()
+					
+				if room_instance:
+					add_child(room_instance)
+					room_instance.position = Vector2(x * room_size, y * room_size)
 
 func draw_dungeon():
 	var cell_size = 32  # Adjust size as needed
@@ -250,7 +279,7 @@ func placeBIGLeft(y, x):
 	dungeon[y][x - 1] = BIG
 	dungeon[y - 1][x] = BIG
 	dungeon[y - 1][x - 1] = BIG
-	big_room_list.append([[x, y],[x - 1, y],[x, y - 1],[x - 1, y - 1]])
+	big_room_list.append([[x - 1, y],[x, y],[x, y - 1],[x - 1, y - 1]])
 
 # Creates a Boss Room on the right
 func placeBossRight(y, x):
