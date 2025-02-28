@@ -38,6 +38,7 @@ var room_symbols = {
 }
 
 # Tracking variables
+var boss_room = []
 var possible_neighbors = []
 var long_room_list = []
 var big_room_list = []
@@ -99,9 +100,11 @@ func spawn_dungeon():
 				
 				match room_type:
 					NORMAL: room_instance = NORMAL_ROOM.instantiate()
-					LONG_H: room_instance = LONG_ROOM.instantiate()
-					BIG: room_instance = BIG_ROOM.instantiate()
-					BOSS: room_instance = BOSS_ROOM.instantiate()
+					#LONG_H: room_instance = LONG_ROOM.instantiate()
+					#BIG: room_instance = BIG_ROOM.instantiate()
+					BOSS:
+						if boss_room[0][0] == x and boss_room[0][1] == y: 
+							room_instance = BOSS_ROOM.instantiate() 
 					TREASURE: room_instance = NORMAL_ROOM.instantiate()
 					SHOP: room_instance = NORMAL_ROOM.instantiate()
 					START: room_instance = NORMAL_ROOM.instantiate()
@@ -287,6 +290,7 @@ func placeBossRight(y, x):
 	dungeon[y][x + 1] = BOSS
 	dungeon[y + 1][x] = BOSS
 	dungeon[y + 1][x + 1] = BOSS
+	boss_room.append([x,y + 1])
 	
 # Creates a Boss Room on the left
 func placeBossLeft(y, x):
@@ -294,6 +298,7 @@ func placeBossLeft(y, x):
 	dungeon[y][x - 1] = BOSS
 	dungeon[y - 1][x] = BOSS
 	dungeon[y - 1][x - 1] = BOSS
+	boss_room.append([x - 1, y])
 
 # Creates a Horizontal Long Room on the right
 func placeLONG_HRight(y, x):
