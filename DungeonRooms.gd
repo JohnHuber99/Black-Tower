@@ -41,7 +41,9 @@ var room_symbols = {
 var boss_room = []
 var possible_neighbors = []
 var long_room_list = []
+var long_room_list_spawn = []
 var big_room_list = []
+var big_room_list_spawn = []
 var normal_room_list = []
 var long_h_count = 0  
 var big_room_count = 0  
@@ -100,10 +102,14 @@ func spawn_dungeon():
 				
 				match room_type:
 					NORMAL: room_instance = NORMAL_ROOM.instantiate()
-					#LONG_H: room_instance = LONG_ROOM.instantiate()
-					#BIG: room_instance = BIG_ROOM.instantiate()
+					BIG:
+						if Vector2(x, y) in big_room_list_spawn:
+							room_instance = BIG_ROOM.instantiate()
+					LONG_H:
+						if Vector2(x, y) in long_room_list_spawn:
+							room_instance = LONG_ROOM.instantiate()
 					BOSS:
-						if boss_room[0][0] == x and boss_room[0][1] == y: 
+						if Vector2(x, y) in boss_room:
 							room_instance = BOSS_ROOM.instantiate() 
 					TREASURE: room_instance = NORMAL_ROOM.instantiate()
 					SHOP: room_instance = NORMAL_ROOM.instantiate()
@@ -142,9 +148,12 @@ func draw_dungeon():
 #Generates the Dungeon
 func generate_dungeon():
 	dungeon = []
+	boss_room = []
 	room_connections = {}  
 	long_room_list = []
+	long_room_list_spawn = []
 	big_room_list = []
+	big_room_list_spawn = []
 	normal_room_list = []
 	long_h_count = 0
 	big_room_count = 0
@@ -241,7 +250,7 @@ func pick_room_type(x, y) -> int:
 				isbigLeft = true
 	
 	# Weighted Random Selection of if to add a Big Room or Long Room
-	if randf() < 0.01 and BIG in possible_types: # 1% Chance to add Big Room
+	if randf() < 1 and BIG in possible_types: # 1% Chance to add Big Room
 		if isbigLeft and isbigRight:
 			if randf() < 0.5:
 				placeBIGLeft(y, x)
@@ -275,6 +284,7 @@ func placeBIGRight(y, x):
 	dungeon[y + 1][x] = BIG
 	dungeon[y + 1][x + 1] = BIG
 	big_room_list.append([[x, y],[x + 1, y],[x, y + 1],[x + 1, y + 1]])
+	big_room_list_spawn.append(Vector2(x, y+1))
 	
 # Creates a Big Room on the left
 func placeBIGLeft(y, x):
@@ -283,6 +293,7 @@ func placeBIGLeft(y, x):
 	dungeon[y - 1][x] = BIG
 	dungeon[y - 1][x - 1] = BIG
 	big_room_list.append([[x - 1, y],[x, y],[x, y - 1],[x - 1, y - 1]])
+	big_room_list_spawn.append(Vector2(x-1, y))
 
 # Creates a Boss Room on the right
 func placeBossRight(y, x):
@@ -291,6 +302,7 @@ func placeBossRight(y, x):
 	dungeon[y + 1][x] = BOSS
 	dungeon[y + 1][x + 1] = BOSS
 	boss_room.append([x,y + 1])
+	boss_room.append(Vector2(x, y+1))
 	
 # Creates a Boss Room on the left
 func placeBossLeft(y, x):
@@ -299,18 +311,21 @@ func placeBossLeft(y, x):
 	dungeon[y - 1][x] = BOSS
 	dungeon[y - 1][x - 1] = BOSS
 	boss_room.append([x - 1, y])
+	boss_room.append(Vector2(x-1, y))
 
 # Creates a Horizontal Long Room on the right
 func placeLONG_HRight(y, x):
 	dungeon[y][x] = LONG_H
 	dungeon[y][x + 1] = LONG_H
 	long_room_list.append([[x, y], [x + 1, y]])
+	long_room_list_spawn.append(Vector2(x, y))
 
 # Creates a Horizontal Long Room on the left
 func placeLONG_HLeft(y, x):
 	dungeon[y][x] = LONG_H
 	dungeon[y][x - 1] = LONG_H
 	long_room_list.append([[x, y], [x - 1, y]])
+	long_room_list_spawn.append(Vector2(x-1, y))
 
 # Adds random room connections
 func add_random_connection(room: Vector2):
@@ -370,13 +385,8 @@ func add_random_connection(room: Vector2):
 			# Random chance to connect (could be adjusted to a percentage if needed)
 			if randf() < 0.65:  # 65% chance to connect to this neighbor
 				if neighbor not in room_connections.get(room, []):
-					# If the room is not in the dictionary, add it
-					if not room_connections.has(room):
-						room_connections[room] = []
-					if not room_connections.has(neighbor):
-						room_connections[neighbor] = []
-					
-					# Add bidirectional connection between rooms
+					room_connections[room] = room_connections.get(room, [])
+					room_connections[neighbor] = room_connections.get(neighbor, [])
 					room_connections[room].append(neighbor)
 					room_connections[neighbor].append(room)
 					connected_neighbors.append(neighbor)
@@ -384,14 +394,9 @@ func add_random_connection(room: Vector2):
 		# If no neighbors were connected, force a connection with one
 		if connected_neighbors.size() == 0:
 			var forced_neighbor = possible_neighbors[randi() % possible_neighbors.size()]
-			# Ensure the forced connection is valid and not redundant
 			if forced_neighbor not in room_connections.get(room, []):
-				if not room_connections.has(room):
-					room_connections[room] = []
-				if not room_connections.has(forced_neighbor):
-					room_connections[forced_neighbor] = []
-				
-				# Add the forced bidirectional connection
+				room_connections[room] = room_connections.get(room, [])
+				room_connections[forced_neighbor] = room_connections.get(forced_neighbor, [])
 				room_connections[room].append(forced_neighbor)
 				room_connections[forced_neighbor].append(room)
 
