@@ -292,7 +292,7 @@ func placeBIGLeft(y, x):
 	dungeon[y][x - 1] = BIG
 	dungeon[y - 1][x] = BIG
 	dungeon[y - 1][x - 1] = BIG
-	big_room_list.append([[x - 1, y],[x, y],[x, y - 1],[x - 1, y - 1]])
+	big_room_list.append([[x, y], [x - 1, y],[x, y - 1],[x - 1, y - 1]])
 	big_room_list_spawn.append(Vector2(x-1, y))
 
 # Creates a Boss Room on the right
