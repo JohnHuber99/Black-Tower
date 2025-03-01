@@ -20,7 +20,7 @@ var can_move = true
 func get_input(delta):
 	var input_direction = Input.get_vector(\"left\", \"right\", \"up\", \"down\")
 
-	if input_direction != Vector2.ZERO:
+	if input_direction != Vector2.ZERO && can_move:
 		# Check if moving in the opposite direction
 		if velocity.dot(input_direction) < 0:
 			# Apply stronger acceleration when switching directions
@@ -76,37 +76,37 @@ func _process(_delta):
 atlas = ExtResource("1_o2bq8")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_b80a2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1t4fk"]
 atlas = ExtResource("2_60nbi")
-region = Rect2(0, 66, 60, 66)
+region = Rect2(0, 35, 57, 35)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nxqsy"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_famn8"]
 atlas = ExtResource("2_60nbi")
-region = Rect2(60, 66, 60, 66)
+region = Rect2(57, 35, 57, 35)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1kqfs"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lw48m"]
 atlas = ExtResource("2_60nbi")
-region = Rect2(120, 66, 60, 66)
+region = Rect2(114, 35, 57, 35)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hypwl"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_48pt8"]
 atlas = ExtResource("2_60nbi")
-region = Rect2(0, 132, 60, 66)
+region = Rect2(0, 70, 57, 35)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ykxbr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0d57"]
 atlas = ExtResource("3_fmfcf")
-region = Rect2(0, 0, 60, 66)
+region = Rect2(0, 0, 57, 35)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f14m1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggrfp"]
 atlas = ExtResource("2_60nbi")
-region = Rect2(0, 0, 60, 66)
+region = Rect2(0, 0, 57, 35)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_41e37"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8lvw3"]
 atlas = ExtResource("2_60nbi")
-region = Rect2(60, 0, 60, 66)
+region = Rect2(57, 0, 57, 35)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_oqdpl"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hygv1"]
 atlas = ExtResource("2_60nbi")
-region = Rect2(120, 0, 60, 66)
+region = Rect2(114, 0, 57, 35)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e4k76"]
 atlas = ExtResource("1_o2bq8")
@@ -136,16 +136,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_b80a2")
+"texture": SubResource("AtlasTexture_1t4fk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nxqsy")
+"texture": SubResource("AtlasTexture_famn8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1kqfs")
+"texture": SubResource("AtlasTexture_lw48m")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hypwl")
+"texture": SubResource("AtlasTexture_48pt8")
 }],
 "loop": false,
 "name": &"throw_finish",
@@ -153,7 +153,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ykxbr")
+"texture": SubResource("AtlasTexture_h0d57")
 }],
 "loop": false,
 "name": &"throw_idle",
@@ -161,13 +161,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f14m1")
+"texture": SubResource("AtlasTexture_ggrfp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_41e37")
+"texture": SubResource("AtlasTexture_8lvw3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_oqdpl")
+"texture": SubResource("AtlasTexture_hygv1")
 }],
 "loop": false,
 "name": &"throw_start",
@@ -202,4 +202,4 @@ shape = SubResource("RectangleShape2D_43ncm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 sprite_frames = SubResource("SpriteFrames_chjaw")
-animation = &"idle"
+animation = &"throw_idle"
