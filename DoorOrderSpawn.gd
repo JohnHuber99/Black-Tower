@@ -4,7 +4,6 @@ const WIDTH = 7
 const HEIGHT = 7
 const start_x = int(ceilf(float(WIDTH) / 2.0)) - 1
 const start_y = int(ceilf(float(HEIGHT) / 2.0)) - 1
-
 var door_number = 1
 var room_connections = {}
 
@@ -20,24 +19,17 @@ func door_ordering():
 	visited[startingpos] = true
 	
 	while queue.size() > 0:
-		var currentDoor = queue.pop_front()
-		
-		for neighbor_door in room_connections.get(currentDoor, []):
+		var current_connection = queue.pop_front()
+		for neighbor_door in room_connections.get(current_connection, []):
 			if neighbor_door not in visited:
-				create_numbered_connection(currentDoor, neighbor_door)
+				if connection_Check(current_connection, neighbor_door):
+					door_number += 1
 				visited[neighbor_door] = true
-				
-func create_numbered_connection(from: Vector2, to: Vector2):
-	room_connections[from].erase(to)
-	room_connections[to].erase(from)
-	room_connections[from].append([to, door_number])
-	room_connections[to].append([from, door_number])
-	door_number += 1
-	
-	
-				
-				
-	
+				queue.append(neighbor_door)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+func connection_Check(from: Vector2, to: Vector2) -> bool:
+	var difference = to - from
+	var checkIfAjdacent = abs(difference.x) + abs(difference.y) == 1
+	var check_connection = to in room_connections[from]
+	return checkIfAjdacent && check_connection
+	
