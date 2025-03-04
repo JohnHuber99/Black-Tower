@@ -66,4 +66,4 @@ shape = SubResource("RectangleShape2D_43ncm")
 sprite_frames = SubResource("SpriteFrames_q4ypo")
 animation = &"new_animation"
 autoplay = "new_animation"
-frame_progress = 0.902457
+frame_progress = 0.286192

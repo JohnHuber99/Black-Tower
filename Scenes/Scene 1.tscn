@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=3 uid="uid://68rilbiuk437"]
 
-[ext_resource type="Texture2D" uid="uid://bgemqup8jls7v" path="res://sprites/PlagueDoctor_WalkRight_Sprite-Sheet_v1.png" id="1_o2bq8"]
-[ext_resource type="Texture2D" uid="uid://dhbo1pdw7f62m" path="res://sprites/grenade_throw.png" id="2_60nbi"]
-[ext_resource type="Texture2D" uid="uid://bat4rjdsewfqn" path="res://sprites/Throwing_Idle.png" id="3_fmfcf"]
+[ext_resource type="Texture2D" uid="uid://bgemqup8jls7v" path="res://Sprites/PlagueDoctor_WalkRight_Sprite-Sheet_v1.png" id="1_o2bq8"]
+[ext_resource type="Texture2D" uid="uid://dhbo1pdw7f62m" path="res://Sprites/grenade_throw.png" id="2_60nbi"]
+[ext_resource type="Texture2D" uid="uid://bat4rjdsewfqn" path="res://Sprites/Throwing_Idle.png" id="3_fmfcf"]
 
 [sub_resource type="GDScript" id="GDScript_gxldu"]
 script/source = "extends CharacterBody2D
@@ -202,4 +202,4 @@ shape = SubResource("RectangleShape2D_43ncm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 sprite_frames = SubResource("SpriteFrames_chjaw")
-animation = &"throw_idle"
+animation = &"throw_finish"

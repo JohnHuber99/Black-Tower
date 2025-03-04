@@ -9,3 +9,4 @@ func _physics_process(delta: float):
 	
 	
 	move_local_x(vel * SPEED * delta)
+  
