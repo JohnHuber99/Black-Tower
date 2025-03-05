@@ -2,6 +2,8 @@ extends Node2D
 
 # Loading Room Objects
 const NORMAL_ROOM = preload("res://Rooms/Normal_Room.tscn")
+const TREASURE_ROOM = preload("res://Rooms/Treasure_Room.tscn")
+const SHOP_ROOM = preload("res://Rooms/Shop_Room.tscn")
 const LONG_ROOM = preload("res://Rooms/Long_Room.tscn")
 const BIG_ROOM = preload("res://Rooms/Big_Room.tscn")
 const BOSS_ROOM = preload("res://Rooms/Big_Room.tscn")
@@ -115,9 +117,9 @@ func spawn_dungeon():
 							room_instance = LONG_ROOM.instantiate()
 					BOSS:
 						if Vector2(x, y) in boss_room:
-							room_instance = BOSS_ROOM.instantiate()
-					TREASURE: room_instance = NORMAL_ROOM.instantiate()
-					SHOP: room_instance = NORMAL_ROOM.instantiate()
+							room_instance = BOSS_ROOM.instantiate() 
+					TREASURE: room_instance = TREASURE_ROOM.instantiate()
+					SHOP: room_instance = SHOP_ROOM.instantiate()
 					START: room_instance = NORMAL_ROOM.instantiate()
 
 				if room_instance:
