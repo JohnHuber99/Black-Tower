@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://dcb2mgjnpto4f"]
+[gd_scene load_steps=8 format=3 uid="uid://dcb2mgjnpto4f"]
 
-[ext_resource type="Script" path="res://camera_2d.gd" id="2_moeqb"]
+[ext_resource type="Script" uid="uid://chhocq4ajec5b" path="res://camera_2d.gd" id="2_moeqb"]
 [ext_resource type="PackedScene" uid="uid://fwh7s1rxc85i" path="res://Rooms/Normal_Room.tscn" id="2_x6iiq"]
 [ext_resource type="PackedScene" uid="uid://beqodim8out42" path="res://Rooms/Long_Room.tscn" id="3_yeb0g"]
 [ext_resource type="PackedScene" uid="uid://cp7k1vt1f3ge5" path="res://Rooms/Big_Room.tscn" id="4_btf2l"]
-[ext_resource type="Script" path="res://DungeonRooms.gd" id="4_u276a"]
+[ext_resource type="Script" uid="uid://dmru7ohnl1p0k" path="res://DungeonRooms.gd" id="4_u276a"]
 [ext_resource type="PackedScene" uid="uid://cyxsij02d8ebb" path="res://Rooms/Boss_Room.tscn" id="5_2gdme"]
+[ext_resource type="PackedScene" uid="uid://b3ladofhl585s" path="res://Rooms/Door.tscn" id="7_tnaq5"]
 
 [node name="Black Tower Dungeon Map" type="Node2D"]
 
@@ -25,3 +26,6 @@ visible = false
 visible = false
 
 [node name="Boss_Room" parent="." instance=ExtResource("5_2gdme")]
+
+[node name="Door" parent="." instance=ExtResource("7_tnaq5")]
+visible = false

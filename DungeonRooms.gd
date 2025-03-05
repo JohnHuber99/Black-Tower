@@ -5,6 +5,7 @@ const NORMAL_ROOM = preload("res://Rooms/Normal_Room.tscn")
 const LONG_ROOM = preload("res://Rooms/Long_Room.tscn")
 const BIG_ROOM = preload("res://Rooms/Big_Room.tscn")
 const BOSS_ROOM = preload("res://Rooms/Big_Room.tscn")
+const DOOR = preload("res://Rooms/Door.tscn")
 
 # Dungeon Grid Conditions
 const WIDTH = 7
@@ -52,6 +53,8 @@ var is_shop_spawn = false
 var num_loops = 0
 var num_rooms = 1
 
+var room_size = 15
+
 #Creates x and y and centers them on the 2D Array
 const start_x = int(ceilf(float(WIDTH) / 2.0 )) - 1
 const start_y = int(ceilf(float(HEIGHT) / 2.0 )) - 1
@@ -94,6 +97,8 @@ func _ready():
 func spawn_dungeon():
 	var tile_size = 16  # Change this based on your actual tile size
 	var room_size = 15 * tile_size  # 15 tiles per room
+
+	# First, spawn rooms
 	for y in HEIGHT:
 		for x in WIDTH:
 			var room_type = dungeon[y][x]
@@ -110,41 +115,37 @@ func spawn_dungeon():
 							room_instance = LONG_ROOM.instantiate()
 					BOSS:
 						if Vector2(x, y) in boss_room:
-							room_instance = BOSS_ROOM.instantiate() 
+							room_instance = BOSS_ROOM.instantiate()
 					TREASURE: room_instance = NORMAL_ROOM.instantiate()
 					SHOP: room_instance = NORMAL_ROOM.instantiate()
 					START: room_instance = NORMAL_ROOM.instantiate()
-					
+
 				if room_instance:
 					add_child(room_instance)
 					room_instance.position = Vector2(x * room_size, y * room_size)
-
-func draw_dungeon():
-	var cell_size = 32  # Adjust size as needed
-	for y in range(HEIGHT):
-		for x in range(WIDTH):
-			var room_type = dungeon[y][x]
-			if room_type != EMPTY:
-				var color = Color(0.5, 0.5, 0.5)  # Default color for normal rooms
-				match room_type:
-					START:
-						color = Color(0, 1, 0)  # Green for start room
-					FINAL:
-						color = Color(1, 0, 0)  # Red for final room
-					TREASURE:
-						color = Color(1, 1, 0)  # Yellow for treasure
-					SHOP:
-						color = Color(0, 0, 1)  # Blue for shop
-					BOSS:
-						color = Color(0.5, 0, 0.5)  # Purple for boss
-
-				# Draw the room as a rectangle
-				var rect = ColorRect.new()
-				rect.color = color
-				rect.size = Vector2(cell_size, cell_size)
-				rect.position = Vector2(x * cell_size, y * cell_size)
-				add_child(rect)
+	
+	# Now, spawn doors based on door_connection
+	for room_pos in room_connections.keys():
+		var room_world_pos = Vector2(room_pos.x * room_size, room_pos.y * room_size)
 		
+		for neighbor in room_connections[room_pos]:			
+			# Mark the doors as placed for both directions
+			var door_instance = DOOR.instantiate()
+			add_child(door_instance)
+			
+			# Determine door placement at the midpoint of the shared wall
+			var offset = neighbor - room_pos
+			
+			if offset == Vector2.UP:
+				door_instance.position = room_world_pos + Vector2(room_size / 2, 0) - Vector2(0, room_size - tile_size)
+			elif offset == Vector2.DOWN:
+				door_instance.position = room_world_pos - Vector2(0, tile_size) + Vector2(room_size / 2, room_size) - Vector2(0, room_size - tile_size)
+			elif offset == Vector2.LEFT:
+				door_instance.position = room_world_pos + Vector2(0, room_size / 2) - Vector2(0, room_size - tile_size)
+			elif offset == Vector2.RIGHT:
+				door_instance.position = room_world_pos - Vector2(tile_size, 0) + Vector2(room_size, room_size / 2) - Vector2(0, room_size - tile_size)
+
+					
 #Generates the Dungeon
 func generate_dungeon():
 	dungeon = []
@@ -250,7 +251,7 @@ func pick_room_type(x, y) -> int:
 				isbigLeft = true
 	
 	# Weighted Random Selection of if to add a Big Room or Long Room
-	if randf() < 1 and BIG in possible_types: # 1% Chance to add Big Room
+	if randf() < 0.01 and BIG in possible_types: # 1% Chance to add Big Room
 		if isbigLeft and isbigRight:
 			if randf() < 0.5:
 				placeBIGLeft(y, x)
@@ -418,7 +419,6 @@ func place_boss_room():
 	var last_normal_room = null  # Stores the last NORMAL room found during BFS
 	var isBossLeft = false
 	var isBossRight = false
-	var isBossRoom = false
 
 	queue.append(start_room)
 
