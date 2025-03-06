@@ -58,8 +58,8 @@ var num_rooms = 1
 var room_size = 15
 
 #Creates x and y and centers them on the 2D Array
-const start_x = int(ceilf(float(WIDTH) / 2.0 )) - 1
-const start_y = int(ceilf(float(HEIGHT) / 2.0 )) - 1
+const start_x = WIDTH/2
+const start_y = HEIGHT/2
 
 var x = start_x
 var y = start_y
@@ -126,16 +126,17 @@ func spawn_dungeon():
 					add_child(room_instance)
 					room_instance.position = Vector2(x * room_size, y * room_size)
 	
-	# Now, spawn doors based on door_connection
+	# Iterate through every key called, room_pos, in room_connections dictionary
 	for room_pos in room_connections.keys():
 		var room_world_pos = Vector2(room_pos.x * room_size, room_pos.y * room_size)
 		
+		# Iterate through every value called, neighbor, stored in the key room_pos
 		for neighbor in room_connections[room_pos]:			
-			# Mark the doors as placed for both directions
+			# Create Door in Godot Scene
 			var door_instance = DOOR.instantiate()
 			add_child(door_instance)
 			
-			# Determine door placement at the midpoint of the shared wall
+			# Determine door placement coordinates
 			var offset = neighbor - room_pos
 			
 			if offset == Vector2.UP:
