@@ -1,58 +1,11 @@
-[gd_scene load_steps=49 format=3 uid="uid://68rilbiuk437"]
+[gd_scene load_steps=48 format=3 uid="uid://68rilbiuk437"]
 
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_3jcom"]
 [ext_resource type="Texture2D" uid="uid://cmov0iwtw5j3e" path="res://sprites/Death.png" id="1_5voi2"]
 [ext_resource type="Texture2D" uid="uid://bgemqup8jls7v" path="res://sprites/PlagueDoctor_WalkRight_Sprite-Sheet_v1.png" id="1_fkcr7"]
 [ext_resource type="Texture2D" uid="uid://dduk3h7bwwde0" path="res://sprites/PlagueDoctorSprite_SmellingSaltsSpell-Sheet.png" id="3_v3v15"]
 [ext_resource type="Texture2D" uid="uid://dhbo1pdw7f62m" path="res://sprites/grenade_throw.png" id="4_bob2w"]
 [ext_resource type="Texture2D" uid="uid://bat4rjdsewfqn" path="res://sprites/Throwing_Idle.png" id="5_h1gd6"]
-[ext_resource type="Script" path="res://Scenes/animated_sprite_2d.gd" id="6_h38rk"]
-
-[sub_resource type="GDScript" id="GDScript_gxldu"]
-script/source = "extends CharacterBody2D
-
-@export var speed = 150
-@export var acceleration = 900
-@export var friction = 600
-@export var direction_change_accel = 2000
-@export var spells = [\"grenade\", \"smelling_salts\"]
-
-var can_move = true
-var current_spell_index = 0
-
-signal spell_released
-
-func get_input(delta):
-	var input_direction = Input.get_vector(\"left\", \"right\", \"up\", \"down\")
-
-	if input_direction != Vector2.ZERO && can_move:
-		# Check if moving in the opposite direction
-		if velocity.dot(input_direction) < 0:
-			# Apply stronger acceleration when switching directions
-			velocity = velocity.move_toward(input_direction * speed, direction_change_accel * delta)
-		else:
-			# Normal acceleration
-			velocity = velocity.move_toward(input_direction * speed, acceleration * delta)
-	else:
-		# Apply friction when no input is given
-		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
-
-func _input(event):
-	# Change to next spell
-	if event.is_action(\"scroll_down\") && current_spell_index < spells.size() - 1:
-		current_spell_index += 1
-	# Change to previous spell
-	if event.is_action(\"scroll_up\") && current_spell_index > 0:
-		current_spell_index -= 1
-	# Check when spellcasting button is released
-	if event.is_action_released(\"spell\"):
-		spell_released.emit()
-	
-	
-
-func _physics_process(delta):
-	get_input(delta)
-	move_and_slide()
-"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_43ncm"]
 
@@ -367,18 +320,15 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="player" type="Node2D"]
+[node name="player" type="CharacterBody2D"]
 position = Vector2(133, 71)
+script = ExtResource("1_3jcom")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-script = SubResource("GDScript_gxldu")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_43ncm")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_chjaw")
 animation = &"smelling_salts"
 frame = 15
 frame_progress = 1.0
-script = ExtResource("6_h38rk")

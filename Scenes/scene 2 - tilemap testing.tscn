@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=4 uid="uid://c8nmqx4yrctrl"]
+[gd_scene load_steps=12 format=4 uid="uid://c8nmqx4yrctrl"]
 
 [ext_resource type="Texture2D" uid="uid://ck6cmn3k1hvni" path="res://sprites/BT-placeholdergrass16-tileset.png" id="2_6wrri"]
 [ext_resource type="Texture2D" uid="uid://dek15nbn60u3r" path="res://sprites/BT-placeholderstone16-tileset.png" id="3_niv85"]
 [ext_resource type="PackedScene" uid="uid://68rilbiuk437" path="res://Scenes/player.tscn" id="4_hs850"]
 [ext_resource type="Texture2D" uid="uid://br0fvrawerevo" path="res://sprites/Untitled 35.png" id="4_vwqmw"]
+[ext_resource type="PackedScene" uid="uid://xldnsc4ufvgn" path="res://Scenes/smelling_salts.tscn" id="5_4xbuj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0ovew"]
 texture = ExtResource("2_6wrri")
@@ -108,3 +109,9 @@ tile_map_data = PackedByteArray("AAAAAAcAAAACAAAAAAABAAcAAAACAAAAAAACAAcAAAACAAA
 tile_set = SubResource("TileSet_60e7w")
 
 [node name="player" parent="." instance=ExtResource("4_hs850")]
+
+[node name="SmellingSalts" parent="." instance=ExtResource("5_4xbuj")]
+position = Vector2(133, 71)
+
+[connection signal="launch_vapor" from="player" to="SmellingSalts" method="_on_player_launch_vapor"]
+[connection signal="smelling_salts_finished" from="SmellingSalts" to="player" method="_on_smelling_salts_finished"]
