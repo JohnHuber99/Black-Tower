@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0k50ef44x2x4"
-path="res://.godot/imported/PlagueDoctorSprite-Sheetv1.png-39ce601cdbd2b90cc6faad55408b3999.ctex"
+uid="uid://dl2bg7wg7kpiv"
+path="res://.godot/imported/Vapor-Sheet.png-9ad8757f0cad38f4057efe965b8e53db.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/PlagueDoctorSprite-Sheetv1.png"
-dest_files=["res://.godot/imported/PlagueDoctorSprite-Sheetv1.png-39ce601cdbd2b90cc6faad55408b3999.ctex"]
+source_file="res://sprites/Vapor-Sheet.png"
+dest_files=["res://.godot/imported/Vapor-Sheet.png-9ad8757f0cad38f4057efe965b8e53db.ctex"]
 
 [params]
 

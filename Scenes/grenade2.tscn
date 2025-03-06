@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://durj2453k7fih"]
+[gd_scene load_steps=5 format=3 uid="uid://c5qbyprgjcbsh"]
 
 [ext_resource type="Script" path="res://Scenes/grenade_2.gd" id="1_6lrgy"]
-[ext_resource type="Texture2D" uid="uid://bo3l6vy2ksjgf" path="res://Sprites/Grenade.png" id="2_g541h"]
+[ext_resource type="Texture2D" uid="uid://bo3l6vy2ksjgf" path="res://sprites/Grenade.png" id="2_g541h"]
 
 [sub_resource type="Curve2D" id="Curve2D_2n66k"]
 _data = {
