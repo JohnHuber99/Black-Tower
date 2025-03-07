@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://beu0skyadwt6x"]
+
+[ext_resource type="Script" path="res://Scenes/enemy.gd" id="1_g816c"]
+[ext_resource type="Texture2D" uid="uid://dek15nbn60u3r" path="res://sprites/BT-placeholderstone16-tileset.png" id="2_tsv88"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5gm86"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53w7l"]
+atlas = ExtResource("2_tsv88")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7duco"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53w7l")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_g816c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5gm86")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7duco")
