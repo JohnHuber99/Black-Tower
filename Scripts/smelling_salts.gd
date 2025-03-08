@@ -12,10 +12,6 @@ func _ready() -> void:
 
 # Called when player needs to launch vapor for smelling salts
 func _on_player_launch_vapor(x: Variant, y: Variant) -> void:
-	# Go to player location
-	position.x = x
-	position.y = y
-	
 	# Play vapor animation
 	show()
 	sprite.play("vapor")

@@ -124,7 +124,7 @@ func smelling_salts_animation():
 	
 	# Wait for vapor animation
 	# Vapor animation works its that the offset was off the player by a wide margin
-	launch_vapor.emit(position.x + 90, position.y + 40)
+	launch_vapor.emit(position.x, position.y)
 	await spell_completed
 	
 	# Unlock turning
@@ -132,5 +132,5 @@ func smelling_salts_animation():
 
 func _ready():
 	z_index = 1
-	var vaporSignalEnd = get_node("/root/Scene2-TilemapTesting/SmellingSalts")
+	var vaporSignalEnd = get_node("/root/Scene2-TilemapTesting/player/SmellingSalts")
 	vaporSignalEnd.smelling_salts_finished.connect(_on_smelling_salts_finished)
