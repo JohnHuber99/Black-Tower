@@ -99,5 +99,6 @@ animations = [{
 script = ExtResource("1_vb1i7")
 
 [node name="SmellingSaltsSprite" type="AnimatedSprite2D" parent="."]
+z_index = 2
 sprite_frames = SubResource("SpriteFrames_w14hb")
 animation = &"vapor"

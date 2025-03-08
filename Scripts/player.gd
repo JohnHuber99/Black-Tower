@@ -130,23 +130,7 @@ func smelling_salts_animation():
 	# Unlock turning
 	can_turn = true
 
-# Signal connection works but for some reason the function doesn't call and print Player Received Signal or set the position to starting room
-#func _on_dungeon_rooms_start_room_pos(start_x: int, start_y: int) -> void:
-	#print("Player received signal!", start_x, start_y)
-	#position = Vector2(start_x, start_y)
-	#pass # Replace with function body.
-
 func _ready():
-	z_index = 10
-	#global_position = marker.global_position
-	#var dungeon = get_node("/root/Scene2-TilemapTesting/DungeonRooms")  # Adjust the path to your DungeonRoom node
-	#if dungeon:
-		#if dungeon.is_connected("start_room_pos", _on_dungeon_rooms_start_room_pos):
-			#print("Player successfully connected to DungeonRoom signal!")
-		#else:
-			#print("Failed to connect to signal!")
-	#else:
-		#print("DungeonRoom node not found!")
-	
-	
-	
+	z_index = 1
+	var vaporSignalEnd = get_node("/root/Scene2-TilemapTesting/SmellingSalts")
+	vaporSignalEnd.smelling_salts_finished.connect(_on_smelling_salts_finished)
