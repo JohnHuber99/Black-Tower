@@ -11,7 +11,11 @@ config_version=5
 [application]
 
 config/name="Black Tower"
+<<<<<<< Updated upstream
 run/main_scene="res://black_tower_dungeon_map.tscn"
+=======
+run/main_scene="uid://beu0skyadwt6x"
+>>>>>>> Stashed changes
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
