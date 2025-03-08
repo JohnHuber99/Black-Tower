@@ -22,3 +22,4 @@ func _on_player_launch_vapor(x: Variant, y: Variant) -> void:
 	
 	# Signal the vapor animation is complete
 	smelling_salts_finished.emit()
+	

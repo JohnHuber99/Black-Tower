@@ -3,7 +3,8 @@ extends CharacterBody2D
 
 const SPEED = 100.0
 
-@onready var player = $"../player"
+##i added the player back sorry alan
+@onready var player = $"."
 
 func _physics_process(delta: float) -> void:
 

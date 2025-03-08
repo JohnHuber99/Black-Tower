@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://68rilbiuk437"]
+[gd_scene load_steps=48 format=3 uid="uid://b4uixgwclv3j8"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_3jcom"]
 [ext_resource type="Texture2D" uid="uid://cmov0iwtw5j3e" path="res://sprites/Death.png" id="1_5voi2"]
@@ -321,14 +321,14 @@ animations = [{
 }]
 
 [node name="player" type="CharacterBody2D"]
-position = Vector2(133, 71)
+position = Vector2(43, 65)
 script = ExtResource("1_3jcom")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(82, 38)
 shape = SubResource("RectangleShape2D_43ncm")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(90, 34)
 sprite_frames = SubResource("SpriteFrames_chjaw")
 animation = &"smelling_salts"
-frame = 15
-frame_progress = 1.0
