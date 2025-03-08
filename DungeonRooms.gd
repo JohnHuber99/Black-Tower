@@ -1,6 +1,7 @@
 extends Node2D
 
 # Loading Room Objects
+signal start_room_pos(start_x: int, start_y: int)
 const NORMAL_ROOM = preload("res://Rooms/Normal_Room.tscn")
 const TREASURE_ROOM = preload("res://Rooms/Treasure_Room.tscn")
 const SHOP_ROOM = preload("res://Rooms/Shop_Room.tscn")
@@ -65,7 +66,7 @@ var x = start_x
 var y = start_y
 
 # Initializes the creation of the Dungeon Map
-func _ready():
+func _init():
 	# Generates the Seed for the Dungeon Layout that we can reuse
 	var seed_value = randi() 
 	seed(seed_value) 
@@ -95,6 +96,9 @@ func _ready():
 	print_dungeon()
 	# draw_dungeon()
 	spawn_dungeon()
+	print("Sending Signal to Player: ")
+	start_room_pos.emit(room_size / 2, room_size / 2)
+
 
 func spawn_dungeon():
 	var tile_size = 16  # Change this based on your actual tile size
