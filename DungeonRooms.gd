@@ -1,14 +1,15 @@
 extends Node2D
 
 # Loading Room Objects
-signal start_room_pos(start_x: int, start_y: int)
+#signal start_room_pos(start_x: int, start_y: int)
 const NORMAL_ROOM = preload("res://Rooms/Normal_Room.tscn")
-const TREASURE_ROOM = preload("res://Rooms/Treasure_Room.tscn")
-const SHOP_ROOM = preload("res://Rooms/Shop_Room.tscn")
+const TREASURE_ROOM = preload("res://Rooms/Normal_Room.tscn")
+const SHOP_ROOM = preload("res://Rooms/Normal_Room.tscn")
 const LONG_ROOM = preload("res://Rooms/Long_Room.tscn")
 const BIG_ROOM = preload("res://Rooms/Big_Room.tscn")
 const BOSS_ROOM = preload("res://Rooms/Big_Room.tscn")
 const DOOR = preload("res://Rooms/Door.tscn")
+const STARTING_ROOM = preload("res://Rooms/Starting_Room.tscn")
 
 # Dungeon Grid Conditions
 const WIDTH = 7
@@ -96,8 +97,8 @@ func _init():
 	print_dungeon()
 	# draw_dungeon()
 	spawn_dungeon()
-	print("Sending Signal to Player: ")
-	start_room_pos.emit(room_size / 2, room_size / 2)
+	#print("Sending Signal to Player: ")
+	#start_room_pos.emit(start_x * room_size + (room_size/2), start_y * room_size + (room_size/2))
 
 
 func spawn_dungeon():
@@ -112,6 +113,7 @@ func spawn_dungeon():
 				var room_instance
 				
 				match room_type:
+					START: room_instance = STARTING_ROOM.instantiate()
 					NORMAL: room_instance = NORMAL_ROOM.instantiate()
 					BIG:
 						if Vector2(x, y) in big_room_list_spawn:

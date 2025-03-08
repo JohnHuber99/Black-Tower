@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://c8nmqx4yrctrl"]
+[gd_scene load_steps=15 format=4 uid="uid://c8nmqx4yrctrl"]
 
 [ext_resource type="Script" uid="uid://dmru7ohnl1p0k" path="res://DungeonRooms.gd" id="1_1agh5"]
 [ext_resource type="Texture2D" uid="uid://ck6cmn3k1hvni" path="res://sprites/BT-placeholdergrass16-tileset.png" id="2_6wrri"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://br0fvrawerevo" path="res://sprites/Untitled 35.png" id="4_vwqmw"]
 [ext_resource type="PackedScene" uid="uid://bvgwejagd78pn" path="res://Scenes/smelling_salts.tscn" id="5_4xbuj"]
 [ext_resource type="PackedScene" uid="uid://beu0skyadwt6x" path="res://Scenes/enemy.tscn" id="6_xydd7"]
+[ext_resource type="PackedScene" uid="uid://cr1g80c0ybrmr" path="res://Rooms/Starting_Room.tscn" id="8_1agh5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0ovew"]
 texture = ExtResource("2_6wrri")
@@ -117,9 +118,7 @@ visible = false
 position = Vector2(216, 48)
 
 [node name="player" parent="." instance=ExtResource("4_hs850")]
-
-[node name="Camera2D" type="Camera2D" parent="player"]
-position = Vector2(86, 37)
+top_level = false
 
 [node name="SmellingSalts" parent="." instance=ExtResource("5_4xbuj")]
 position = Vector2(133, 71)
@@ -127,6 +126,8 @@ position = Vector2(133, 71)
 [node name="Enemy" parent="." instance=ExtResource("6_xydd7")]
 position = Vector2(374, 204)
 
-[connection signal="start_room_pos" from="DungeonRooms" to="player" method="_on_dungeon_rooms_start_room_pos"]
+[node name="StartingRoom" parent="." instance=ExtResource("8_1agh5")]
+position = Vector2(-316, 270)
+
 [connection signal="launch_vapor" from="player" to="SmellingSalts" method="_on_player_launch_vapor"]
 [connection signal="smelling_salts_finished" from="SmellingSalts" to="player" method="_on_smelling_salts_finished"]
