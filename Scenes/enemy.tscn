@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://beu0skyadwt6x"]
 
-[ext_resource type="Script" path="res://Scenes/enemy.gd" id="1_g816c"]
+[ext_resource type="Script" uid="uid://bwkqflwu8gxce" path="res://Scenes/enemy.gd" id="1_g816c"]
 [ext_resource type="Texture2D" uid="uid://dek15nbn60u3r" path="res://sprites/BT-placeholderstone16-tileset.png" id="2_tsv88"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5gm86"]

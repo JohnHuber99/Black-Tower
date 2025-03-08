@@ -1,6 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c065uexbqp7ke"]
-
-[ext_resource type="Texture2D" path="res://sprites/PlagueDoctorSprite-Sheetv1.png" id="1_wjrbh"]
+[gd_scene load_steps=9 format=3 uid="uid://c065uexbqp7ke"]
 
 [sub_resource type="GDScript" id="GDScript_gxldu"]
 script/source = "extends CharacterBody2D
@@ -48,23 +46,18 @@ func _process(_delta):
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_43ncm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4xt65"]
-atlas = ExtResource("1_wjrbh")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tw108"]
-atlas = ExtResource("1_wjrbh")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1o3bs"]
-atlas = ExtResource("1_wjrbh")
 region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mkfd3"]
-atlas = ExtResource("1_wjrbh")
 region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wrxc3"]
-atlas = ExtResource("1_wjrbh")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_chjaw"]

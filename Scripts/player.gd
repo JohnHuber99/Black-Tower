@@ -123,7 +123,8 @@ func smelling_salts_animation():
 	await sprite.animation_finished
 	
 	# Wait for vapor animation
-	launch_vapor.emit(position.x + offset_x, position.y + offset_y)
+	# Vapor animation works its that the offset was off the player by a wide margin
+	launch_vapor.emit(position.x + 90, position.y + 40)
 	await spell_completed
 	
 	# Unlock turning
