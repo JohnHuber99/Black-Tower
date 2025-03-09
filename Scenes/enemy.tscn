@@ -59,6 +59,3 @@ sprite_frames = SubResource("SpriteFrames_7duco")
 animation = &"new_animation"
 autoplay = "new_animation"
 frame_progress = 0.894915
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)

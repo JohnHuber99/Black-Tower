@@ -9,6 +9,9 @@ extends CharacterBody2D
 @export var max_buff_duration = 10
 
 @onready var sprite = $PlayerSprite
+@onready var marker_2d = $Marker2D
+const GRENADE = preload("res://Scenes/grenade2.tscn")
+var isThrowing = false
 
 var can_move = true
 var can_turn = true
@@ -134,3 +137,24 @@ func _ready():
 	z_index = 1
 	var vaporSignalEnd = get_node("/root/Scene2-TilemapTesting/player/SmellingSalts")
 	vaporSignalEnd.smelling_salts_finished.connect(_on_smelling_salts_finished)
+
+func _launch():
+		if isThrowing: return
+		
+		isThrowing = true
+		
+		var startPosition = marker_2d.global_position
+		var direction = -1 if sprite.flip_h else 1
+		var targetPosition = Vector2(startPosition.x + 300 * direction, startPosition.y) - global_position
+		
+		await get_tree().create_timer(0.6).timeout
+		
+		var grenade = GRENADE.instantiate()
+		grenade.targetPosition = targetPosition
+		
+		get_parent().add_child(grenade)
+		grenade.global_position = global_position
+		
+		await get_tree().create_timer(0.1).timeout
+		
+		isThrowing = false
