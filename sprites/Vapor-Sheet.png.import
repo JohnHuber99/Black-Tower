@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dl2bg7wg7kpiv"
-path="res://.godot/imported/Vapor-Sheet.png-9ad8757f0cad38f4057efe965b8e53db.ctex"
+path="res://.godot/imported/Vapor-Sheet.png-a582e211b2f897e25a95a0487bf6ae8d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Vapor-Sheet.png"
-dest_files=["res://.godot/imported/Vapor-Sheet.png-9ad8757f0cad38f4057efe965b8e53db.ctex"]
+source_file="res://Sprites/Vapor-Sheet.png"
+dest_files=["res://.godot/imported/Vapor-Sheet.png-a582e211b2f897e25a95a0487bf6ae8d.ctex"]
 
 [params]
 

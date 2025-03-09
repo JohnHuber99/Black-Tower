@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=4 uid="uid://c8nmqx4yrctrl"]
 
-[ext_resource type="Script" path="res://DungeonRooms.gd" id="1_1agh5"]
-[ext_resource type="Texture2D" uid="uid://ck6cmn3k1hvni" path="res://sprites/BT-placeholdergrass16-tileset.png" id="2_6wrri"]
-[ext_resource type="Texture2D" uid="uid://dek15nbn60u3r" path="res://sprites/BT-placeholderstone16-tileset.png" id="3_niv85"]
+[ext_resource type="Script" uid="uid://dmru7ohnl1p0k" path="res://DungeonRooms.gd" id="1_1agh5"]
+[ext_resource type="Texture2D" uid="uid://ck6cmn3k1hvni" path="res://Sprites/BT-placeholdergrass16-tileset.png" id="2_6wrri"]
+[ext_resource type="Texture2D" uid="uid://dek15nbn60u3r" path="res://Sprites/BT-placeholderstone16-tileset.png" id="3_niv85"]
 [ext_resource type="PackedScene" uid="uid://b4uixgwclv3j8" path="res://Scenes/player.tscn" id="4_hs850"]
-[ext_resource type="Texture2D" uid="uid://br0fvrawerevo" path="res://sprites/Untitled 35.png" id="4_vwqmw"]
+[ext_resource type="Texture2D" uid="uid://br0fvrawerevo" path="res://Sprites/Untitled 35.png" id="4_vwqmw"]
 [ext_resource type="PackedScene" uid="uid://beu0skyadwt6x" path="res://Scenes/enemy.tscn" id="6_xydd7"]
 [ext_resource type="PackedScene" uid="uid://c3elyorobl4bn" path="res://Rooms/Starting_Room.tscn" id="8_1agh5"]
 
