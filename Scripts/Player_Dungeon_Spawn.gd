@@ -8,12 +8,6 @@ func _ready():
 	player_instance.visible = true
 	player_instance.z_index = 1  # Make sure the player is in front
 	player_instance.name = "player"
-	main_scene.add_child(player_instance)
-	add_child(player_instance)
-	print(get_parent())
-	print(main_scene)
-		
-	if player_instance.get_parent():
-		print("✅ Player added successfully!")
-	else:
-		print("❌ Player not added!")
+	if player_instance.get_parent() != null:
+		player_instance.get_parent().remove_child(player_instance)
+	main_scene.add_child.call_deferred(player_instance)
