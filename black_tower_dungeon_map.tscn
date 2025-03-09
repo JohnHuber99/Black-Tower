@@ -1,13 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://dcb2mgjnpto4f"]
+[gd_scene load_steps=10 format=3 uid="uid://dcb2mgjnpto4f"]
 
-[ext_resource type="Script" uid="uid://chhocq4ajec5b" path="res://camera_2d.gd" id="2_moeqb"]
+[ext_resource type="Script" path="res://camera_2d.gd" id="2_moeqb"]
 [ext_resource type="PackedScene" uid="uid://fwh7s1rxc85i" path="res://Rooms/Normal_Room.tscn" id="2_x6iiq"]
 [ext_resource type="PackedScene" uid="uid://beqodim8out42" path="res://Rooms/Long_Room.tscn" id="3_yeb0g"]
+[ext_resource type="PackedScene" uid="uid://b7pankwxim25a" path="res://Rooms/Shop_Room.tscn" id="4_4m4b6"]
 [ext_resource type="PackedScene" uid="uid://cp7k1vt1f3ge5" path="res://Rooms/Big_Room.tscn" id="4_btf2l"]
-[ext_resource type="Script" uid="uid://dmru7ohnl1p0k" path="res://DungeonRooms.gd" id="4_u276a"]
+[ext_resource type="Script" path="res://DungeonRooms.gd" id="4_u276a"]
 [ext_resource type="PackedScene" uid="uid://cyxsij02d8ebb" path="res://Rooms/Boss_Room.tscn" id="5_2gdme"]
+[ext_resource type="PackedScene" uid="uid://ctsvfac34ctwy" path="res://Rooms/Treasure_Room.tscn" id="5_u0u3w"]
 [ext_resource type="PackedScene" uid="uid://b3ladofhl585s" path="res://Rooms/Door.tscn" id="7_tnaq5"]
-[ext_resource type="PackedScene" uid="uid://cr1g80c0ybrmr" path="res://Rooms/Starting_Room.tscn" id="8_q0bth"]
 
 [node name="Black Tower Dungeon Map" type="Node2D"]
 
@@ -20,6 +21,13 @@ script = ExtResource("2_moeqb")
 [node name="Normal Room" parent="." instance=ExtResource("2_x6iiq")]
 visible = false
 
+[node name="Shop Room" parent="." instance=ExtResource("4_4m4b6")]
+visible = false
+position = Vector2(0, 0)
+
+[node name="Treasure Room" parent="." instance=ExtResource("5_u0u3w")]
+visible = false
+
 [node name="Long Room" parent="." instance=ExtResource("3_yeb0g")]
 visible = false
 
@@ -30,7 +38,4 @@ visible = false
 visible = false
 
 [node name="Door" parent="." instance=ExtResource("7_tnaq5")]
-visible = false
-
-[node name="StartingRoom" parent="." instance=ExtResource("8_q0bth")]
 visible = false
