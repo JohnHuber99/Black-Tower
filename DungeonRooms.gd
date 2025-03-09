@@ -57,7 +57,7 @@ var is_shop_spawn = false
 var num_loops = 0
 var num_rooms = 1
 
-var room_size = 15
+var room_size = 22
 
 #Creates x and y and centers them on the 2D Array
 const start_x = WIDTH/2
@@ -103,7 +103,7 @@ func _init():
 
 func spawn_dungeon():
 	var tile_size = 16  # Change this based on your actual tile size
-	var room_size = 15 * tile_size  # 15 tiles per room
+	var room_size = 22 * tile_size  # 22 tiles per room
 
 	# First, spawn rooms
 	for y in HEIGHT:
@@ -294,7 +294,7 @@ func placeBIGRight(y, x):
 	dungeon[y + 1][x] = BIG
 	dungeon[y + 1][x + 1] = BIG
 	big_room_list.append([[x, y],[x + 1, y],[x, y + 1],[x + 1, y + 1]])
-	big_room_list_spawn.append(Vector2(x, y+1))
+	big_room_list_spawn.append(Vector2(x, y))
 	
 # Creates a Big Room on the left
 func placeBIGLeft(y, x):
