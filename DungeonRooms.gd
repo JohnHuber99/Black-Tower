@@ -1,15 +1,13 @@
 extends Node2D
 
 # Loading Room Objects
-#signal start_room_pos(start_x: int, start_y: int)
 const NORMAL_ROOM = preload("res://Rooms/Normal_Room.tscn")
-const TREASURE_ROOM = preload("res://Rooms/Normal_Room.tscn")
-const SHOP_ROOM = preload("res://Rooms/Normal_Room.tscn")
+const TREASURE_ROOM = preload("res://Rooms/Treasure_Room.tscn")
+const SHOP_ROOM = preload("res://Rooms/Shop_Room.tscn")
 const LONG_ROOM = preload("res://Rooms/Long_Room.tscn")
 const BIG_ROOM = preload("res://Rooms/Big_Room.tscn")
 const BOSS_ROOM = preload("res://Rooms/Big_Room.tscn")
 const DOOR = preload("res://Rooms/Door.tscn")
-const STARTING_ROOM = preload("res://Rooms/Starting_Room.tscn")
 
 # Dungeon Grid Conditions
 const WIDTH = 7
@@ -57,7 +55,7 @@ var is_shop_spawn = false
 var num_loops = 0
 var num_rooms = 1
 
-var room_size = 15
+var room_size = 22
 
 #Creates x and y and centers them on the 2D Array
 const start_x = WIDTH/2
@@ -67,7 +65,7 @@ var x = start_x
 var y = start_y
 
 # Initializes the creation of the Dungeon Map
-func _init():
+func _ready():
 	# Generates the Seed for the Dungeon Layout that we can reuse
 	var seed_value = randi() 
 	seed(seed_value) 
@@ -97,13 +95,10 @@ func _init():
 	print_dungeon()
 	# draw_dungeon()
 	spawn_dungeon()
-	#print("Sending Signal to Player: ")
-	#start_room_pos.emit(start_x * room_size + (room_size/2), start_y * room_size + (room_size/2))
-
 
 func spawn_dungeon():
 	var tile_size = 16  # Change this based on your actual tile size
-	var room_size = 15 * tile_size  # 15 tiles per room
+	var room_size = 22 * tile_size  # 15 tiles per room
 
 	# First, spawn rooms
 	for y in HEIGHT:
@@ -113,7 +108,6 @@ func spawn_dungeon():
 				var room_instance
 				
 				match room_type:
-					START: room_instance = STARTING_ROOM.instantiate()
 					NORMAL: room_instance = NORMAL_ROOM.instantiate()
 					BIG:
 						if Vector2(x, y) in big_room_list_spawn:
@@ -294,7 +288,7 @@ func placeBIGRight(y, x):
 	dungeon[y + 1][x] = BIG
 	dungeon[y + 1][x + 1] = BIG
 	big_room_list.append([[x, y],[x + 1, y],[x, y + 1],[x + 1, y + 1]])
-	big_room_list_spawn.append(Vector2(x, y+1))
+	big_room_list_spawn.append(Vector2(x, y))
 	
 # Creates a Big Room on the left
 func placeBIGLeft(y, x):

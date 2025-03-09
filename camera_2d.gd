@@ -1,6 +1,6 @@
 extends Camera2D
 
-@export var pan_speed: float = 500.0
+@export var pan_speed: float = 600.0
 
 func _process(delta):
 	var direction = Vector2.ZERO
