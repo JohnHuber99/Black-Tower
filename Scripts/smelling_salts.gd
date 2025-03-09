@@ -14,8 +14,8 @@ func _ready() -> void:
 func _on_player_launch_vapor(x: Variant, y: Variant) -> void:
 	# Play vapor animation
 	show()
-	sprite.play("vapor")
-	await sprite.animation_finished
+	# sprite.play("vapor")
+	# await sprite.animation_finished
 	hide()
 	
 	# Signal the vapor animation is complete
