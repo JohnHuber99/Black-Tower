@@ -1,12 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://beu0skyadwt6x"]
 
-<<<<<<< Updated upstream
 [ext_resource type="Script" uid="uid://bwkqflwu8gxce" path="res://Scenes/enemy.gd" id="1_g816c"]
 [ext_resource type="Texture2D" uid="uid://305ocla3pksv" path="res://sprites/Enemy_Sprite-Sheet.png" id="2_1f0kj"]
-=======
-[ext_resource type="Script" uid="uid://c3ltyh1sw0d3y" path="res://Scenes/enemy.gd" id="1_g816c"]
-[ext_resource type="Texture2D" uid="uid://dek15nbn60u3r" path="res://sprites/BT-placeholderstone16-tileset.png" id="2_tsv88"]
->>>>>>> Stashed changes
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5gm86"]
 
