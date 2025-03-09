@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Black Tower"
-run/main_scene="uid://dble65nxs1p4t"
+run/main_scene="uid://c8nmqx4yrctrl"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 

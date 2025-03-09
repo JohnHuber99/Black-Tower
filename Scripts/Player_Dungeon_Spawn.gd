@@ -2,7 +2,7 @@ extends Marker2D
 const PLAYER = preload("res://Scenes/player.tscn")
 
 func _ready():
-	var main_scene = get_node("/root/Scene2-TilemapTesting")
+	var main_scene = get_node("/root/Main")
 	var player_instance = PLAYER.instantiate()
 	player_instance.global_position = global_position  # Set initial position
 	player_instance.visible = true
@@ -11,3 +11,4 @@ func _ready():
 	if player_instance.get_parent() != null:
 		player_instance.get_parent().remove_child(player_instance)
 	main_scene.add_child.call_deferred(player_instance)
+	
