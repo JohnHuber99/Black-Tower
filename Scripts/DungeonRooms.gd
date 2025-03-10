@@ -23,6 +23,9 @@ var directions = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
 #Contains a 2D array of the dungeon
 var dungeon = []
 
+#dictionary of rooms and positions, relative to width/height coordinate
+var dungeonData = []
+
 # Dictionary of room connections (Uses the room coordinates as a key to find what rooms it is connected to)
 var room_connections = {}
 
@@ -135,6 +138,7 @@ func spawn_dungeon():
 	# Iterate through every key called, room_pos, in room_connections dictionary
 	for room_pos in room_connections.keys():
 		var room_world_pos = Vector2(room_pos.x * room_size, room_pos.y * room_size)
+		#dungeonData.append([x, y]: room_world_pos)
 		
 		# Iterate through every value called, neighbor, stored in the key room_pos
 		for neighbor in room_connections[room_pos]:			
