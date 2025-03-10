@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Black Tower"
-run/main_scene="uid://c8nmqx4yrctrl"
-config/features=PackedStringArray("4.4", "Forward Plus")
+run/main_scene="res://Scenes/scene 2 - tilemap testing.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]

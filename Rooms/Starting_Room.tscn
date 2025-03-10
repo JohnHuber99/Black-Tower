@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=4 uid="uid://c3elyorobl4bn"]
 
 [ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://BT_Tile_Placeholders.png" id="1_bu3m2"]
-[ext_resource type="Script" uid="uid://by4s0xcvscd05" path="res://Scripts/Player_Dungeon_Spawn.gd" id="2_6kdjq"]
+[ext_resource type="Script" path="res://Scripts/Player_Dungeon_Spawn.gd" id="2_6kdjq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1e4t7"]
 texture = ExtResource("1_bu3m2")
