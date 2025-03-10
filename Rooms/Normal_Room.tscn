@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://fwh7s1rxc85i"]
 
-[ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://BT_Tile_Placeholders.png" id="1_w3ckf"]
+[ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://sprites/BT_Tile_Placeholders.png" id="1_w3ckf"]
 [ext_resource type="Script" uid="uid://uhf160oax2pj" path="res://Scripts/enemy_dungeon_spawn.gd" id="2_uhrl0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sf7h4"]

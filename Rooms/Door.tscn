@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b3ladofhl585s"]
 
-[ext_resource type="Texture2D" uid="uid://8um6ncdwrud3" path="res://Dungeon tileset.png" id="1_1vvux"]
-[ext_resource type="Script" path="res://Scripts/door.gd" id="1_o4ho4"]
+[ext_resource type="Texture2D" uid="uid://8um6ncdwrud3" path="res://sprites/Dungeon tileset.png" id="1_1vvux"]
+[ext_resource type="Script" uid="uid://c124ixup4thtv" path="res://Scripts/door.gd" id="1_o4ho4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iu8q0"]
 texture = ExtResource("1_1vvux")
@@ -191,8 +191,8 @@ script = ExtResource("1_o4ho4")
 tile_map_data = PackedByteArray(0, 0, 0, 0, 255, 255, 0, 0, 9, 0, 1, 0, 0, 0)
 tile_set = SubResource("TileSet_cuixy")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(8, -8)
 shape = SubResource("CapsuleShape2D_jbk66")
