@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c8nmqx4yrctrl"]
 
-[ext_resource type="Script" path="res://DungeonRooms.gd" id="1_1agh5"]
-[ext_resource type="PackedScene" uid="uid://beu0skyadwt6x" path="res://Scenes/Enemy.tscn" id="6_xydd7"]
+[ext_resource type="Script" uid="uid://dmru7ohnl1p0k" path="res://DungeonRooms.gd" id="1_1agh5"]
+[ext_resource type="PackedScene" uid="uid://beu0skyadwt6x" path="res://Scenes/enemy.tscn" id="6_xydd7"]
 
 [node name="Scene2-TilemapTesting" type="Node2D"]
 
