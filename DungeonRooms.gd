@@ -145,18 +145,15 @@ func spawn_dungeon():
 			# Determine door placement coordinates
 			var offset = neighbor - room_pos
 			
-			if offset == Vector2.UP: #up door
+			if offset == Vector2.UP:
 				door_instance.position = room_world_pos + Vector2(room_size / 2, 0) - Vector2(0, room_size - tile_size)
-				door_instance.type = "up"
-			elif offset == Vector2.DOWN: #down door
+			elif offset == Vector2.DOWN:
 				door_instance.position = room_world_pos - Vector2(0, tile_size) + Vector2(room_size / 2, room_size) - Vector2(0, room_size - tile_size)
-				door_instance.type = "down"
-			elif offset == Vector2.LEFT: #left door
+			elif offset == Vector2.LEFT:
 				door_instance.position = room_world_pos + Vector2(0, room_size / 2) - Vector2(0, room_size - tile_size)
-				door_instance.type = "left"
-			elif offset == Vector2.RIGHT: #right door
+			elif offset == Vector2.RIGHT:
 				door_instance.position = room_world_pos - Vector2(tile_size, 0) + Vector2(room_size, room_size / 2) - Vector2(0, room_size - tile_size)
-				door_instance.type = "right"
+
 					
 #Generates the Dungeon
 func generate_dungeon():

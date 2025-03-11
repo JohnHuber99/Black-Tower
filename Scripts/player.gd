@@ -135,7 +135,7 @@ func smelling_salts_animation():
 
 func _ready():
 	z_index = 1
-	var vaporSignalEnd = get_node("SmellingSalts")
+	var vaporSignalEnd = get_node("/root/Scene2-TilemapTesting/player/SmellingSalts")
 	vaporSignalEnd.smelling_salts_finished.connect(_on_smelling_salts_finished)
 
 func _launch():

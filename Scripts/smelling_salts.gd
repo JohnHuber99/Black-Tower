@@ -5,7 +5,7 @@ signal smelling_salts_finished
 @onready var sprite = $SmellingSaltsSprite
 
 func _ready() -> void:
-	var vaporSignal = get_node("..")
+	var vaporSignal = get_node("/root/Scene2-TilemapTesting/player")
 	vaporSignal.launch_vapor.connect(_on_player_launch_vapor)
 	pass
 	hide()
