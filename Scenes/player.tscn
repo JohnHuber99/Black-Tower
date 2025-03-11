@@ -478,7 +478,7 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" groups=["player"]]
 top_level = true
 script = ExtResource("1_3jcom")
 

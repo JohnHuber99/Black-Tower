@@ -140,9 +140,6 @@ func spawn_dungeon():
 		for neighbor in room_connections[room_pos]:			
 			# Create Door in Godot Scene
 			var door_instance = DOOR.instantiate()
-			door_instance.currentRoom = [x, y]
-			door_instance.currentRoomPos = room_world_pos
-			#door_instance.targetRoom = [x, y]
 			add_child(door_instance)
 			
 			# Determine door placement coordinates
@@ -151,19 +148,15 @@ func spawn_dungeon():
 			if offset == Vector2.UP: #up door
 				door_instance.position = room_world_pos + Vector2(room_size / 2, 0) - Vector2(0, room_size - tile_size)
 				door_instance.type = "up"
-				door_instance.targetRoom = [x, y + 1]
 			elif offset == Vector2.DOWN: #down door
 				door_instance.position = room_world_pos - Vector2(0, tile_size) + Vector2(room_size / 2, room_size) - Vector2(0, room_size - tile_size)
 				door_instance.type = "down"
-				door_instance.targetRoom = [x, y - 1]
 			elif offset == Vector2.LEFT: #left door
 				door_instance.position = room_world_pos + Vector2(0, room_size / 2) - Vector2(0, room_size - tile_size)
 				door_instance.type = "left"
-				door_instance.targetRoom = [x - 1, y]
 			elif offset == Vector2.RIGHT: #right door
 				door_instance.position = room_world_pos - Vector2(tile_size, 0) + Vector2(room_size, room_size / 2) - Vector2(0, room_size - tile_size)
 				door_instance.type = "right"
-				door_instance.targetRoom = [x + 1, y]
 					
 #Generates the Dungeon
 func generate_dungeon():
