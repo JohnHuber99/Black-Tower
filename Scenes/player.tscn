@@ -1,8 +1,9 @@
-[gd_scene load_steps=64 format=3 uid="uid://b4uixgwclv3j8"]
+[gd_scene load_steps=73 format=3 uid="uid://b4uixgwclv3j8"]
 
 [ext_resource type="Script" uid="uid://bckauqi7hchmr" path="res://Scripts/player.gd" id="1_3jcom"]
 [ext_resource type="Texture2D" uid="uid://cmov0iwtw5j3e" path="res://sprites/Death.png" id="1_5voi2"]
 [ext_resource type="Texture2D" uid="uid://bgemqup8jls7v" path="res://sprites/PlagueDoctor_WalkRight_Sprite-Sheet_v1.png" id="1_fkcr7"]
+[ext_resource type="Texture2D" uid="uid://bcdwgujf8wi3u" path="res://sprites/Plague_Doctor_Hurt-Sheet.png" id="3_tx1dd"]
 [ext_resource type="Texture2D" uid="uid://dduk3h7bwwde0" path="res://sprites/PlagueDoctorSprite_SmellingSaltsSpell-Sheet.png" id="3_v3v15"]
 [ext_resource type="Texture2D" uid="uid://dhbo1pdw7f62m" path="res://sprites/grenade_throw.png" id="4_bob2w"]
 [ext_resource type="Texture2D" uid="uid://bat4rjdsewfqn" path="res://sprites/Throwing_Idle.png" id="5_h1gd6"]
@@ -52,6 +53,38 @@ region = Rect2(0, 70, 57, 35)
 [sub_resource type="AtlasTexture" id="AtlasTexture_hxkek"]
 atlas = ExtResource("1_5voi2")
 region = Rect2(57, 70, 57, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gymyn"]
+atlas = ExtResource("3_tx1dd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu2lt"]
+atlas = ExtResource("3_tx1dd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukyrk"]
+atlas = ExtResource("3_tx1dd")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dp3o"]
+atlas = ExtResource("3_tx1dd")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4iuc"]
+atlas = ExtResource("3_tx1dd")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd4e3"]
+atlas = ExtResource("3_tx1dd")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqcod"]
+atlas = ExtResource("3_tx1dd")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igrcy"]
+atlas = ExtResource("3_tx1dd")
+region = Rect2(96, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p62ss"]
 atlas = ExtResource("1_fkcr7")
@@ -204,6 +237,35 @@ animations = [{
 }],
 "loop": false,
 "name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gymyn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pu2lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ukyrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dp3o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4iuc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd4e3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqcod")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igrcy")
+}],
+"loop": false,
+"name": &"hurt",
 "speed": 8.0
 }, {
 "frames": [{
@@ -427,7 +489,9 @@ shape = SubResource("RectangleShape2D_43ncm")
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(2, -4)
 sprite_frames = SubResource("SpriteFrames_chjaw")
-animation = &"smelling_salts"
+animation = &"hurt"
+frame = 7
+frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1, -1)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmuu5ivjqf4ul"
-path="res://.godot/imported/BT_Tile_Placeholders.png-25015ebb734c684359822b5a9e586cc3.ctex"
+uid="uid://j3lk75dn55ud"
+path="res://.godot/imported/Enemy_Slime_Basic_Attack-Sheet-Sheet.png-ce42d27f53e8e5f586854c75aa47000c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://BT_Tile_Placeholders.png"
-dest_files=["res://.godot/imported/BT_Tile_Placeholders.png-25015ebb734c684359822b5a9e586cc3.ctex"]
+source_file="res://sprites/Enemy_Slime_Basic_Attack-Sheet-Sheet.png"
+dest_files=["res://.godot/imported/Enemy_Slime_Basic_Attack-Sheet-Sheet.png-ce42d27f53e8e5f586854c75aa47000c.ctex"]
 
 [params]
 
