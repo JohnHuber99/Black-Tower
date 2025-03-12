@@ -113,6 +113,8 @@ func grenade_animation():
 	sprite.play("throw_finish")
 	await sprite.animation_finished
 	
+	_launch()
+	
 func smelling_salts_animation():
 	# Locks turning
 	can_turn = false
@@ -137,6 +139,11 @@ func _ready():
 	z_index = 1
 	var vaporSignalEnd = get_node("SmellingSalts")
 	vaporSignalEnd.smelling_salts_finished.connect(_on_smelling_salts_finished)
+	
+	if marker_2d == null:
+		print("Marker2D node not found!")
+	else:
+		print("Marker2D node found!")
 
 func _launch():
 		if isThrowing: return
@@ -146,8 +153,6 @@ func _launch():
 		var startPosition = marker_2d.global_position
 		var direction = -1 if sprite.flip_h else 1
 		var targetPosition = Vector2(startPosition.x + 300 * direction, startPosition.y) - global_position
-		
-		await get_tree().create_timer(0.6).timeout
 		
 		var grenade = GRENADE.instantiate()
 		grenade.targetPosition = targetPosition

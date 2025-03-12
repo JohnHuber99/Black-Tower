@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://j3lk75dn55ud"
-path="res://.godot/imported/Enemy_Slime_Basic_Attack-Sheet-Sheet.png-ce42d27f53e8e5f586854c75aa47000c.ctex"
+path="res://.godot/imported/Enemy_Slime_Basic_Attack-Sheet-Sheet.png-0e3e14cee9cbc8b3c740bf444b325310.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Enemy_Slime_Basic_Attack-Sheet-Sheet.png"
-dest_files=["res://.godot/imported/Enemy_Slime_Basic_Attack-Sheet-Sheet.png-ce42d27f53e8e5f586854c75aa47000c.ctex"]
+source_file="res://Sprites/Enemy_Slime_Basic_Attack-Sheet-Sheet.png"
+dest_files=["res://.godot/imported/Enemy_Slime_Basic_Attack-Sheet-Sheet.png-0e3e14cee9cbc8b3c740bf444b325310.ctex"]
 
 [params]
 
