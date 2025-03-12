@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dvbuxicu3vb5t" path="res://sprites/Enemy_Slime_Hurt-Sheetv4.png" id="5_0830c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0830c"]
+radius = 11.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_auwsv"]
 atlas = ExtResource("2_afpow")
@@ -304,6 +305,7 @@ script = ExtResource("1_g816c")
 shape = SubResource("CircleShape2D_0830c")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_7duco")
 animation = &"hurt"
 autoplay = "default"

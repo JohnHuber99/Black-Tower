@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var speed = 100
 @export var attack_proximity = 75
-@export var wait_time: float = 1.5  # Time (in seconds) to wait after collision
+@export var wait_time: float = 0.5  # Time (in seconds) to wait after collision
 var is_waiting: bool = false  # Flag to track if waiting
 
 @onready var sprite = $AnimatedSprite2D
@@ -31,6 +31,9 @@ func _physics_process(delta: float) -> void:
 			handle_player_collision(player)
 
 func handle_player_collision(player):
+	return null
+
+func pause_slime():
 	is_waiting = true  # Stop movement
 	await get_tree().create_timer(wait_time).timeout  # Wait for the set time
 	is_waiting = false  # Resume movement
@@ -52,5 +55,6 @@ func _process(delta):
 	if (distance_to_player <= attack_proximity):
 		sprite.play("attack")
 		await sprite.animation_finished
+		pause_slime()
 	else:
 		sprite.play("default")
