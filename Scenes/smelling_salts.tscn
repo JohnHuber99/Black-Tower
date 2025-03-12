@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://bvgwejagd78pn"]
 
-[ext_resource type="Texture2D" uid="uid://dl2bg7wg7kpiv" path="res://Sprites/Vapor-Sheet.png" id="1_ic36b"]
+[ext_resource type="Texture2D" uid="uid://dl2bg7wg7kpiv" path="res://sprites/Vapor-Sheet.png" id="1_ic36b"]
 [ext_resource type="Script" uid="uid://dmespoe2nllf2" path="res://Scripts/smelling_salts.gd" id="1_vb1i7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ac86f"]

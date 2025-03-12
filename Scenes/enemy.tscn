@@ -1,12 +1,12 @@
 [gd_scene load_steps=46 format=3 uid="uid://beu0skyadwt6x"]
 
-[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_g816c"]
-[ext_resource type="Texture2D" uid="uid://305ocla3pksv" path="res://Sprites/Enemy_Sprite-Sheet.png" id="2_1f0kj"]
-[ext_resource type="Texture2D" uid="uid://j3lk75dn55ud" path="res://Sprites/Enemy_Slime_Basic_Attack-Sheet-Sheet.png" id="2_afpow"]
-[ext_resource type="Texture2D" uid="uid://xqbvsth3hpt5" path="res://Sprites/Enemy_Death-Sheet.png" id="3_287tu"]
-[ext_resource type="Texture2D" uid="uid://dvbuxicu3vb5t" path="res://Sprites/Enemy_Slime_Hurt-Sheetv4.png" id="5_0830c"]
+[ext_resource type="Script" uid="uid://bwkqflwu8gxce" path="res://Scripts/enemy.gd" id="1_g816c"]
+[ext_resource type="Texture2D" uid="uid://305ocla3pksv" path="res://sprites/Enemy_Sprite-Sheet.png" id="2_1f0kj"]
+[ext_resource type="Texture2D" uid="uid://j3lk75dn55ud" path="res://sprites/Enemy_Slime_Basic_Attack-Sheet-Sheet.png" id="2_afpow"]
+[ext_resource type="Texture2D" uid="uid://xqbvsth3hpt5" path="res://sprites/Enemy_Death-Sheet.png" id="3_287tu"]
+[ext_resource type="Texture2D" uid="uid://dvbuxicu3vb5t" path="res://sprites/Enemy_Slime_Hurt-Sheetv4.png" id="5_0830c"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5gm86"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_0830c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_auwsv"]
 atlas = ExtResource("2_afpow")
@@ -301,7 +301,7 @@ animations = [{
 script = ExtResource("1_g816c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_5gm86")
+shape = SubResource("CircleShape2D_0830c")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_7duco")

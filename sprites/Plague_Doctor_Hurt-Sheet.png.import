@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bcdwgujf8wi3u"
-path="res://.godot/imported/Plague_Doctor_Hurt-Sheet.png-25ae72fd4ed0f3d0e6ef9f694622df55.ctex"
+path="res://.godot/imported/Plague_Doctor_Hurt-Sheet.png-0c814791e6b8dee5fcdd57756331a848.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Plague_Doctor_Hurt-Sheet.png"
-dest_files=["res://.godot/imported/Plague_Doctor_Hurt-Sheet.png-25ae72fd4ed0f3d0e6ef9f694622df55.ctex"]
+source_file="res://sprites/Plague_Doctor_Hurt-Sheet.png"
+dest_files=["res://.godot/imported/Plague_Doctor_Hurt-Sheet.png-0c814791e6b8dee5fcdd57756331a848.ctex"]
 
 [params]
 
