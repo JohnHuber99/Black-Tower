@@ -1,8 +1,9 @@
-[gd_scene load_steps=73 format=3 uid="uid://b4uixgwclv3j8"]
+[gd_scene load_steps=85 format=3 uid="uid://b4uixgwclv3j8"]
 
 [ext_resource type="Script" uid="uid://bckauqi7hchmr" path="res://Scripts/player.gd" id="1_3jcom"]
 [ext_resource type="Texture2D" uid="uid://cmov0iwtw5j3e" path="res://sprites/Death.png" id="1_5voi2"]
 [ext_resource type="Texture2D" uid="uid://bgemqup8jls7v" path="res://sprites/PlagueDoctor_WalkRight_Sprite-Sheet_v1.png" id="1_fkcr7"]
+[ext_resource type="Texture2D" uid="uid://kpqela8cflr" path="res://sprites/Throw_2.png" id="2_gymyn"]
 [ext_resource type="Texture2D" uid="uid://bcdwgujf8wi3u" path="res://sprites/Plague_Doctor_Hurt-Sheet.png" id="3_tx1dd"]
 [ext_resource type="Texture2D" uid="uid://dduk3h7bwwde0" path="res://sprites/PlagueDoctorSprite_SmellingSaltsSpell-Sheet.png" id="3_v3v15"]
 [ext_resource type="Texture2D" uid="uid://dhbo1pdw7f62m" path="res://sprites/grenade_throw.png" id="4_bob2w"]
@@ -14,6 +15,50 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tx1dd"]
 radius = 7.0
 height = 24.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fs7ks"]
+atlas = ExtResource("2_gymyn")
+region = Rect2(0, 0, 57, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6n3p"]
+atlas = ExtResource("2_gymyn")
+region = Rect2(57, 0, 57, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olqyp"]
+atlas = ExtResource("2_gymyn")
+region = Rect2(114, 0, 57, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpjfl"]
+atlas = ExtResource("2_gymyn")
+region = Rect2(0, 35, 57, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bi64h"]
+atlas = ExtResource("2_gymyn")
+region = Rect2(57, 35, 57, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ijsl"]
+atlas = ExtResource("2_gymyn")
+region = Rect2(114, 35, 57, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1odr"]
+atlas = ExtResource("2_gymyn")
+region = Rect2(0, 70, 57, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gysh"]
+atlas = ExtResource("2_gymyn")
+region = Rect2(57, 70, 57, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vfarp"]
+atlas = ExtResource("2_gymyn")
+region = Rect2(114, 70, 57, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6uwr"]
+atlas = ExtResource("2_gymyn")
+region = Rect2(0, 105, 57, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83xs0"]
+atlas = ExtResource("2_gymyn")
+region = Rect2(57, 105, 57, 35)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_krg1r"]
 atlas = ExtResource("1_5voi2")
@@ -205,6 +250,44 @@ region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_chjaw"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fs7ks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6n3p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_olqyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wpjfl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bi64h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ijsl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1odr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0gysh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vfarp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6uwr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83xs0")
+}],
+"loop": true,
+"name": &"Basic Attack",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_krg1r")
@@ -490,9 +573,8 @@ shape = SubResource("CapsuleShape2D_tx1dd")
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(2, -4)
 sprite_frames = SubResource("SpriteFrames_chjaw")
-animation = &"hurt"
-frame = 7
-frame_progress = 1.0
+animation = &"Basic Attack"
+frame_progress = 0.527281
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1, -1)
@@ -505,7 +587,6 @@ position = Vector2(0, 2)
 script = ExtResource("8_f1ek2")
 
 [node name="SmellingSaltsSprite" type="AnimatedSprite2D" parent="SmellingSalts"]
-visible = false
 z_index = 2
 sprite_frames = SubResource("SpriteFrames_gymyn")
 animation = &"vapor"
