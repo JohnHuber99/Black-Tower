@@ -111,9 +111,8 @@ func grenade_animation():
 		sprite.play("throw_idle")
 		await spell_key_released
 	sprite.play("throw_finish")
-	await sprite.animation_finished
-	
 	_launch()
+	await sprite.animation_finished
 	
 func smelling_salts_animation():
 	# Locks turning
@@ -139,11 +138,6 @@ func _ready():
 	z_index = 1
 	var vaporSignalEnd = get_node("SmellingSalts")
 	vaporSignalEnd.smelling_salts_finished.connect(_on_smelling_salts_finished)
-	
-	if marker_2d == null:
-		print("Marker2D node not found!")
-	else:
-		print("Marker2D node found!")
 
 func _launch():
 		if isThrowing: return
