@@ -32,4 +32,3 @@ func destroy():
 		return
 	is_defeated = true
 	destroyed.emit()
-	queue_free()

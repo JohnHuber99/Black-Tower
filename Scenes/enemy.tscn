@@ -1,10 +1,11 @@
-[gd_scene load_steps=46 format=3 uid="uid://beu0skyadwt6x"]
+[gd_scene load_steps=47 format=3 uid="uid://beu0skyadwt6x"]
 
 [ext_resource type="Script" uid="uid://bwkqflwu8gxce" path="res://Scripts/enemy.gd" id="1_g816c"]
 [ext_resource type="Texture2D" uid="uid://305ocla3pksv" path="res://sprites/Enemy_Sprite-Sheet.png" id="2_1f0kj"]
 [ext_resource type="Texture2D" uid="uid://j3lk75dn55ud" path="res://sprites/Enemy_Slime_Basic_Attack-Sheet-Sheet.png" id="2_afpow"]
 [ext_resource type="Texture2D" uid="uid://xqbvsth3hpt5" path="res://sprites/Enemy_Death-Sheet.png" id="3_287tu"]
 [ext_resource type="Texture2D" uid="uid://dvbuxicu3vb5t" path="res://sprites/Enemy_Slime_Hurt-Sheetv4.png" id="5_0830c"]
+[ext_resource type="PackedScene" uid="uid://bwicqk1gug5b" path="res://Scenes/Health Component.tscn" id="6_ghaa6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0830c"]
 radius = 11.0
@@ -307,7 +308,10 @@ shape = SubResource("CircleShape2D_0830c")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_7duco")
-animation = &"hurt"
+animation = &"death"
 autoplay = "default"
-frame = 6
-frame_progress = 1.0
+
+[node name="Health Component" parent="." instance=ExtResource("6_ghaa6")]
+
+[connection signal="destroyed" from="Health Component" to="." method="_on_health_component_destroyed"]
+[connection signal="health_change" from="Health Component" to="." method="_on_health_component_health_change"]

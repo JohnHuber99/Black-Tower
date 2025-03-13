@@ -7,20 +7,23 @@ extends CharacterBody2D
 @export var direction_change_accel = 2000
 @export var spells = ["grenade", "smelling_salts"]
 @export var max_buff_duration = 10
+@export var iframes = 60
 
 @onready var sprite = $PlayerSprite
 @onready var marker_2d = $Marker2D
+@onready var health = $"Health Component"
 const GRENADE = preload("res://Scenes/grenade2.tscn")
 const KNIFE = preload("res://Scenes/knife.tscn")
 var isThrowing = false
 
 var can_move = true
 var can_turn = true
-var casting = false
+var animating = false
 var current_spell_index = 0
 
 var stats_boosted = false
 var buff_timer = 0
+var iframe_timer = 0
 
 signal spell_key_released
 signal launch_vapor(x, y)
@@ -50,9 +53,9 @@ func _input(event):
 		current_spell_index -= 1
 	
 	# Cast a spell
-	if !casting and event.is_action_pressed("spell"):
+	if !animating and event.is_action_pressed("spell"):
 		# Casting animation is playing
-		casting = true
+		animating = true
 		can_move = false
 		
 		# Play casting animation based on spell
@@ -63,29 +66,33 @@ func _input(event):
 		
 		# Casting animations finished
 		can_move = true
-		casting = false
+		animating = false
 	
 	# Check when spellcasting button is released
 	if event.is_action_released("spell"):
 		spell_key_released.emit()
 		
-	if !casting and event.is_action("attack"):
+	if !animating and event.is_action("attack"):
 		# Attacking animation is playing
-		casting = true
+		animating = true
 		can_move = false
 		
 		await attack_animation()
 		
 		# Casting animations finished
 		can_move = true
-		casting = false
+		animating = false
 
 func _physics_process(delta):
+	if health.is_defeated:
+		return
 	get_input(delta)
 	move_and_slide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if health.is_defeated:
+		return
 	var mouse_pos = get_global_mouse_position()
 	var pos = global_position
 	
@@ -106,6 +113,10 @@ func _process(delta):
 		buff_timer -= delta
 		if buff_timer <= 0:
 			stats_boosted = false
+	
+	# Decrements invincibility frame timer
+	if iframe_timer > 0:
+		iframe_timer -= 1
 
 # Boost stats and release sprite after vapor animation is finished
 func _on_smelling_salts_finished() -> void:
@@ -189,3 +200,19 @@ func _fire() :
 	knife.spawnPos = global_position
 	
 	get_parent().add_child(knife)
+	
+func knockback(direction: Vector2, magnitude):
+	velocity = direction * magnitude
+
+func _on_health_component_health_change(character_newHealth: Variant) -> void:
+	can_move = false
+	animating = true
+	iframe_timer = iframes
+	sprite.play("hurt")
+	await sprite.animation_finished
+	animating = false
+	can_move = true
+
+
+func _on_health_component_destroyed() -> void:
+	sprite.play("death")
