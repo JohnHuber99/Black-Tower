@@ -11,6 +11,7 @@ extends CharacterBody2D
 @onready var sprite = $PlayerSprite
 @onready var marker_2d = $Marker2D
 const GRENADE = preload("res://Scenes/grenade2.tscn")
+const KNIFE = preload("res://Scenes/knife.tscn")
 var isThrowing = false
 
 var can_move = true
@@ -67,6 +68,17 @@ func _input(event):
 	# Check when spellcasting button is released
 	if event.is_action_released("spell"):
 		spell_key_released.emit()
+		
+	if !casting and event.is_action("attack"):
+		# Attacking animation is playing
+		casting = true
+		can_move = false
+		
+		await attack_animation()
+		
+		# Casting animations finished
+		can_move = true
+		casting = false
 
 func _physics_process(delta):
 	get_input(delta)
@@ -133,6 +145,20 @@ func smelling_salts_animation():
 	
 	# Unlock turning
 	can_turn = true
+	
+func attack_animation():
+	# Plays first half of throwing animation once
+	sprite.play("basic_attack_1")
+	await sprite.animation_finished
+	#_fire()
+	sprite.play("basic_attack_2")
+	await sprite.animation_finished
+	#_fire()
+	sprite.play("basic_attack_3")
+	await sprite.animation_finished
+	_fire()
+	sprite.play("basic_attack_4")
+	await sprite.animation_finished
 
 func _ready():
 	z_index = 1
@@ -157,3 +183,9 @@ func _launch():
 		await get_tree().create_timer(0.1).timeout
 		
 		isThrowing = false
+
+func _fire() :
+	var knife = KNIFE.instantiate()
+	knife.spawnPos = global_position
+	
+	get_parent().add_child(knife)

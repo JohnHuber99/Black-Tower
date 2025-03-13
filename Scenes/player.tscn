@@ -259,13 +259,23 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_olqyp")
+}],
+"loop": false,
+"name": &"basic_attack_1",
+"speed": 8.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wpjfl")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bi64h")
+}],
+"loop": false,
+"name": &"basic_attack_2",
+"speed": 8.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2ijsl")
 }, {
@@ -274,7 +284,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0gysh")
+}],
+"loop": false,
+"name": &"basic_attack_3",
+"speed": 8.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vfarp")
 }, {
@@ -284,9 +299,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_83xs0")
 }],
-"loop": true,
-"name": &"Basic Attack",
-"speed": 10.0
+"loop": false,
+"name": &"basic_attack_4",
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -573,8 +588,7 @@ shape = SubResource("CapsuleShape2D_tx1dd")
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(2, -4)
 sprite_frames = SubResource("SpriteFrames_chjaw")
-animation = &"Basic Attack"
-frame_progress = 0.527281
+animation = &"basic_attack_4"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1, -1)
