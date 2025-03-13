@@ -7,6 +7,7 @@
 size = Vector2(16, 4)
 
 [node name="Knife" type="CharacterBody2D"]
+z_index = 4
 script = ExtResource("1_k4pir")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
