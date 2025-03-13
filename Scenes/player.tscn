@@ -1,6 +1,6 @@
 [gd_scene load_steps=86 format=3 uid="uid://b4uixgwclv3j8"]
 
-[ext_resource type="Script" uid="uid://bckauqi7hchmr" path="res://Scripts/player.gd" id="1_3jcom"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_3jcom"]
 [ext_resource type="Texture2D" uid="uid://cmov0iwtw5j3e" path="res://sprites/Death.png" id="1_5voi2"]
 [ext_resource type="Texture2D" uid="uid://bgemqup8jls7v" path="res://sprites/PlagueDoctor_WalkRight_Sprite-Sheet_v1.png" id="1_fkcr7"]
 [ext_resource type="Texture2D" uid="uid://kpqela8cflr" path="res://sprites/Throw_2.png" id="2_gymyn"]
@@ -8,8 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://dduk3h7bwwde0" path="res://sprites/PlagueDoctorSprite_SmellingSaltsSpell-Sheet.png" id="3_v3v15"]
 [ext_resource type="Texture2D" uid="uid://dhbo1pdw7f62m" path="res://sprites/grenade_throw.png" id="4_bob2w"]
 [ext_resource type="Texture2D" uid="uid://bat4rjdsewfqn" path="res://sprites/Throwing_Idle.png" id="5_h1gd6"]
-[ext_resource type="Script" uid="uid://cej8auhwlwqxq" path="res://Scripts/PlayerCamera.gd" id="7_3smsa"]
-[ext_resource type="Script" uid="uid://dmespoe2nllf2" path="res://Scripts/smelling_salts.gd" id="8_f1ek2"]
+[ext_resource type="Script" path="res://Scripts/PlayerCamera.gd" id="7_3smsa"]
+[ext_resource type="Script" path="res://Scripts/smelling_salts.gd" id="8_f1ek2"]
 [ext_resource type="Texture2D" uid="uid://dl2bg7wg7kpiv" path="res://sprites/Vapor-Sheet.png" id="9_tx1dd"]
 [ext_resource type="PackedScene" uid="uid://bwicqk1gug5b" path="res://Scenes/Health Component.tscn" id="12_pu2lt"]
 
