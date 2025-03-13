@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://c3elyorobl4bn"]
+[gd_scene load_steps=24 format=4 uid="uid://c3elyorobl4bn"]
 
 [ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://sprites/BT_Tile_Placeholders.png" id="1_bu3m2"]
 [ext_resource type="Texture2D" uid="uid://dxgpqhgixf3df" path="res://sprites/bt-tiles-1alt.png" id="2_6hxfx"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://krdcm5bgx56o" path="res://sprites/bt-bushes.png" id="5_ya1nu"]
 [ext_resource type="Shader" path="res://Rooms/bushes_temp.gdshader" id="6_04yf4"]
 [ext_resource type="Shader" path="res://Rooms/bushes_temp_real.gdshader" id="6_8hpev"]
+[ext_resource type="Texture2D" uid="uid://drnte5iyy5uue" path="res://sprites/bt-flowers.png" id="6_hyl4t"]
 [ext_resource type="Texture2D" uid="uid://bo3l6vy2ksjgf" path="res://sprites/Grenade.png" id="7_kt6p1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1e4t7"]
@@ -150,6 +151,11 @@ texture = ExtResource("5_ya1nu")
 1:0/0 = 0
 0:1/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uqndg"]
+texture = ExtResource("6_hyl4t")
+0:0/0 = 0
+1:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_fvpet"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_1e4t7")
@@ -157,6 +163,7 @@ sources/1 = SubResource("TileSetAtlasSource_y5avg")
 sources/2 = SubResource("TileSetAtlasSource_sul7h")
 sources/3 = SubResource("TileSetAtlasSource_lvwv3")
 sources/4 = SubResource("TileSetAtlasSource_rw0xc")
+sources/5 = SubResource("TileSetAtlasSource_uqndg")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xoia7"]
 
@@ -220,10 +227,11 @@ tile_set = SubResource("TileSet_fvpet")
 [node name="TileMapLayer4" type="TileMapLayer" parent="."]
 z_index = 2
 material = SubResource("ShaderMaterial_sdump")
-tile_map_data = PackedByteArray("AAADAPz/BAAAAAAAAAAGAP3/BAABAAAAAAAIAP3/BAABAAAAAAAFAPv/BAAAAAAAAAADAPn/BAAAAAAAAAABAPn/BAAAAAAAAAAFAP3/BAAAAAEAAAADAP7/BAAAAAEAAAAGAPz/BAAAAAEAAAA=")
+tile_map_data = PackedByteArray("AAADAP7/BQAAAAAAAAAFAP3/BQAAAAAAAAAGAP3/BQABAAAAAAAHAPn/BQABAAAAAAAEAPv/BQAAAAAAAAAIAPn/BQAAAAAAAAAOAPb/BQAAAAAAAAAPAPX/BQAAAAAAAAAOAPf/BQABAAAAAAAPAPb/BQABAAAAAAAPAPf/BQABAAAAAAANAPb/BQABAAAAAAAPAPP/BQABAAAAAAAGAPX/BQAAAAAAAAAFAPX/BQAAAAAAAAAQAPv/BQABAAAAAAAKAPz/BAAAAAAAAAALAPz/BAAAAAAAAAAMAPv/BAAAAAAAAAAOAPz/BAABAAAAAAALAPv/BAABAAAAAAAIAPL/BAABAAAAAAAKAPH/BAABAAAAAAABAO//BAAAAAAAAAACAO7/BAAAAAAAAAACAPD/BAABAAAAAAADAO//BAABAAAAAAACAPT/BAAAAAEAAAAFAPH/BAAAAAEAAAAFAO//BAAAAAEAAAACAPX/BAAAAAEAAAACAPH/BAABAAAAAAAEAPD/BAAAAAEAAAATAO3/BAAAAAEAAAARAOv/BAAAAAEAAAATAPX/BAABAAAAAAA=")
 tile_set = SubResource("TileSet_fvpet")
 
 [node name="Sprite2D" type="Sprite2D" parent="TileMapLayer4"]
+visible = false
 material = SubResource("ShaderMaterial_f4n7o")
 position = Vector2(129, -122)
 texture = ExtResource("7_kt6p1")
