@@ -1,10 +1,14 @@
-[gd_scene load_steps=11 format=4 uid="uid://c3elyorobl4bn"]
+[gd_scene load_steps=22 format=4 uid="uid://c3elyorobl4bn"]
 
 [ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://sprites/BT_Tile_Placeholders.png" id="1_bu3m2"]
 [ext_resource type="Texture2D" uid="uid://dxgpqhgixf3df" path="res://sprites/bt-tiles-1alt.png" id="2_6hxfx"]
-[ext_resource type="Script" uid="uid://by4s0xcvscd05" path="res://Scripts/Player_Dungeon_Spawn.gd" id="2_6kdjq"]
+[ext_resource type="Script" path="res://Scripts/Player_Dungeon_Spawn.gd" id="2_6kdjq"]
 [ext_resource type="Texture2D" uid="uid://byb3n8mayv5ee" path="res://sprites/bt-tiles-2.png" id="3_kxaeg"]
 [ext_resource type="Texture2D" uid="uid://bs8bj1a6wlevl" path="res://sprites/bt-tiles-22.png" id="4_8uvhx"]
+[ext_resource type="Texture2D" uid="uid://krdcm5bgx56o" path="res://sprites/bt-bushes.png" id="5_ya1nu"]
+[ext_resource type="Shader" path="res://Rooms/bushes_temp.gdshader" id="6_04yf4"]
+[ext_resource type="Shader" path="res://Rooms/bushes_temp_real.gdshader" id="6_8hpev"]
+[ext_resource type="Texture2D" uid="uid://bo3l6vy2ksjgf" path="res://sprites/Grenade.png" id="7_kt6p1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1e4t7"]
 texture = ExtResource("1_bu3m2")
@@ -140,12 +144,63 @@ texture = ExtResource("4_8uvhx")
 1:5/0 = 0
 2:5/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rw0xc"]
+texture = ExtResource("5_ya1nu")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_fvpet"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_1e4t7")
 sources/1 = SubResource("TileSetAtlasSource_y5avg")
 sources/2 = SubResource("TileSetAtlasSource_sul7h")
 sources/3 = SubResource("TileSetAtlasSource_lvwv3")
+sources/4 = SubResource("TileSetAtlasSource_rw0xc")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xoia7"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2d8ts"]
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_xoia7")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sdump"]
+shader = ExtResource("6_8hpev")
+shader_parameter/pixel_mode = false
+shader_parameter/pixel_amount = 32.0
+shader_parameter/distortion = 0.027
+shader_parameter/texture_noise_system = true
+shader_parameter/noise_speed = 0.5
+shader_parameter/noise_direction = -1
+shader_parameter/worley_noise_system = false
+shader_parameter/worley_cell_density = 25.0
+shader_parameter/worley_speed = 2.0
+shader_parameter/edge_and_mask = false
+shader_parameter/alpha_value = 1.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_2d8ts")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1skxm"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ndsk8"]
+width = 16
+height = 16
+noise = SubResource("FastNoiseLite_1skxm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f4n7o"]
+shader = ExtResource("6_04yf4")
+shader_parameter/pixel_mode = false
+shader_parameter/pixel_amount = 256.0
+shader_parameter/distortion = 0.056
+shader_parameter/texture_noise_system = true
+shader_parameter/noise_speed = 3.0
+shader_parameter/noise_direction = -1
+shader_parameter/worley_noise_system = false
+shader_parameter/worley_cell_density = 10.0
+shader_parameter/worley_speed = 2.0
+shader_parameter/edge_and_mask = false
+shader_parameter/alpha_value = 1.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_ndsk8")
 
 [node name="StartingRoom" type="Node2D"]
 
@@ -161,6 +216,17 @@ tile_set = SubResource("TileSet_fvpet")
 z_index = 1
 tile_map_data = PackedByteArray("AAAGAPH/AgAAAAEAAAAGAPL/AgAAAAEAAAAGAPP/AgAAAAQAAAAGAPT/AgAAAAEAAAAGAPX/AwACAAMAAAAGAPb/AwAAAAEAAAAGAPf/AgAAAAEAAAAGAPj/AwAAAAMAAAAGAPn/AgAAAAEAAAAGAPr/AgAAAAEAAAAHAPH/AgAAAAQAAAAHAPL/AgAAAAEAAAAHAPP/AgAAAAMAAAAHAPT/AgABAAQAAAAHAPX/AwAAAAEAAAAHAPb/AwACAAMAAAAHAPf/AwAAAAMAAAAHAPj/AgAAAAEAAAAHAPn/AgAAAAEAAAAHAPr/AgAAAAEAAAAIAPH/AgAAAAEAAAAIAPL/AwACAAMAAAAIAPP/AwAAAAEAAAAIAPT/AgAAAAEAAAAIAPX/AwACAAEAAAAIAPb/AwAAAAEAAAAIAPf/AwABAAMAAAAIAPj/AgAAAAEAAAAIAPn/AgAAAAMAAAAIAPr/AgAAAAEAAAAJAPH/AgAAAAEAAAAJAPL/AgAAAAEAAAAJAPP/AgAAAAEAAAAJAPT/AwACAAIAAAAJAPX/AwABAAMAAAAJAPb/AwAAAAEAAAAJAPf/AwABAAMAAAAJAPj/AwABAAMAAAAJAPn/AwACAAMAAAAJAPr/AgAAAAEAAAAKAPH/AgAAAAQAAAAKAPL/AwACAAEAAAAKAPP/AwAAAAEAAAAKAPT/AwAAAAEAAAAKAPX/AwACAAIAAAAKAPb/AwACAAEAAAAKAPf/AwACAAEAAAAKAPj/AwAAAAEAAAAKAPn/AwAAAAIAAAAKAPr/AgAAAAQAAAALAPH/AgAAAAEAAAALAPL/AgAAAAEAAAALAPP/AwABAAMAAAALAPT/AwACAAEAAAALAPX/AwACAAEAAAALAPb/AwACAAIAAAALAPf/AwACAAEAAAALAPj/AwACAAEAAAALAPn/AgAAAAEAAAALAPr/AgAAAAEAAAAMAPH/AgAAAAEAAAAMAPL/AwABAAMAAAAMAPP/AwAAAAEAAAAMAPT/AwACAAEAAAAMAPX/AwACAAIAAAAMAPb/AwACAAMAAAAMAPf/AwACAAIAAAAMAPj/AwACAAMAAAAMAPn/AwABAAMAAAAMAPr/AgAAAAQAAAANAPH/AwAAAAMAAAANAPL/AgAAAAEAAAANAPP/AgAAAAEAAAANAPT/AwACAAEAAAANAPX/AwABAAMAAAANAPb/AwACAAMAAAANAPf/AwACAAMAAAANAPj/AwABAAMAAAANAPn/AwACAAIAAAANAPr/AwAAAAIAAAAOAPH/AwABAAMAAAAOAPL/AwAAAAEAAAAOAPP/AwACAAIAAAAOAPT/AwACAAIAAAAOAPX/AwACAAEAAAAOAPb/AwACAAEAAAAOAPf/AgAAAAEAAAAOAPj/AwAAAAEAAAAOAPn/AwACAAMAAAAOAPr/AgAAAAEAAAAPAPH/AgAAAAQAAAAPAPL/AgAAAAEAAAAPAPP/AwABAAMAAAAPAPT/AwAAAAEAAAAPAPX/AwABAAMAAAAPAPb/AgACAAQAAAAPAPf/AgACAAQAAAAPAPj/AwABAAMAAAAPAPn/AgACAAQAAAAPAPr/AgAAAAQAAAAQAPH/AgAAAAEAAAAQAPL/AwAAAAEAAAAQAPP/AwAAAAMAAAAQAPT/AgAAAAQAAAAQAPX/AgAAAAEAAAAQAPb/AgAAAAEAAAAQAPf/AwAAAAMAAAAQAPj/AgAAAAEAAAAQAPn/AgAAAAEAAAAQAPr/AgAAAAEAAAAMAPv/AwAAAAMAAAAMAPz/AgAAAAEAAAANAPv/AgAAAAEAAAANAPz/AgAAAAEAAAAOAPv/AgAAAAQAAAAOAPz/AgAAAAQAAAAPAPv/AgAAAAEAAAAPAPz/AgAAAAQAAAAQAPv/AgACAAMAAAAQAPz/AgACAAQAAAARAPj/AgAAAAMAAAARAPn/AgACAAQAAAARAPr/AgACAAQAAAARAPv/AgAAAAMAAAARAPz/AgAAAAEAAAASAPj/AgAAAAEAAAASAPn/AgAAAAMAAAASAPr/AgAAAAEAAAASAPv/AgAAAAEAAAASAPz/AgAAAAEAAAAPAO//AgABAAQAAAAPAPD/AgAAAAEAAAAQAO//AgAAAAEAAAAQAPD/AwABAAMAAAARAO//AgAAAAEAAAARAPD/AgAAAAEAAAARAPH/AgABAAQAAAARAPL/AgAAAAEAAAARAPP/AgAAAAMAAAARAPT/AgACAAQAAAASAO//AgAAAAEAAAASAPD/AgAAAAEAAAASAPH/AgAAAAEAAAASAPL/AgABAAQAAAASAPP/AgAAAAEAAAASAPT/AgAAAAEAAAARAPX/AgAAAAEAAAAJAPD/AgAAAAEAAAAKAPD/AgAAAAEAAAALAPD/AgAAAAEAAAAMAPD/AgAAAAMAAAANAPD/AwAAAAMAAAAOAPD/AgABAAQAAAAEAPT/AgAAAAEAAAAEAPX/AgAAAAEAAAAEAPb/AgAAAAEAAAAEAPf/AgAAAAEAAAAEAPj/AgAAAAEAAAAFAPT/AgAAAAEAAAAFAPX/AgAAAAEAAAAFAPb/AgAAAAQAAAAFAPf/AgAAAAEAAAAFAPj/AgAAAAEAAAAHAPv/AgAAAAEAAAAIAPv/AgAAAAEAAAAJAPv/AgAAAAEAAAAKAPv/AgAAAAEAAAALAPv/AgAAAAEAAAAFAPn/AgAAAAEAAAAEAPn/AgAEAAAAAAAFAPr/AgAEAAAAAAAGAPv/AgAEAAAAAAALAPz/AgAEAAAAAAASAPX/AgADAAAAAAARAPb/AgADAAAAAAAFAPP/AgAEAAEAAAAIAPD/AgAEAAEAAAAOAO//AgAEAAEAAAARAPf/AgADAAEAAAAJAO//AgAAAAAAAAAKAO//AgAAAAAAAAALAO//AgAAAAAAAAAMAO//AgAAAAAAAAANAO//AgAAAAAAAAAPAO7/AgAAAAAAAAAQAO7/AgAAAAAAAAARAO7/AgAAAAAAAAASAO7/AgAAAAAAAAAGAPD/AgAAAAAAAAAHAPD/AgAAAAAAAAAEAPP/AgAAAAAAAAAHAPz/AgABAAUAAAAIAPz/AgABAAUAAAAJAPz/AgABAAUAAAAKAPz/AgABAAUAAAAMAP3/AgABAAUAAAANAP3/AgABAAUAAAAOAP3/AgABAAUAAAAPAP3/AgABAAUAAAAQAP3/AgABAAUAAAARAP3/AgABAAUAAAASAP3/AgABAAUAAAADAPT/AgACAAUAAAADAPX/AgACAAUAAAADAPb/AgACAAUAAAADAPf/AgACAAUAAAADAPj/AgACAAUAAAAFAPH/AgACAAUAAAAFAPL/AgACAAUAAAATAPj/AgAAAAUAAAATAPn/AgAAAAUAAAATAPr/AgAAAAUAAAATAPv/AgAAAAUAAAATAPz/AgAAAAUAAAATAO//AgAAAAUAAAATAPD/AgAAAAUAAAATAPH/AgAAAAUAAAATAPL/AgAAAAUAAAATAPP/AgAAAAUAAAATAPT/AgAAAAUAAAASAPf/AgAAAAAAAAADAOz/AwACAAMAAAADAO3/AwAAAAEAAAADAO7/AwAAAAEAAAAEAO7/AwACAAMAAAAFAO7/AwACAAMAAAAFAO3/AwABAAMAAAAFAOz/AwAAAAEAAAAEAOz/AwAAAAEAAAAEAO3/AwAAAAEAAAAGAO3/AwAAAAEAAAAGAO7/AwAAAAEAAAADAOv/AwAAAAAAAAAEAOv/AwAAAAAAAAAFAOv/AwAAAAAAAAAGAOz/AwADAAEAAAADAO//AwABAAUAAAAEAO//AwABAAUAAAAFAO//AwABAAUAAAAGAO//AwABAAUAAAACAOz/AwACAAUAAAACAO3/AwACAAUAAAACAO7/AwACAAUAAAAHAO3/AwAAAAUAAAAHAO7/AwAAAAUAAAA=")
 tile_set = SubResource("TileSet_fvpet")
+
+[node name="TileMapLayer4" type="TileMapLayer" parent="."]
+z_index = 2
+material = SubResource("ShaderMaterial_sdump")
+tile_map_data = PackedByteArray("AAADAPz/BAAAAAAAAAAGAP3/BAABAAAAAAAIAP3/BAABAAAAAAAFAPv/BAAAAAAAAAADAPn/BAAAAAAAAAABAPn/BAAAAAAAAAAFAP3/BAAAAAEAAAADAP7/BAAAAAEAAAAGAPz/BAAAAAEAAAA=")
+tile_set = SubResource("TileSet_fvpet")
+
+[node name="Sprite2D" type="Sprite2D" parent="TileMapLayer4"]
+material = SubResource("ShaderMaterial_f4n7o")
+position = Vector2(129, -122)
+texture = ExtResource("7_kt6p1")
 
 [node name="PlayerDungeonSpawn" type="Marker2D" parent="."]
 position = Vector2(118, -119)
