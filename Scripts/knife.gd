@@ -3,10 +3,10 @@ extends CharacterBody2D
 class_name Knife
 
 @export var SPEED = 400 # Value is subject to change 
-@export var damage = 20 # Value is subject to change 
 
 var dir : float
 var spawnPos : Vector2
+var damage
 
 func _ready():
 	global_position = spawnPos

@@ -6,8 +6,11 @@ extends CharacterBody2D
 @export var friction = 600
 @export var direction_change_accel = 2000
 @export var spells = ["grenade", "smelling_salts"]
+@export var knife_damage = 10
+@export var boosted_knife_damage = 20
 @export var max_buff_duration = 10
 @export var iframes = 60
+@export var attack_chain_window = 20
 
 @onready var sprite = $PlayerSprite
 @onready var marker_2d = $Marker2D
@@ -24,6 +27,9 @@ var current_spell_index = 0
 var stats_boosted = false
 var buff_timer = 0
 var iframe_timer = 0
+
+var attack_chain = 0
+var chain_timer = 0
 
 signal spell_key_released
 signal launch_vapor(x, y)
@@ -45,6 +51,9 @@ func get_input(delta):
 		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 
 func _input(event):
+	if health.is_defeated:
+		return
+	
 	# Change to next spell
 	if event.is_action("scroll_down") && current_spell_index < spells.size() - 1:
 		current_spell_index += 1
@@ -75,12 +84,10 @@ func _input(event):
 	if !animating and event.is_action("attack"):
 		# Attacking animation is playing
 		animating = true
-		can_move = false
 		
 		await attack_animation()
 		
 		# Casting animations finished
-		can_move = true
 		animating = false
 
 func _physics_process(delta):
@@ -101,7 +108,7 @@ func _process(delta):
 		sprite.flip_h = mouse_pos.x < pos.x
 	
 	# Walking/idle animation when no other stuff is going on
-	if can_move:
+	if can_move and !animating:
 		# Play animations based on movement
 		if !velocity.is_zero_approx():
 			sprite.play("walk")
@@ -117,6 +124,12 @@ func _process(delta):
 	# Decrements invincibility frame timer
 	if iframe_timer > 0:
 		iframe_timer -= 1
+		
+	# Decrements attack chain timer
+	if chain_timer > 0:
+		chain_timer -= 1
+		if chain_timer <= 0:
+			attack_chain = 0
 
 # Boost stats and release sprite after vapor animation is finished
 func _on_smelling_salts_finished() -> void:
@@ -158,18 +171,28 @@ func smelling_salts_animation():
 	can_turn = true
 	
 func attack_animation():
-	# Plays first half of throwing animation once
-	sprite.play("basic_attack_1")
-	await sprite.animation_finished
-	#_fire()
-	sprite.play("basic_attack_2")
-	await sprite.animation_finished
-	#_fire()
-	sprite.play("basic_attack_3")
-	await sprite.animation_finished
-	_fire()
-	sprite.play("basic_attack_4")
-	await sprite.animation_finished
+	# First knife throw
+	if attack_chain == 0:
+		sprite.play("basic_attack_1")
+		await sprite.animation_finished
+		_fire()
+		sprite.play("basic_attack_2")
+		await sprite.animation_finished
+		chain_timer = attack_chain_window
+		attack_chain = 1
+	# Second knife throw
+	elif attack_chain == 1:
+		_fire()
+		sprite.play("basic_attack_3")
+		await sprite.animation_finished
+		chain_timer = attack_chain_window
+		attack_chain = 2
+	# Third knife throw
+	else:
+		_fire()
+		sprite.play("basic_attack_4")
+		await sprite.animation_finished
+		attack_chain = 0
 
 func _ready():
 	z_index = 1
@@ -198,6 +221,10 @@ func _launch():
 func _fire() :
 	var knife = KNIFE.instantiate()
 	knife.spawnPos = global_position
+	if stats_boosted:
+		knife.damage = boosted_knife_damage
+	else:
+		knife.damage = knife_damage
 	
 	get_parent().add_child(knife)
 	
