@@ -13,7 +13,6 @@ extends CharacterBody2D
 @export var attack_chain_window = 20
 
 @onready var sprite = $PlayerSprite
-@onready var marker_2d = $Marker2D
 @onready var health = $"Health Component"
 const GRENADE = preload("res://Scenes/grenade2.tscn")
 const KNIFE = preload("res://Scenes/knife.tscn")
@@ -204,7 +203,7 @@ func _launch():
 		
 		isThrowing = true
 		
-		var startPosition = marker_2d.global_position
+		var startPosition = self.global_position
 		var direction = -1 if sprite.flip_h else 1
 		var targetPosition = Vector2(startPosition.x + 300 * direction, startPosition.y) - global_position
 		
@@ -220,7 +219,7 @@ func _launch():
 
 func _fire() :
 	var knife = KNIFE.instantiate()
-	knife.spawnPos = global_position
+	knife.position = self.global_position
 	if stats_boosted:
 		knife.damage = boosted_knife_damage
 	else:

@@ -5,11 +5,9 @@ class_name Knife
 @export var SPEED = 400 # Value is subject to change 
 
 var dir : float
-var spawnPos : Vector2
 var damage
 
 func _ready():
-	global_position = spawnPos
 	look_at(get_global_mouse_position())
 	dir = rotation
 	add_collision_exception_with(get_node("../player"))
