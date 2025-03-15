@@ -607,5 +607,17 @@ frame_progress = 1.0
 
 [node name="Health Component" parent="." instance=ExtResource("12_pu2lt")]
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+offset = Vector2(300, 150)
+transform = Transform2D(1, 0, 0, 1, 300, 150)
+
+[node name="DeathLabel" type="RichTextLabel" parent="CanvasLayer"]
+custom_minimum_size = Vector2(60, 0)
+offset_right = 40.0
+offset_bottom = 207.0
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
 [connection signal="destroyed" from="Health Component" to="." method="_on_health_component_destroyed"]
 [connection signal="health_change" from="Health Component" to="." method="_on_health_component_health_change"]

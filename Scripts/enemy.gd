@@ -26,7 +26,9 @@ func _ready() -> void:
 	enemy_area.connect("enemy_deactivated", _on_enemy_deactivated)
 
 func _physics_process(delta: float) -> void:
-	if health.is_defeated or is_damaged:
+	if health.is_defeated:
+		return
+	if is_damaged:
 		return
 	if is_waiting or !enemyActivation:
 		sprite.play("default")

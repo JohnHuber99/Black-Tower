@@ -12,6 +12,7 @@ extends CharacterBody2D
 @export var iframes = 60
 @export var attack_chain_window = 20
 
+@onready var death_label = $"CanvasLayer/DeathLabel"
 @onready var sprite = $PlayerSprite
 @onready var health = $"Health Component"
 const GRENADE = preload("res://Scenes/grenade2.tscn")
@@ -98,6 +99,8 @@ func _physics_process(delta):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if health.is_defeated:
+		if Input.is_action_just_pressed("restart"):
+			get_tree().reload_current_scene()
 		return
 	var mouse_pos = get_global_mouse_position()
 	var pos = global_position
@@ -238,6 +241,7 @@ func _on_health_component_health_change(character_newHealth: Variant) -> void:
 	animating = false
 	can_move = true
 
-
 func _on_health_component_destroyed() -> void:
 	sprite.play("death")
+	death_label.parse_bbcode("[center][color=red]You Died![/color]\nPress [color=yellow]'R'[/color] to Restart[/center]")
+	death_label.visible = true  # Show the message
