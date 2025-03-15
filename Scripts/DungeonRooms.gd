@@ -160,27 +160,26 @@ func spawn_dungeon():
 					room_instance.name = room_name  # Rename the room
 					
 					# Store rooms in the dictionary
-					if room_type == BOSS:
-						# BIG room takes up a 2x2 area, store all its positions
+					if room_type == NORMAL or room_type == START or room_type == TREASURE or room_type == SHOP:
+						# For normal and other rooms, just store the single position
+						rooms[Vector2(x, y)] = room_instance
+					elif room_type == LONG_H:
+						# LONG_H room takes up a 1x2 area, store both positions horizontally
 						for dx in range(2):
-							for dy in range(2):
-								rooms[Vector2(x + dx, y + dy)] = room_instance
-								rooms[Vector2(x - dx, y - dy)] = room_instance
-								
+							rooms[Vector2(x + dx, y)] = room_instance
+							rooms[Vector2(x - dx, y)] = room_instance
 					if room_type == BIG:
 						# BIG room takes up a 2x2 area, store all its positions
 						for dx in range(2):
 							for dy in range(2):
 								rooms[Vector2(x + dx, y + dy)] = room_instance
 								rooms[Vector2(x - dx, y - dy)] = room_instance
-					elif room_type == LONG_H:
-						# LONG_H room takes up a 1x2 area, store both positions horizontally
+					elif room_type == BOSS:
+						# BIG room takes up a 2x2 area, store all its positions
 						for dx in range(2):
-							rooms[Vector2(x + dx, y)] = room_instance
-							rooms[Vector2(x - dx, y )] = room_instance
-					else:
-						# For normal and other rooms, just store the single position
-						rooms[Vector2(x, y)] = room_instance
+							for dy in range(2):
+								rooms[Vector2(x + dx, y + dy)] = room_instance
+								rooms[Vector2(x - dx, y - dy)] = room_instance
 
 	# Iterate through every key called, room_pos, in room_connections dictionary
 	for room_pos in room_connections.keys():
