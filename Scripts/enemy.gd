@@ -3,13 +3,18 @@ extends CharacterBody2D
 class_name Enemy
 
 @export var speed = 90
+@export var dash_speed = 5
 @export var attack_proximity = 75
 @export var damage = 20
 @export var knockback = 400
-@export var wait_time: float = 0.5  # Time (in seconds) to wait after collision
+@export var wait_time: float = 1  # Time (in seconds) to wait after collision
 var is_waiting: bool = false  # Flag to track if waiting
+var is_dashing: bool = false
+var is_damaged: bool = false
 var enemyActivation = false
 var enemy_area : Node  
+var collision : Object 
+var last_direction
 
 @onready var sprite = $AnimatedSprite2D
 @onready var health = $"Health Component"
@@ -21,27 +26,43 @@ func _ready() -> void:
 	enemy_area.connect("enemy_deactivated", _on_enemy_deactivated)
 
 func _physics_process(delta: float) -> void:
-	if is_waiting or !enemyActivation or health.is_defeated:
+	if health.is_defeated or is_damaged:
+		return
+	if is_waiting or !enemyActivation:
+		sprite.play("default")
 		return  # Stop movement if in waiting state
+	
+	if sprite.animation == "default" and !is_dashing:
+		slime_movement(delta)
+	elif sprite.animation == "attack":
+		slime_dash()
 
 	if get_node_or_null("/root/Main/player"):  # Check if player node exists
 		player = get_node("/root/Main/player")
-
-	# Calculate direction towards the player
-	var direction = (player.global_position - global_position).normalized()
-
-	# Set motion vector
-	var motion = direction * speed * delta
 	
-	# Stops moving during damage taken animation
-	# Move and detect collisions
-	var collision = move_and_collide(motion)
-
 	# Handle collision with the player
-	if collision:
+	if collision and sprite.animation == "attack":
 		var collider = collision.get_collider()
 		if collider == player:
 			handle_player_collision()
+
+func slime_movement(delta) -> void:
+		# Calculate direction towards the player
+	last_direction = (player.global_position - global_position).normalized()
+
+	# Set motion vector
+	var motion = last_direction * speed * delta
+	
+	# Move and detect collisions
+	collision = move_and_collide(motion)
+
+func slime_dash() -> void:
+	# Set motion vector
+	var motion = last_direction * dash_speed
+	
+	# Move and detect collisions
+	collision =  move_and_collide(motion)
+	
 
 func handle_player_collision():
 	if player.iframe_timer > 0:
@@ -60,7 +81,7 @@ func pause_slime():
 
 func _process(delta):
 	# Stops moving during damage taken animation
-	if is_waiting or health.is_defeated:
+	if is_waiting or health.is_defeated or is_damaged:
 		return
 	
 	# This should be whatever the player instance is
@@ -74,21 +95,22 @@ func _process(delta):
 	sprite.flip_h = x_distance > 0
 	
 	# Attack if close enough to player
-	var distance_to_player = sqrt(x_distance*x_distance + y_distance*y_distance)
-	if (distance_to_player <= attack_proximity):
+	if (global_position.distance_to(player.global_position) < attack_proximity and sprite.animation == "default"):
+		await pause_slime()
+		is_dashing = true
 		sprite.play("attack")
 		await sprite.animation_finished
-		sprite.play("default")
-		pause_slime()
+		is_dashing = false
+		await pause_slime()
 	else:
-		sprite.play("default")
-
+		if sprite.animation != "attack":
+			sprite.play("default")
 
 func _on_health_component_health_change(character_newHealth: Variant) -> void:
-	is_waiting = true
+	is_damaged = true
 	sprite.play("hurt")
 	await sprite.animation_finished
-	is_waiting = false
+	is_damaged = false
 	
 func _on_health_component_destroyed() -> void:
 	await sprite.animation_finished

@@ -303,7 +303,7 @@ animations = [{
 z_index = 4
 script = ExtResource("1_g816c")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="SlimeHitBox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0830c")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
