@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=4 uid="uid://fwh7s1rxc85i"]
+[gd_scene load_steps=9 format=4 uid="uid://fwh7s1rxc85i"]
 
 [ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://sprites/BT_Tile_Placeholders.png" id="1_w3ckf"]
-[ext_resource type="Script" path="res://Scripts/enemy_dungeon_spawn.gd" id="2_uhrl0"]
+[ext_resource type="Script" uid="uid://uhf160oax2pj" path="res://Scripts/enemy_dungeon_spawn.gd" id="2_uhrl0"]
 [ext_resource type="Texture2D" uid="uid://dxgpqhgixf3df" path="res://sprites/bt-tiles-1alt.png" id="2_vrhnp"]
+[ext_resource type="Script" uid="uid://b6gnwxoa44un1" path="res://Scripts/EnemyActivation.gd" id="4_xhdgs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sf7h4"]
 texture = ExtResource("1_w3ckf")
@@ -83,6 +84,9 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_sf7h4")
 sources/1 = SubResource("TileSetAtlasSource_xu4xd")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o24go"]
+size = Vector2(320, 320)
+
 [node name="Normal Room" type="Node2D"]
 
 [node name="RoomMapLayer" type="TileMapLayer" parent="."]
@@ -95,4 +99,12 @@ tile_map_data = PackedByteArray("AAAGAOv/AQADAAAAAAAGAOz/AQADAAAAAAAGAO3/AQADAAA
 tile_set = SubResource("TileSet_7ugto")
 
 [node name="EnemyDungeonSpawn" type="Marker2D" parent="."]
+position = Vector2(169, -146)
 script = ExtResource("2_uhrl0")
+
+[node name="RoomArea" type="Area2D" parent="."]
+script = ExtResource("4_xhdgs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomArea"]
+position = Vector2(176, -176)
+shape = SubResource("RectangleShape2D_o24go")

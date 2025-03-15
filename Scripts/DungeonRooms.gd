@@ -113,8 +113,9 @@ func spawn_dungeon():
 				var room_instance
 				
 				match room_type:
-					START: room_instance = STARTING_ROOM.instantiate()
-					NORMAL: room_instance = NORMAL_ROOM.instantiate()
+					START: room_instance = STARTING_ROOM.instantiate() 
+					NORMAL: 
+						room_instance = NORMAL_ROOM.instantiate() 
 					BIG:
 						if Vector2(x, y) in big_room_list_spawn:
 							room_instance = BIG_ROOM.instantiate()
@@ -297,7 +298,7 @@ func placeBIGRight(y, x):
 	dungeon[y + 1][x] = BIG
 	dungeon[y + 1][x + 1] = BIG
 	big_room_list.append([[x, y],[x + 1, y],[x, y + 1],[x + 1, y + 1]])
-	big_room_list_spawn.append(Vector2(x, y))
+	big_room_list_spawn.append(Vector2(x, y+1))
 	
 # Creates a Big Room on the left
 func placeBIGLeft(y, x):

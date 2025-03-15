@@ -8,22 +8,29 @@ class_name Enemy
 @export var knockback = 400
 @export var wait_time: float = 0.5  # Time (in seconds) to wait after collision
 var is_waiting: bool = false  # Flag to track if waiting
+var enemyActivation = false
+var enemy_area : Node  
 
 @onready var sprite = $AnimatedSprite2D
 @onready var health = $"Health Component"
+var player
 
 var hurt = false
 
+func _ready() -> void:
+	#CHANGE NOW BELOW DOESN'T WORK
+	enemy_area = get_parent().get_node("RoomArea")
+	enemy_area.connect("enemy_activated", _on_enemy_activated)
+
 func _physics_process(delta: float) -> void:
-	if is_waiting or hurt or health.is_defeated:
+	if is_waiting or hurt or health.is_defeated or !enemyActivation:
 		return  # Stop movement if in waiting state
 
-	var player = $"."  # Default to current node
-	if get_node_or_null("../player"):  # Check if player node exists
-		player = get_node("../player")
+	if get_node_or_null("/root/Main/player"):  # Check if player node exists
+		player = get_node("/root/Main/player")
 
 	# Calculate direction towards the player
-	var direction = (player.position - position).normalized()
+	var direction = (player.global_position - global_position).normalized()
 
 	# Set motion vector
 	var motion = direction * speed * delta
@@ -36,9 +43,9 @@ func _physics_process(delta: float) -> void:
 	if collision:
 		var collider = collision.get_collider()
 		if collider == player:
-			handle_player_collision(player)
+			handle_player_collision()
 
-func handle_player_collision(player):
+func handle_player_collision():
 	if player.iframe_timer > 0:
 		return
 	
@@ -58,10 +65,9 @@ func _process(delta):
 	if hurt or health.is_defeated:
 		return
 	
-	var player = $"."
 	# This should be whatever the player instance is
-	if (get_node("../player") != null):
-		player = get_node("../player")
+	if (get_node("/root/Main/player") != null):
+		player = get_node("/root/Main/player")
 	
 	var x_distance = position.x - player.position.x
 	var y_distance = position.y - player.position.y
@@ -92,3 +98,6 @@ func _on_health_component_destroyed() -> void:
 	sprite.play("death")
 	await sprite.animation_finished
 	queue_free()
+
+func _on_enemy_activated() -> void:
+	enemyActivation = true

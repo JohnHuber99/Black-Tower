@@ -587,20 +587,15 @@ position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_tx1dd")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(-12, -3)
+position = Vector2(2, -2)
 sprite_frames = SubResource("SpriteFrames_chjaw")
 animation = &"idle"
-offset = Vector2(14, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1, -1)
 script = ExtResource("7_3smsa")
 
-[node name="knifeSpawn" type="Node2D" parent="."]
-position = Vector2(6, 0)
-
 [node name="SmellingSalts" type="Node2D" parent="."]
-visible = false
 position = Vector2(0, 2)
 script = ExtResource("8_f1ek2")
 
@@ -612,7 +607,6 @@ frame = 11
 frame_progress = 1.0
 
 [node name="Health Component" parent="." instance=ExtResource("12_pu2lt")]
-visible = false
 
 [connection signal="destroyed" from="Health Component" to="." method="_on_health_component_destroyed"]
 [connection signal="health_change" from="Health Component" to="." method="_on_health_component_health_change"]
