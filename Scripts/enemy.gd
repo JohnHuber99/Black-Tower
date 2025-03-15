@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 class_name Enemy
 
-@export var speed = 100
+@export var speed = 90
 @export var attack_proximity = 75
 @export var damage = 20
 @export var knockback = 400
@@ -67,8 +67,8 @@ func _process(delta):
 	if (get_node("/root/Main/player") != null):
 		player = get_node("/root/Main/player")
 	
-	var x_distance = position.x - player.position.x
-	var y_distance = position.y - player.position.y
+	var x_distance = global_position.x - player.global_position.x
+	var y_distance = global_position.y - player.global_position.y
 	
 	# Face toward player
 	sprite.flip_h = x_distance > 0
@@ -78,6 +78,7 @@ func _process(delta):
 	if (distance_to_player <= attack_proximity):
 		sprite.play("attack")
 		await sprite.animation_finished
+		sprite.play("default")
 		pause_slime()
 	else:
 		sprite.play("default")
