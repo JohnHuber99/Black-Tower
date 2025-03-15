@@ -592,7 +592,6 @@ sprite_frames = SubResource("SpriteFrames_chjaw")
 animation = &"idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(1, -1)
 script = ExtResource("7_3smsa")
 
 [node name="SmellingSalts" type="Node2D" parent="."]

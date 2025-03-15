@@ -15,15 +15,13 @@ var enemy_area : Node
 @onready var health = $"Health Component"
 var player
 
-var hurt = false
-
 func _ready() -> void:
-	#CHANGE NOW BELOW DOESN'T WORK
 	enemy_area = get_parent().get_node("RoomArea")
 	enemy_area.connect("enemy_activated", _on_enemy_activated)
+	enemy_area.connect("enemy_deactivated", _on_enemy_deactivated)
 
 func _physics_process(delta: float) -> void:
-	if is_waiting or hurt or health.is_defeated or !enemyActivation:
+	if is_waiting or !enemyActivation or health.is_defeated:
 		return  # Stop movement if in waiting state
 
 	if get_node_or_null("/root/Main/player"):  # Check if player node exists
@@ -62,7 +60,7 @@ func pause_slime():
 
 func _process(delta):
 	# Stops moving during damage taken animation
-	if hurt or health.is_defeated:
+	if is_waiting or health.is_defeated:
 		return
 	
 	# This should be whatever the player instance is
@@ -86,13 +84,11 @@ func _process(delta):
 
 
 func _on_health_component_health_change(character_newHealth: Variant) -> void:
-	hurt = true
+	is_waiting = true
 	sprite.play("hurt")
 	await sprite.animation_finished
-	hurt = false
+	is_waiting = false
 	
-
-
 func _on_health_component_destroyed() -> void:
 	await sprite.animation_finished
 	sprite.play("death")
@@ -101,3 +97,6 @@ func _on_health_component_destroyed() -> void:
 
 func _on_enemy_activated() -> void:
 	enemyActivation = true
+
+func _on_enemy_deactivated() -> void:
+	enemyActivation = false

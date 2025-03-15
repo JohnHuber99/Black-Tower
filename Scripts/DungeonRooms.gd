@@ -131,7 +131,7 @@ func spawn_dungeon():
 
 				if room_instance:
 					add_child(room_instance)
-					room_instance.position = Vector2(x * room_size, y * room_size)
+					room_instance.global_position = Vector2(x * room_size, y * room_size)
 	
 	# Iterate through every key called, room_pos, in room_connections dictionary
 	for room_pos in room_connections.keys():
@@ -147,16 +147,16 @@ func spawn_dungeon():
 			var offset = neighbor - room_pos
 			
 			if offset == Vector2.UP: #up door
-				door_instance.position = room_world_pos + Vector2(room_size / 2, 0) - Vector2(0, room_size - tile_size)
+				door_instance.global_position = room_world_pos + Vector2(room_size / 2, 0) - Vector2(0, room_size - tile_size)
 				door_instance.type = "up"
 			elif offset == Vector2.DOWN: #down door
-				door_instance.position = room_world_pos - Vector2(0, tile_size) + Vector2(room_size / 2, room_size) - Vector2(0, room_size - tile_size)
+				door_instance.global_position = room_world_pos - Vector2(0, tile_size) + Vector2(room_size / 2, room_size) - Vector2(0, room_size - tile_size)
 				door_instance.type = "down"
 			elif offset == Vector2.LEFT: #left door
-				door_instance.position = room_world_pos + Vector2(0, room_size / 2) - Vector2(0, room_size - tile_size)
+				door_instance.global_position = room_world_pos + Vector2(0, room_size / 2) - Vector2(0, room_size - tile_size)
 				door_instance.type = "left"
 			elif offset == Vector2.RIGHT: #right door
-				door_instance.position = room_world_pos - Vector2(tile_size, 0) + Vector2(room_size, room_size / 2) - Vector2(0, room_size - tile_size)
+				door_instance.global_position = room_world_pos - Vector2(tile_size, 0) + Vector2(room_size, room_size / 2) - Vector2(0, room_size - tile_size)
 				door_instance.type = "right"
 					
 #Generates the Dungeon

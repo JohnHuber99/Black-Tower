@@ -10,7 +10,7 @@ var damage
 func _ready():
 	look_at(get_global_mouse_position())
 	dir = rotation
-	add_collision_exception_with(get_node("../player"))
+	add_collision_exception_with(get_parent())
 	
 func _physics_process(delta):
 	velocity = Vector2(SPEED,0).rotated(dir)

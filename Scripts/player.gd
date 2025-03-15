@@ -203,7 +203,7 @@ func _launch():
 		
 		isThrowing = true
 		
-		var startPosition = self.global_position
+		var startPosition = global_position
 		var direction = -1 if sprite.flip_h else 1
 		var targetPosition = Vector2(startPosition.x + 300 * direction, startPosition.y) - global_position
 		
@@ -219,13 +219,12 @@ func _launch():
 
 func _fire() :
 	var knife = KNIFE.instantiate()
-	knife.position = self.global_position
 	if stats_boosted:
 		knife.damage = boosted_knife_damage
 	else:
 		knife.damage = knife_damage
 	
-	get_parent().add_child(knife)
+	add_child(knife)
 	
 func knockback(direction: Vector2, magnitude):
 	velocity = direction * magnitude
