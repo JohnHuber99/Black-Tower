@@ -104,6 +104,13 @@ func _init():
 func spawn_dungeon():
 	var tile_size = 16  # Change this based on your actual tile size
 	var room_size = 22 * tile_size  # 22 tiles per room
+	
+	var normal_room_name_count = 1
+	var big_room_name_count = 1
+	var long_room_name_count = 1
+	var boss_room_name_count = 1
+	var treasure_room_name_count = 1
+	var shop_room_name_count = 1
 
 	# First, spawn rooms
 	for y in HEIGHT:
@@ -111,27 +118,43 @@ func spawn_dungeon():
 			var room_type = dungeon[y][x]
 			if room_type != EMPTY:
 				var room_instance
+				var room_name = ""
 				
 				match room_type:
-					START: room_instance = STARTING_ROOM.instantiate() 
+					START: 
+						room_instance = STARTING_ROOM.instantiate() 
+						room_name = "Start Room"
 					NORMAL: 
 						room_instance = NORMAL_ROOM.instantiate() 
+						room_name = "Normal Room %d" % normal_room_name_count
+						normal_room_name_count += 1
 					BIG:
 						if Vector2(x, y) in big_room_list_spawn:
 							room_instance = BIG_ROOM.instantiate()
+							room_name = "Big Room %d" % big_room_name_count
+							big_room_name_count += 1
 					LONG_H:
 						if Vector2(x, y) in long_room_list_spawn:
 							room_instance = LONG_ROOM.instantiate()
+							room_name = "Long Room %d" % long_room_name_count
+							long_room_name_count += 1
 					BOSS:
 						if Vector2(x, y) in boss_room:
 							room_instance = BOSS_ROOM.instantiate() 
-					TREASURE: room_instance = TREASURE_ROOM.instantiate()
-					SHOP: room_instance = SHOP_ROOM.instantiate()
-					START: room_instance = NORMAL_ROOM.instantiate()
+							room_name = "Boss Room"
+					TREASURE: 
+						room_instance = TREASURE_ROOM.instantiate()
+						room_name = "Treasure Room %d" % treasure_room_name_count
+						treasure_room_name_count += 1
+					SHOP: 
+						room_instance = SHOP_ROOM.instantiate()
+						room_name = "Shop Room %d" % shop_room_name_count
+						shop_room_name_count += 1
 
 				if room_instance:
 					add_child(room_instance)
 					room_instance.global_position = Vector2(x * room_size, y * room_size)
+					room_instance.name = room_name  # Rename the room
 	
 	# Iterate through every key called, room_pos, in room_connections dictionary
 	for room_pos in room_connections.keys():
