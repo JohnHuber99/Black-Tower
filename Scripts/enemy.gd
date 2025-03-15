@@ -123,3 +123,4 @@ func _on_enemy_activated() -> void:
 
 func _on_enemy_deactivated() -> void:
 	enemyActivation = false
+	global_position = enemy_area.get_parent().get_node("EnemyDungeonSpawn").global_position
