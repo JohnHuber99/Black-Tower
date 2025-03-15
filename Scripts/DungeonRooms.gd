@@ -43,7 +43,8 @@ var room_symbols = {
 }
 
 # Tracking variables
-var boss_room = []
+var boss_room_list = []
+var boss_room_list_spawn = []
 var possible_neighbors = []
 var long_room_list = []
 var long_room_list_spawn = []
@@ -101,25 +102,27 @@ func _init():
 	#start_room_pos.emit(start_x * room_size + (room_size/2), start_y * room_size + (room_size/2))
 
 
-func spawn_dungeon():
+func spawn_dungeon(): 
 	var tile_size = 16  # Change this based on your actual tile size
 	var room_size = 22 * tile_size  # 22 tiles per room
-	
+
+	# Initialize counters for naming rooms
 	var normal_room_name_count = 1
 	var big_room_name_count = 1
 	var long_room_name_count = 1
-	var boss_room_name_count = 1
+	var boss_room_count = 1
 	var treasure_room_name_count = 1
 	var shop_room_name_count = 1
 
 	# First, spawn rooms
+	var rooms = {}  # To store room instances by their positions
 	for y in HEIGHT:
 		for x in WIDTH:
 			var room_type = dungeon[y][x]
 			if room_type != EMPTY:
 				var room_instance
 				var room_name = ""
-				
+
 				match room_type:
 					START: 
 						room_instance = STARTING_ROOM.instantiate() 
@@ -139,7 +142,7 @@ func spawn_dungeon():
 							room_name = "Long Room %d" % long_room_name_count
 							long_room_name_count += 1
 					BOSS:
-						if Vector2(x, y) in boss_room:
+						if Vector2(x, y) in boss_room_list_spawn:
 							room_instance = BOSS_ROOM.instantiate() 
 							room_name = "Boss Room"
 					TREASURE: 
@@ -155,17 +158,44 @@ func spawn_dungeon():
 					add_child(room_instance)
 					room_instance.global_position = Vector2(x * room_size, y * room_size)
 					room_instance.name = room_name  # Rename the room
-	
+					
+					# Store rooms in the dictionary
+					if room_type == BOSS:
+						# BIG room takes up a 2x2 area, store all its positions
+						for dx in range(2):
+							for dy in range(2):
+								rooms[Vector2(x + dx, y + dy)] = room_instance
+								rooms[Vector2(x - dx, y - dy)] = room_instance
+								
+					if room_type == BIG:
+						# BIG room takes up a 2x2 area, store all its positions
+						for dx in range(2):
+							for dy in range(2):
+								rooms[Vector2(x + dx, y + dy)] = room_instance
+								rooms[Vector2(x - dx, y - dy)] = room_instance
+					elif room_type == LONG_H:
+						# LONG_H room takes up a 1x2 area, store both positions horizontally
+						for dx in range(2):
+							rooms[Vector2(x + dx, y)] = room_instance
+							rooms[Vector2(x - dx, y )] = room_instance
+					else:
+						# For normal and other rooms, just store the single position
+						rooms[Vector2(x, y)] = room_instance
+
 	# Iterate through every key called, room_pos, in room_connections dictionary
 	for room_pos in room_connections.keys():
 		var room_world_pos = Vector2(room_pos.x * room_size, room_pos.y * room_size)
-		
+
 		# Iterate through every value called, neighbor, stored in the key room_pos
-		for neighbor in room_connections[room_pos]:			
+		for neighbor in room_connections[room_pos]:            
 			# Create Door in Godot Scene
 			var door_instance = DOOR.instantiate()
-			add_child(door_instance)
 			
+			# Find the corresponding room for the neighbor position
+			var room_instance = rooms.get(room_pos)
+			if room_instance:
+				room_instance.add_child(door_instance)  # Add the door as a child of the room instance
+
 			# Determine door placement coordinates
 			var offset = neighbor - room_pos
 			
@@ -185,7 +215,8 @@ func spawn_dungeon():
 #Generates the Dungeon
 func generate_dungeon():
 	dungeon = []
-	boss_room = []
+	boss_room_list = []
+	boss_room_list_spawn = []
 	room_connections = {}  
 	long_room_list = []
 	long_room_list_spawn = []
@@ -338,8 +369,8 @@ func placeBossRight(y, x):
 	dungeon[y][x + 1] = BOSS
 	dungeon[y + 1][x] = BOSS
 	dungeon[y + 1][x + 1] = BOSS
-	boss_room.append([x,y + 1])
-	boss_room.append(Vector2(x, y+1))
+	boss_room_list.append([x,y + 1])
+	boss_room_list_spawn.append(Vector2(x, y+1))
 	
 # Creates a Boss Room on the left
 func placeBossLeft(y, x):
@@ -347,8 +378,8 @@ func placeBossLeft(y, x):
 	dungeon[y][x - 1] = BOSS
 	dungeon[y - 1][x] = BOSS
 	dungeon[y - 1][x - 1] = BOSS
-	boss_room.append([x - 1, y])
-	boss_room.append(Vector2(x-1, y))
+	boss_room_list.append([x - 1, y])
+	boss_room_list_spawn.append(Vector2(x-1, y))
 
 # Creates a Horizontal Long Room on the right
 func placeLONG_HRight(y, x):
