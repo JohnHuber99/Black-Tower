@@ -1,7 +1,11 @@
 extends Node2D
 
 # Loading Room Objects
-#signal start_room_pos(start_x: int, start_y: int)
+@export var MAX_BIG_ROOMS = 1 #Original value is 1
+@export var MAX_LONG_ROOMS = 2 #Original value is 2
+@export var BIG_ROOM_CHANCE = 0.01 #Original value is 0.01
+@export var LONG_ROOM_CHANCE = 0.1 #Original value is 0.1
+
 const NORMAL_ROOM = preload("res://Rooms/Normal_Room.tscn")
 const TREASURE_ROOM = preload("res://Rooms/Normal_Room.tscn")
 const SHOP_ROOM = preload("res://Rooms/Normal_Room.tscn")
@@ -12,10 +16,10 @@ const DOOR = preload("res://Rooms/Door.tscn")
 const STARTING_ROOM = preload("res://Rooms/Starting_Room.tscn")
 
 # Dungeon Grid Conditions
-const WIDTH = 7
-const HEIGHT = 7
-const MAX_ROOMS = 7
-const MAX_LOOPS = 40
+@export var WIDTH = 7 #Original value is 7
+@export var HEIGHT = 7 #Original value is 7
+@export var MAX_ROOMS = 7 #Original value is 7
+@export var MAX_LOOPS = 40 #Original value is 40
 
 # Contains a list of directions
 var directions = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
@@ -61,8 +65,8 @@ var num_rooms = 1
 var room_size = 22
 
 #Creates x and y and centers them on the 2D Array
-const start_x = WIDTH/2
-const start_y = HEIGHT/2
+var start_x = WIDTH/2
+var start_y = HEIGHT/2
 
 var x = start_x
 var y = start_y
@@ -96,11 +100,7 @@ func _init():
 
 	# Call a function to draw the dungeon on screen
 	print_dungeon()
-	# draw_dungeon()
 	spawn_dungeon()
-	#print("Sending Signal to Player: ")
-	#start_room_pos.emit(start_x * room_size + (room_size/2), start_y * room_size + (room_size/2))
-
 
 func spawn_dungeon(): 
 	var tile_size = 16  # Change this based on your actual tile size
@@ -174,16 +174,16 @@ func spawn_dungeon():
 						# BIG room takes up a 2x2 area, store all its positions
 						for dx in range(2):
 							for dy in range(2):
-								if is_room_in_big_list(Vector2(x + dx, y + dy)):
-									rooms[Vector2(x + dx, y + dy)] = room_instance
-								if is_room_in_big_list(Vector2(x - dx, y - dy)):
-									rooms[Vector2(x - dx, y - dy)] = room_instance
+								if is_room_in_big_list(Vector2(x + dx, y + dy - 1)):
+									rooms[Vector2(x + dx, y + dy - 1)] = room_instance
+								if is_room_in_big_list(Vector2(x - dx + 1, y - dy)):
+									rooms[Vector2(x - dx + 1, y - dy)] = room_instance
 					elif room_type == BOSS:
 						# BIG room takes up a 2x2 area, store all its positions
 						for dx in range(2):
 							for dy in range(2):
-									rooms[Vector2(x + dx, y + dy)] = room_instance
-									rooms[Vector2(x - dx, y - dy)] = room_instance
+									rooms[Vector2(x + dx, y + dy - 1)] = room_instance
+									rooms[Vector2(x - dx + 1, y - dy)] = room_instance
 
 	# Iterate through every key called, room_pos, in room_connections dictionary
 	for room_pos in room_connections.keys():
@@ -327,7 +327,7 @@ func pick_room_type(x, y) -> int:
 	var islongRight = false
 
 	# Check space for LONG_H (1x2 Horizontal Room)
-	if long_h_count < 2 and x < WIDTH - 1:
+	if long_h_count < MAX_LONG_ROOMS and x < WIDTH - 1:
 		if dungeon[y][x + 1] == EMPTY:
 			possible_types.append(LONG_H)
 			islongRight = true
@@ -337,7 +337,7 @@ func pick_room_type(x, y) -> int:
 				islongLeft = true
 	
 	# Check space for BIG (2x2 Room)
-	if big_room_count < 1 and x < WIDTH - 1 and y < HEIGHT - 1:
+	if big_room_count < MAX_BIG_ROOMS and x < WIDTH - 1 and y < HEIGHT - 1:
 		if (dungeon[y][x + 1] == EMPTY and dungeon[y + 1][x] == EMPTY and dungeon[y + 1][x + 1] == EMPTY):
 			possible_types.append(BIG)
 			isbigRight = true
@@ -347,7 +347,7 @@ func pick_room_type(x, y) -> int:
 				isbigLeft = true
 	
 	# Weighted Random Selection of if to add a Big Room or Long Room
-	if randf() < 0.01 and BIG in possible_types: # 1% Chance to add Big Room
+	if randf() < BIG_ROOM_CHANCE and BIG in possible_types: # 1% Chance to add Big Room
 		if isbigLeft and isbigRight:
 			if randf() < 0.5:
 				placeBIGLeft(y, x)
@@ -358,7 +358,7 @@ func pick_room_type(x, y) -> int:
 		else:
 			placeBIGLeft(y, x)
 		return BIG
-	elif randf() < 0.1 and LONG_H in possible_types: # 10% Chance to add Long Room
+	elif randf() < LONG_ROOM_CHANCE and LONG_H in possible_types: # 10% Chance to add Long Room
 		if islongLeft and islongRight:
 			if randf() < 0.5:
 				placeLONG_HLeft(y, x)
@@ -451,17 +451,17 @@ func add_random_connection(room: Vector2):
 			elif dungeon[room.y][room.x] == BIG:
 				# Prevent horizontal connections within the BIG room (left-right)
 				if (dir == Vector2.LEFT and
-				[[room.x, room.y],[room.x - 1, room.y],[x, room.y - 1],[room.x - 1, room.y - 1]] in big_room_list):
+				[[room.x, room.y],[room.x - 1, room.y],[room.x, room.y - 1],[room.x - 1, room.y - 1]] in big_room_list):
 					continue  
 				elif (dir == Vector2.RIGHT and 
-				[[room.x, room.y],[room.x + 1, room.y],[x, room.y + 1],[room.x + 1, room.y + 1]] in big_room_list):
+				[[room.x, room.y],[room.x + 1, room.y],[room.x, room.y + 1],[room.x + 1, room.y + 1]] in big_room_list):
 					continue 
 				# Prevent vertical connections within the BIG room (top-bottom)
 				elif (dir == Vector2.UP and 
-				[[room.x, room.y],[room.x - 1, room.y],[x, room.y - 1],[room.x - 1, room.y - 1]] in big_room_list):
+				[[room.x, room.y],[room.x - 1, room.y],[room.x, room.y - 1],[room.x - 1, room.y - 1]] in big_room_list):
 					continue
 				elif (dir == Vector2.DOWN and 
-				[[room.x, room.y],[room.x + 1, room.y],[x, room.y + 1],[room.x + 1, room.y + 1]] in big_room_list):
+				[[room.x, room.y],[room.x + 1, room.y],[room.x, room.y + 1],[room.x + 1, room.y + 1]] in big_room_list):
 					continue 
 
 				# Valid directions for Big Rooms (checking up, down, right, left)
