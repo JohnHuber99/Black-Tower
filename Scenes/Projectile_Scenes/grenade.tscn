@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkypinx6hg7rj"]
+
+[ext_resource type="Texture2D" uid="uid://bo3l6vy2ksjgf" path="res://sprites/Projectile_Sprites/Grenade.png" id="1_n7hr6"]
+
+[sub_resource type="GDScript" id="GDScript_2wynp"]
+script/source = "extends CharacterBody2D
+
+
+var SPEED = 300
+var vel : float
+
+
+func _physics_process(delta):
+	
+	
+	move_local_x(vel * SPEED * delta)
+"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mxes0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_n7hr6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Grenade" type="CharacterBody2D"]
+script = SubResource("GDScript_2wynp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_mxes0")
+autoplay = "default"

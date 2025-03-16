@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5qbyprgjcbsh"]
+
+[ext_resource type="Script" uid="uid://gr5vlqc7lcwt" path="res://Scripts/Ability_Scripts/grenade_2.gd" id="1_6lrgy"]
+[ext_resource type="Texture2D" uid="uid://bo3l6vy2ksjgf" path="res://sprites/Projectile_Sprites/Grenade.png" id="2_g541h"]
+
+[sub_resource type="Curve2D" id="Curve2D_2n66k"]
+_data = {
+"points": PackedVector2Array(0, 0, 25, -25, 0, 0, 0, 0, 0, 0, 50, 0)
+}
+point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h8oi1"]
+radius = 5.0
+
+[node name="Grenade2" type="Path2D"]
+curve = SubResource("Curve2D_2n66k")
+script = ExtResource("1_6lrgy")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+rotation = -0.785398
+
+[node name="Area2D" type="Area2D" parent="PathFollow2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/Area2D"]
+texture = ExtResource("2_g541h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Area2D"]
+shape = SubResource("CircleShape2D_h8oi1")
