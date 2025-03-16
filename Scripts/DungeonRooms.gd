@@ -347,7 +347,7 @@ func pick_room_type(x, y) -> int:
 				isbigLeft = true
 	
 	# Weighted Random Selection of if to add a Big Room or Long Room
-	if randf() < 1 and BIG in possible_types: # 1% Chance to add Big Room
+	if randf() < 0.01 and BIG in possible_types: # 1% Chance to add Big Room
 		if isbigLeft and isbigRight:
 			if randf() < 0.5:
 				placeBIGLeft(y, x)
@@ -358,7 +358,7 @@ func pick_room_type(x, y) -> int:
 		else:
 			placeBIGLeft(y, x)
 		return BIG
-	elif randf() < 1 and LONG_H in possible_types: # 10% Chance to add Long Room
+	elif randf() < 0.1 and LONG_H in possible_types: # 10% Chance to add Long Room
 		if islongLeft and islongRight:
 			if randf() < 0.5:
 				placeLONG_HLeft(y, x)
