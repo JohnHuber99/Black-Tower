@@ -98,6 +98,7 @@ func _process(delta):
 	
 	# Attack if close enough to player
 	if (global_position.distance_to(player.global_position) < attack_proximity and sprite.animation == "default"):
+		sprite.play("pause")
 		await pause_slime()
 		is_dashing = true
 		sprite.play("attack")
@@ -115,7 +116,6 @@ func _on_health_component_health_change(character_newHealth: Variant) -> void:
 	is_damaged = false
 	
 func _on_health_component_destroyed() -> void:
-	await sprite.animation_finished
 	sprite.play("death")
 	await sprite.animation_finished
 	queue_free()
