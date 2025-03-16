@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://cp7k1vt1f3ge5"]
+[gd_scene load_steps=8 format=4 uid="uid://cp7k1vt1f3ge5"]
 
 [ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://sprites/BT_Tile_Placeholders.png" id="1_38i4b"]
 [ext_resource type="Texture2D" uid="uid://dxgpqhgixf3df" path="res://sprites/bt-tiles-1alt.png" id="2_t63bv"]
+[ext_resource type="Script" uid="uid://b6gnwxoa44un1" path="res://Scripts/EnemyActivation.gd" id="3_pyr8e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vs6hy"]
 texture = ExtResource("1_38i4b")
@@ -100,6 +101,7 @@ tile_map_data = PackedByteArray("AAAAANr/AAAEAAAAAAAPANr/AAAEAAAAAAAPAOD/AQADAAA
 tile_set = SubResource("TileSet_7ugto")
 
 [node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("3_pyr8e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(352, -352)

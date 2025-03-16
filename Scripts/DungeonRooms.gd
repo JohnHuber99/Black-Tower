@@ -166,20 +166,24 @@ func spawn_dungeon():
 					elif room_type == LONG_H:
 						# LONG_H room takes up a 1x2 area, store both positions horizontally
 						for dx in range(2):
-							rooms[Vector2(x + dx, y)] = room_instance
-							rooms[Vector2(x - dx, y)] = room_instance
+							if is_room_in_long_list(Vector2(x + dx, y)):
+								rooms[Vector2(x + dx, y)] = room_instance
+							if is_room_in_long_list(Vector2(x - dx, y)):
+								rooms[Vector2(x - dx, y)] = room_instance
 					if room_type == BIG:
 						# BIG room takes up a 2x2 area, store all its positions
 						for dx in range(2):
 							for dy in range(2):
-								rooms[Vector2(x + dx, y + dy)] = room_instance
-								rooms[Vector2(x - dx, y - dy)] = room_instance
+								if is_room_in_big_list(Vector2(x + dx, y + dy)):
+									rooms[Vector2(x + dx, y + dy)] = room_instance
+								if is_room_in_big_list(Vector2(x - dx, y - dy)):
+									rooms[Vector2(x - dx, y - dy)] = room_instance
 					elif room_type == BOSS:
 						# BIG room takes up a 2x2 area, store all its positions
 						for dx in range(2):
 							for dy in range(2):
-								rooms[Vector2(x + dx, y + dy)] = room_instance
-								rooms[Vector2(x - dx, y - dy)] = room_instance
+									rooms[Vector2(x + dx, y + dy)] = room_instance
+									rooms[Vector2(x - dx, y - dy)] = room_instance
 
 	# Iterate through every key called, room_pos, in room_connections dictionary
 	for room_pos in room_connections.keys():
@@ -210,7 +214,33 @@ func spawn_dungeon():
 			elif offset == Vector2.RIGHT: #right door
 				door_instance.global_position = room_world_pos - Vector2(tile_size, 0) + Vector2(room_size, room_size / 2) - Vector2(0, room_size - tile_size)
 				door_instance.type = "right"
-					
+
+func is_room_in_big_list(position: Vector2) -> bool:
+	for big_room in big_room_list:
+		for big_room_position in big_room:
+			var vector_long_room = Vector2(big_room_position[0], big_room_position[1])
+			if position == vector_long_room:  
+				return true
+	return false
+
+# Function to check if a room is part of the boss_room_list
+# func is_room_in_boss_list(position: Vector2) -> bool:
+	#for boss_room in boss_room_list:
+		#print(position, " == ", boss_room, ": ", position.x == boss_room[0] and position.y == boss_room[1]) 
+		#if position.x == boss_room[0] and position.y == boss_room[1]: 
+			#return true
+	#return false
+
+# Function to check if a room is part of the long_room_list
+func is_room_in_long_list(position: Vector2) -> bool:
+	for long_room in long_room_list:
+		for long_room_position in long_room:
+			var vector_long_room = Vector2(long_room_position[0], long_room_position[1])
+			if position == vector_long_room: 
+				return true
+	return false
+
+		
 #Generates the Dungeon
 func generate_dungeon():
 	dungeon = []
@@ -317,7 +347,7 @@ func pick_room_type(x, y) -> int:
 				isbigLeft = true
 	
 	# Weighted Random Selection of if to add a Big Room or Long Room
-	if randf() < 0.01 and BIG in possible_types: # 1% Chance to add Big Room
+	if randf() < 1 and BIG in possible_types: # 1% Chance to add Big Room
 		if isbigLeft and isbigRight:
 			if randf() < 0.5:
 				placeBIGLeft(y, x)
@@ -328,7 +358,7 @@ func pick_room_type(x, y) -> int:
 		else:
 			placeBIGLeft(y, x)
 		return BIG
-	elif randf() < 0.1 and LONG_H in possible_types: # 10% Chance to add Long Room
+	elif randf() < 1 and LONG_H in possible_types: # 10% Chance to add Long Room
 		if islongLeft and islongRight:
 			if randf() < 0.5:
 				placeLONG_HLeft(y, x)
