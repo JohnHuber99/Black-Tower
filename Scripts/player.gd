@@ -17,6 +17,7 @@ extends CharacterBody2D
 @onready var health = $"Health Component"
 const GRENADE = preload("res://Scenes/grenade2.tscn")
 const KNIFE = preload("res://Scenes/knife.tscn")
+const SALTS = preload("res://Scenes/smelling_salts.tscn")
 var isThrowing = false
 
 var can_move = true
@@ -33,7 +34,6 @@ var chain_timer = 0
 
 signal spell_key_released
 signal launch_vapor(x, y)
-signal spell_completed
 
 func get_input(delta):
 	var input_direction = Input.get_vector("left", "right", "up", "down")
@@ -133,12 +133,6 @@ func _process(delta):
 		if chain_timer <= 0:
 			attack_chain = 0
 
-# Boost stats and release sprite after vapor animation is finished
-func _on_smelling_salts_finished() -> void:
-	stats_boosted = true
-	buff_timer = max_buff_duration
-	spell_completed.emit()
-
 func grenade_animation():
 	# Plays first half of throwing animation once
 	sprite.play("throw_start")
@@ -166,8 +160,15 @@ func smelling_salts_animation():
 	
 	# Wait for vapor animation
 	# Vapor animation works its that the offset was off the player by a wide margin
-	launch_vapor.emit(position.x, position.y)
-	await spell_completed
+	var salts = SALTS.instantiate()
+	
+	salts.position.x = position.x + offset_x
+	salts.position.y = position.y + offset_y
+	
+	get_parent().add_child(salts)
+	
+	stats_boosted = true
+	buff_timer = max_buff_duration
 	
 	# Unlock turning
 	can_turn = true
@@ -198,8 +199,6 @@ func attack_animation():
 
 func _ready():
 	z_index = 1
-	var vaporSignalEnd = get_node("SmellingSalts")
-	vaporSignalEnd.smelling_salts_finished.connect(_on_smelling_salts_finished)
 
 func _launch():
 		if isThrowing: return

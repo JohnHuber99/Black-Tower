@@ -309,7 +309,7 @@ shape = SubResource("CircleShape2D_0830c")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_7duco")
-animation = &"death"
+animation = &"attack"
 autoplay = "default"
 
 [node name="Health Component" parent="." instance=ExtResource("6_ghaa6")]
