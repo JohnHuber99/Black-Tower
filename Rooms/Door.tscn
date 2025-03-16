@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://b3ladofhl585s"]
 
 [ext_resource type="Texture2D" uid="uid://8um6ncdwrud3" path="res://sprites/Dungeon tileset.png" id="1_1vvux"]
-[ext_resource type="Script" uid="uid://c8h5yac3cvh0r" path="res://Scripts/door.gd" id="1_eplmc"]
-[ext_resource type="Script" uid="uid://mlff0amp6t5w" path="res://Scripts/doorCode.gd" id="3_eplmc"]
+[ext_resource type="Script" path="res://Scripts/door.gd" id="1_eplmc"]
+[ext_resource type="Script" path="res://Scripts/doorCode.gd" id="3_eplmc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iu8q0"]
 texture = ExtResource("1_1vvux")

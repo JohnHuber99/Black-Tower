@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://sprites/BT_Tile_Placeholders.png" id="1_e64e1"]
 [ext_resource type="Texture2D" uid="uid://dxgpqhgixf3df" path="res://sprites/bt-tiles-1alt.png" id="2_eb2n0"]
-[ext_resource type="Script" uid="uid://b6gnwxoa44un1" path="res://Scripts/EnemyActivation.gd" id="3_2lnw7"]
+[ext_resource type="Script" path="res://Scripts/EnemyActivation.gd" id="3_2lnw7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6y5pn"]
 texture = ExtResource("1_e64e1")
