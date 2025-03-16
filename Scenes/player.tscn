@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://b4uixgwclv3j8"]
+[gd_scene load_steps=71 format=3 uid="uid://b4uixgwclv3j8"]
 
 [ext_resource type="Script" uid="uid://bckauqi7hchmr" path="res://Scripts/player.gd" id="1_3jcom"]
 [ext_resource type="Texture2D" uid="uid://cmov0iwtw5j3e" path="res://sprites/Death.png" id="1_5voi2"]
@@ -9,8 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://dhbo1pdw7f62m" path="res://sprites/grenade_throw.png" id="4_bob2w"]
 [ext_resource type="Texture2D" uid="uid://bat4rjdsewfqn" path="res://sprites/Throwing_Idle.png" id="5_h1gd6"]
 [ext_resource type="Script" uid="uid://cej8auhwlwqxq" path="res://Scripts/PlayerCamera.gd" id="7_3smsa"]
-[ext_resource type="Script" uid="uid://dmespoe2nllf2" path="res://Scripts/smelling_salts.gd" id="8_f1ek2"]
-[ext_resource type="Texture2D" uid="uid://dl2bg7wg7kpiv" path="res://sprites/Vapor-Sheet.png" id="9_tx1dd"]
 [ext_resource type="PackedScene" uid="uid://bwicqk1gug5b" path="res://Scenes/Health Component.tscn" id="12_pu2lt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tx1dd"]
@@ -486,98 +484,6 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ac86f"]
-atlas = ExtResource("9_tx1dd")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wtg0t"]
-atlas = ExtResource("9_tx1dd")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vhycy"]
-atlas = ExtResource("9_tx1dd")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ieni1"]
-atlas = ExtResource("9_tx1dd")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kisq2"]
-atlas = ExtResource("9_tx1dd")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j8dhn"]
-atlas = ExtResource("9_tx1dd")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ehpsn"]
-atlas = ExtResource("9_tx1dd")
-region = Rect2(64, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6utmk"]
-atlas = ExtResource("9_tx1dd")
-region = Rect2(96, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j33x7"]
-atlas = ExtResource("9_tx1dd")
-region = Rect2(0, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ys1th"]
-atlas = ExtResource("9_tx1dd")
-region = Rect2(32, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vi4kp"]
-atlas = ExtResource("9_tx1dd")
-region = Rect2(64, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lyspr"]
-atlas = ExtResource("9_tx1dd")
-region = Rect2(96, 64, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_gymyn"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ac86f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wtg0t")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vhycy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ieni1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kisq2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j8dhn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ehpsn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6utmk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j33x7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ys1th")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vi4kp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lyspr")
-}],
-"loop": false,
-"name": &"vapor",
-"speed": 8.0
-}]
-
 [node name="player" type="CharacterBody2D" groups=["player"]]
 top_level = true
 script = ExtResource("1_3jcom")
@@ -593,17 +499,6 @@ animation = &"idle"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("7_3smsa")
-
-[node name="SmellingSalts" type="Node2D" parent="."]
-position = Vector2(0, 2)
-script = ExtResource("8_f1ek2")
-
-[node name="SmellingSaltsSprite" type="AnimatedSprite2D" parent="SmellingSalts"]
-z_index = 2
-sprite_frames = SubResource("SpriteFrames_gymyn")
-animation = &"vapor"
-frame = 11
-frame_progress = 1.0
 
 [node name="Health Component" parent="." instance=ExtResource("12_pu2lt")]
 
