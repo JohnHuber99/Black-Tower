@@ -62,7 +62,7 @@ var is_shop_spawn = false
 var num_loops = 0
 var num_rooms = 1
 
-var room_size = 22
+var room_size = 27
 
 #Creates x and y and centers them on the 2D Array
 var start_x = WIDTH/2
@@ -104,7 +104,7 @@ func _init():
 
 func spawn_dungeon(): 
 	var tile_size = 16  # Change this based on your actual tile size
-	var room_size = 22 * tile_size  # 22 tiles per room
+	var room_size = 27 * tile_size  # 27 tiles per room
 
 	# Initialize counters for naming rooms
 	var normal_room_name_count = 1
