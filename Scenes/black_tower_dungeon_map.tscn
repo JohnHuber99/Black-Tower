@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dcb2mgjnpto4f"]
 
-[ext_resource type="Script" path="res://Scripts/DungeonRooms.gd" id="1_124m7"]
+[ext_resource type="Script" uid="uid://dmru7ohnl1p0k" path="res://Scripts/DungeonRooms.gd" id="1_124m7"]
 [ext_resource type="Script" path="res://Scripts/camera_2d.gd" id="2_edw0u"]
 [ext_resource type="PackedScene" uid="uid://fwh7s1rxc85i" path="res://Rooms/Normal_Room.tscn" id="3_lgvd8"]
 [ext_resource type="PackedScene" uid="uid://beqodim8out42" path="res://Rooms/Long_Room.tscn" id="4_k2qfu"]
