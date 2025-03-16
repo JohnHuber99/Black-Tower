@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://byb3n8mayv5ee" path="res://sprites/bt-tiles-2.png" id="3_kxaeg"]
 [ext_resource type="Texture2D" uid="uid://bs8bj1a6wlevl" path="res://sprites/bt-tiles-22.png" id="4_8uvhx"]
 [ext_resource type="Texture2D" uid="uid://krdcm5bgx56o" path="res://sprites/bt-bushes.png" id="5_ya1nu"]
-[ext_resource type="Shader" path="res://Rooms/bushes_temp.gdshader" id="6_04yf4"]
-[ext_resource type="Shader" path="res://Rooms/bushes_temp_real.gdshader" id="6_8hpev"]
+[ext_resource type="Shader" uid="uid://biq2tsb06dlld" path="res://Rooms/bushes_temp.gdshader" id="6_04yf4"]
+[ext_resource type="Shader" uid="uid://biqtcmw7rel8t" path="res://Rooms/bushes_temp_real.gdshader" id="6_8hpev"]
 [ext_resource type="Texture2D" uid="uid://drnte5iyy5uue" path="res://sprites/bt-flowers.png" id="6_hyl4t"]
 [ext_resource type="Texture2D" uid="uid://bo3l6vy2ksjgf" path="res://sprites/Grenade.png" id="7_kt6p1"]
 

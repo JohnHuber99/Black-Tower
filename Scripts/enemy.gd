@@ -21,7 +21,7 @@ var last_direction
 var player
 
 func _ready() -> void:
-	enemy_area = get_parent().get_node("RoomArea")
+	enemy_area = get_parent().get_parent().get_node("RoomArea")
 	enemy_area.connect("enemy_activated", _on_enemy_activated)
 	enemy_area.connect("enemy_deactivated", _on_enemy_deactivated)
 
@@ -121,8 +121,9 @@ func _on_health_component_destroyed() -> void:
 	queue_free()
 
 func _on_enemy_activated() -> void:
+	global_position = get_parent().global_position
 	enemyActivation = true
 
 func _on_enemy_deactivated() -> void:
 	enemyActivation = false
-	global_position = enemy_area.get_parent().get_node("EnemyDungeonSpawn").global_position
+	global_position = get_parent().global_position

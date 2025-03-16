@@ -5,7 +5,6 @@ const ENEMY = preload("res://Scenes/enemy.tscn")
 
 func _ready() -> void:
 	var enemy_instance = ENEMY.instantiate()
-	enemy_instance.global_position = position  # Set initial position
-	enemy_instance.visible = true
+	enemy_instance.global_position = global_position  # Set initial position
 	enemy_instance.z_index = 1  # Make sure the enemy is in front
-	get_parent().add_child.call_deferred(enemy_instance)
+	add_child.call_deferred(enemy_instance)
