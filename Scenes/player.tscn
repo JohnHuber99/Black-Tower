@@ -1,6 +1,6 @@
 [gd_scene load_steps=71 format=3 uid="uid://b4uixgwclv3j8"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_3jcom"]
+[ext_resource type="Script" uid="uid://bckauqi7hchmr" path="res://Scripts/player.gd" id="1_3jcom"]
 [ext_resource type="Texture2D" uid="uid://cmov0iwtw5j3e" path="res://sprites/Death.png" id="1_5voi2"]
 [ext_resource type="Texture2D" uid="uid://bgemqup8jls7v" path="res://sprites/PlagueDoctor_WalkRight_Sprite-Sheet_v1.png" id="1_fkcr7"]
 [ext_resource type="Texture2D" uid="uid://kpqela8cflr" path="res://sprites/Throw_2.png" id="2_gymyn"]
