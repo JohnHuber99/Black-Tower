@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://beu0skyadwt6x"]
+[gd_scene load_steps=49 format=3 uid="uid://beu0skyadwt6x"]
 
 [ext_resource type="Script" uid="uid://bwkqflwu8gxce" path="res://Scripts/enemy.gd" id="1_g816c"]
 [ext_resource type="Texture2D" uid="uid://305ocla3pksv" path="res://sprites/Enemy_Sprite-Sheet.png" id="2_1f0kj"]
@@ -81,6 +81,14 @@ region = Rect2(32, 96, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_6jaer"]
 atlas = ExtResource("3_287tu")
 region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwheg"]
+atlas = ExtResource("3_287tu")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iol0x"]
+atlas = ExtResource("3_287tu")
+region = Rect2(0, 128, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_afpow"]
 atlas = ExtResource("2_1f0kj")
@@ -223,6 +231,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6jaer")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwheg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iol0x")
 }],
 "loop": false,
 "name": &"death",
@@ -314,7 +328,7 @@ shape = SubResource("CircleShape2D_0830c")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_7duco")
-animation = &"attack"
+animation = &"death"
 autoplay = "default"
 
 [node name="Health Component" parent="." instance=ExtResource("6_ghaa6")]

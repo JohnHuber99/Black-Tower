@@ -2,12 +2,12 @@ extends CharacterBody2D
 
 class_name Enemy
 
-@export var speed = 90
+@export var speed = 100
 @export var dash_speed = 5
 @export var attack_proximity = 75
 @export var damage = 20
 @export var knockback = 400
-@export var wait_time: float = 1  # Time (in seconds) to wait after collision
+@export var wait_time: float = 0.5  # Time (in seconds) to wait after collision
 var is_waiting: bool = false  # Flag to track if waiting
 var is_dashing: bool = false
 var is_damaged: bool = false
