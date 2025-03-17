@@ -88,6 +88,9 @@ func _init():
 		
 		if is_valid_dungeon():
 			print("Dungeon generated successfully after ", attempts, " attempts!")
+			# Call a function to draw the dungeon on screen
+			print_dungeon()
+			spawn_dungeon()
 			break
 		
 		if attempts % 100 == 0:
@@ -97,10 +100,6 @@ func _init():
 		
 		if attempts == 1001:
 			break
-
-	# Call a function to draw the dungeon on screen
-	print_dungeon()
-	spawn_dungeon()
 
 func spawn_dungeon(): 
 	var tile_size = 16  # Change this based on your actual tile size
@@ -182,7 +181,9 @@ func spawn_dungeon():
 						# BIG room takes up a 2x2 area, store all its positions
 						for dx in range(2):
 							for dy in range(2):
+								if is_room_in_boss_list(Vector2(x + dx, y + dy - 1)):
 									rooms[Vector2(x + dx, y + dy - 1)] = room_instance
+								if is_room_in_boss_list(Vector2(x - dx + 1, y - dy)):
 									rooms[Vector2(x - dx + 1, y - dy)] = room_instance
 
 	# Iterate through every key called, room_pos, in room_connections dictionary
@@ -218,18 +219,19 @@ func spawn_dungeon():
 func is_room_in_big_list(position: Vector2) -> bool:
 	for big_room in big_room_list:
 		for big_room_position in big_room:
-			var vector_long_room = Vector2(big_room_position[0], big_room_position[1])
-			if position == vector_long_room:  
+			var vector_big_room = Vector2(big_room_position[0], big_room_position[1])
+			if position == vector_big_room:  
 				return true
 	return false
 
 # Function to check if a room is part of the boss_room_list
-# func is_room_in_boss_list(position: Vector2) -> bool:
-	#for boss_room in boss_room_list:
-		#print(position, " == ", boss_room, ": ", position.x == boss_room[0] and position.y == boss_room[1]) 
-		#if position.x == boss_room[0] and position.y == boss_room[1]: 
-			#return true
-	#return false
+func is_room_in_boss_list(position: Vector2) -> bool:
+	for boss_room in boss_room_list:
+		for boss_room_position in boss_room:
+			var vector_boss_room = Vector2(boss_room_position[0], boss_room_position[1])
+			if position == vector_boss_room:  
+				return true
+	return false
 
 # Function to check if a room is part of the long_room_list
 func is_room_in_long_list(position: Vector2) -> bool:
@@ -398,7 +400,7 @@ func placeBossRight(y, x):
 	dungeon[y][x + 1] = BOSS
 	dungeon[y + 1][x] = BOSS
 	dungeon[y + 1][x + 1] = BOSS
-	boss_room_list.append([x,y + 1])
+	boss_room_list.append([[x, y],[x + 1, y],[x, y + 1],[x + 1, y + 1]])
 	boss_room_list_spawn.append(Vector2(x, y+1))
 	
 # Creates a Boss Room on the left
@@ -407,7 +409,7 @@ func placeBossLeft(y, x):
 	dungeon[y][x - 1] = BOSS
 	dungeon[y - 1][x] = BOSS
 	dungeon[y - 1][x - 1] = BOSS
-	boss_room_list.append([x - 1, y])
+	boss_room_list.append([[x, y], [x - 1, y],[x, y - 1],[x - 1, y - 1]])
 	boss_room_list_spawn.append(Vector2(x-1, y))
 
 # Creates a Horizontal Long Room on the right
