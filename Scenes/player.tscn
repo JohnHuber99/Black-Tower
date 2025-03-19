@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://b4uixgwclv3j8"]
+[gd_scene load_steps=73 format=3 uid="uid://b4uixgwclv3j8"]
 
 [ext_resource type="Script" path="res://Scripts/Player_Scripts/player.gd" id="1_3jcom"]
 [ext_resource type="Texture2D" uid="uid://cmov0iwtw5j3e" path="res://sprites/Player_Sprites/Death.png" id="1_5voi2"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://dhbo1pdw7f62m" path="res://sprites/Ability_Sprites/grenade_throw.png" id="4_bob2w"]
 [ext_resource type="Texture2D" uid="uid://bat4rjdsewfqn" path="res://sprites/Ability_Sprites/Throwing_Idle.png" id="5_h1gd6"]
 [ext_resource type="Script" path="res://Scripts/Camera_Scripts/PlayerCamera.gd" id="7_3smsa"]
+[ext_resource type="PackedScene" uid="uid://ooqf0bpcg3ow" path="res://Scenes/ui.tscn" id="10_u1qio"]
+[ext_resource type="FontFile" uid="uid://vx8hmoh8k8op" path="res://04B_03__.TTF" id="12_gg6l7"]
 [ext_resource type="PackedScene" uid="uid://bwicqk1gug5b" path="res://Scenes/Component_Scenes/Health Component.tscn" id="12_pu2lt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tx1dd"]
@@ -500,6 +502,8 @@ animation = &"idle"
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("7_3smsa")
 
+[node name="Ui" parent="Camera2D" instance=ExtResource("10_u1qio")]
+
 [node name="Health Component" parent="." instance=ExtResource("12_pu2lt")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -510,9 +514,11 @@ transform = Transform2D(1, 0, 0, 1, 300, 150)
 custom_minimum_size = Vector2(60, 0)
 offset_right = 40.0
 offset_bottom = 207.0
+theme_override_fonts/normal_font = ExtResource("12_gg6l7")
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
+autowrap_mode = 0
 
 [connection signal="destroyed" from="Health Component" to="." method="_on_health_component_destroyed"]
 [connection signal="health_change" from="Health Component" to="." method="_on_health_component_health_change"]

@@ -15,6 +15,7 @@ extends CharacterBody2D
 @onready var death_label = $"CanvasLayer/DeathLabel"
 @onready var sprite = $PlayerSprite
 @onready var health = $"Health Component"
+@onready var ui = $Camera2D/Ui
 const GRENADE = preload("res://Scenes/Ability_Scenes/grenade2.tscn")
 const KNIFE = preload("res://Scenes/Projectile_Scenes/knife.tscn")
 const SALTS = preload("res://Scenes/Ability_Scenes/smelling_salts.tscn")
@@ -199,6 +200,7 @@ func attack_animation():
 
 func _ready():
 	z_index = 1
+	ui.set_health(health.MAX_HEALTH, health.MAX_HEALTH)
 
 func _launch():
 		if isThrowing: return
@@ -232,6 +234,7 @@ func knockback(direction: Vector2, magnitude):
 	velocity = direction * magnitude
 
 func _on_health_component_health_change(character_newHealth: Variant) -> void:
+	ui.set_health(character_newHealth, health.MAX_HEALTH)
 	can_move = false
 	animating = true
 	iframe_timer = iframes

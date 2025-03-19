@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://ooqf0bpcg3ow"]
+
+[ext_resource type="Texture2D" uid="uid://b0krf7d1p6e8f" path="res://sprites/UI/bt-healthbar.png" id="1_1xnp1"]
+[ext_resource type="Script" path="res://Scripts/ui.gd" id="1_x1l0w"]
+[ext_resource type="FontFile" uid="uid://vx8hmoh8k8op" path="res://04B_03__.TTF" id="2_7uyga"]
+[ext_resource type="Texture2D" uid="uid://clmq08ii0j1x5" path="res://sprites/UI/bt-manabar.png" id="3_7ayfc"]
+[ext_resource type="Texture2D" uid="uid://5lrruy7gim1" path="res://sprites/UI/bt-expbar-bg.png" id="4_d46xy"]
+
+[node name="Ui" type="Node2D"]
+script = ExtResource("1_x1l0w")
+
+[node name="Health" type="Sprite2D" parent="."]
+position = Vector2(-293, 149)
+texture = ExtResource("1_1xnp1")
+
+[node name="Label" type="Label" parent="Health"]
+offset_left = -18.0
+offset_top = -6.0
+offset_right = 34.0
+offset_bottom = 17.0
+theme_override_fonts/font = ExtResource("2_7uyga")
+theme_override_font_sizes/font_size = 12
+text = "/"
+horizontal_alignment = 1
+
+[node name="Mana" type="Sprite2D" parent="."]
+position = Vector2(-294, 128)
+texture = ExtResource("3_7ayfc")
+
+[node name="Label" type="Label" parent="Mana"]
+offset_left = -17.0
+offset_top = -5.0
+offset_right = 31.0
+offset_bottom = 18.0
+theme_override_fonts/font = ExtResource("2_7uyga")
+theme_override_font_sizes/font_size = 12
+text = "/"
+horizontal_alignment = 1
+
+[node name="Exp" type="Sprite2D" parent="."]
+position = Vector2(-243, 139)
+texture = ExtResource("4_d46xy")
+
+[node name="Camera2D" type="Camera2D" parent="."]
