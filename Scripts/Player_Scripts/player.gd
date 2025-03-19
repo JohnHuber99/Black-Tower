@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var friction = 600
 @export var direction_change_accel = 2000
 @export var spells = ["grenade", "smelling_salts"]
+@export var spell_cooldowns = [7, 12] # spell cooldown is seconds
 @export var knife_damage = 10
 @export var boosted_knife_damage = 20
 @export var max_buff_duration = 10
@@ -25,6 +26,7 @@ var can_move = true
 var can_turn = true
 var animating = false
 var current_spell_index = 0
+var can_cast = [true, true]
 
 var stats_boosted = false
 var buff_timer = 0
@@ -69,9 +71,11 @@ func _input(event):
 		can_move = false
 		
 		# Play casting animation based on spell
-		if (spells[current_spell_index] == "grenade"):
+		if (spells[current_spell_index] == "grenade" and can_cast[current_spell_index]):
+			cooldown_spell(current_spell_index)
 			await grenade_animation()
-		elif (spells[current_spell_index] == "smelling_salts"):
+		elif (spells[current_spell_index] == "smelling_salts" and can_cast[current_spell_index]):
+			cooldown_spell(current_spell_index)
 			await smelling_salts_animation()
 		
 		# Casting animations finished
@@ -201,6 +205,8 @@ func attack_animation():
 func _ready():
 	z_index = 1
 	ui.set_health(health.MAX_HEALTH, health.MAX_HEALTH)
+	ui.set_spell_0(spells[0])
+	ui.set_spell_1(spells[1])
 
 func _launch():
 		if isThrowing: return
@@ -232,6 +238,13 @@ func _fire() :
 	
 func knockback(direction: Vector2, magnitude):
 	velocity = direction * magnitude
+
+func cooldown_spell(spell):
+	can_cast[spell] = false
+	ui.set_cooldown(spell)
+	await get_tree().create_timer(spell_cooldowns[spell]).timeout  # Wait for the set time
+	can_cast[spell] = true
+	ui.set_ready(spell)
 
 func _on_health_component_health_change(character_newHealth: Variant) -> void:
 	ui.set_health(character_newHealth, health.MAX_HEALTH)
