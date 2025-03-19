@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dcb2mgjnpto4f"]
 
-[ext_resource type="Script" uid="uid://dmru7ohnl1p0k" path="res://Scripts/Dungeon_Scripts/DungeonRooms.gd" id="1_124m7"]
-[ext_resource type="Script" uid="uid://chhocq4ajec5b" path="res://Scripts/Camera_Scripts/camera_2d.gd" id="2_edw0u"]
+[ext_resource type="Script" path="res://Scripts/Dungeon_Scripts/DungeonRooms.gd" id="1_124m7"]
+[ext_resource type="Script" path="res://Scripts/Camera_Scripts/camera_2d.gd" id="2_edw0u"]
 [ext_resource type="PackedScene" uid="uid://fwh7s1rxc85i" path="res://Rooms/Normal_Room.tscn" id="3_lgvd8"]
 [ext_resource type="PackedScene" uid="uid://beqodim8out42" path="res://Rooms/Long_Room.tscn" id="4_k2qfu"]
 [ext_resource type="PackedScene" uid="uid://cp7k1vt1f3ge5" path="res://Rooms/Big_Room.tscn" id="5_jolqb"]
