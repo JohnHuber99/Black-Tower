@@ -2,9 +2,9 @@ extends CharacterBody2D
 
 class_name Enemy
 
-@export var speed = 100
+@export var speed = 150
 @export var dash_speed = 5
-@export var attack_proximity = 75
+@export var attack_proximity = 100
 @export var damage = 20
 @export var knockback = 400
 @export var wait_time: float = 0.5  # Time (in seconds) to wait after collision
@@ -18,6 +18,7 @@ var last_direction
 
 @onready var sprite = $AnimatedSprite2D
 @onready var health = $"Health Component"
+@onready var death_explosion = $CPUParticles2D
 var player
 
 func _ready() -> void:
@@ -97,16 +98,16 @@ func _process(delta):
 	sprite.flip_h = x_distance > 0
 	
 	# Attack if close enough to player
-	if (global_position.distance_to(player.global_position) < attack_proximity and sprite.animation == "default"):
-		sprite.play("pause")
-		await pause_slime()
+	if (global_position.distance_to(player.global_position) < attack_proximity and !is_dashing):
 		is_dashing = true
+		sprite.play("pause")
+		await sprite.animation_finished
 		sprite.play("attack")
 		await sprite.animation_finished
-		is_dashing = false
 		await pause_slime()
+		is_dashing = false
 	else:
-		if sprite.animation != "attack":
+		if !sprite.is_playing():
 			sprite.play("default")
 
 func _on_health_component_health_change(character_newHealth: Variant) -> void:
@@ -117,6 +118,7 @@ func _on_health_component_health_change(character_newHealth: Variant) -> void:
 	
 func _on_health_component_destroyed() -> void:
 	sprite.play("death")
+	death_explosion.emitting = true;
 	await sprite.animation_finished
 	queue_free()
 
