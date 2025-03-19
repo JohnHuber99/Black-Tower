@@ -1,11 +1,11 @@
 [gd_scene load_steps=20 format=4 uid="uid://fwh7s1rxc85i"]
 
 [ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://sprites/Tilemaps_Sprites/BT_Tile_Placeholders.png" id="1_w3ckf"]
-[ext_resource type="Script" path="res://Scripts/Enemy_Scripts/enemy_dungeon_spawn.gd" id="2_uhrl0"]
+[ext_resource type="Script" uid="uid://uhf160oax2pj" path="res://Scripts/Enemy_Scripts/enemy_dungeon_spawn.gd" id="2_uhrl0"]
 [ext_resource type="Texture2D" uid="uid://dxgpqhgixf3df" path="res://sprites/Tilemaps_Sprites/bt-tiles-1alt.png" id="2_vrhnp"]
 [ext_resource type="Texture2D" uid="uid://byb3n8mayv5ee" path="res://sprites/Tilemaps_Sprites/bt-tiles-2.png" id="3_dxk3n"]
 [ext_resource type="Texture2D" uid="uid://bs8bj1a6wlevl" path="res://sprites/Tilemaps_Sprites/bt-tiles-22.png" id="4_2ptq4"]
-[ext_resource type="Script" path="res://Scripts/Enemy_Scripts/EnemyActivation.gd" id="4_xhdgs"]
+[ext_resource type="Script" uid="uid://b6gnwxoa44un1" path="res://Scripts/Enemy_Scripts/EnemyActivation.gd" id="4_xhdgs"]
 [ext_resource type="Texture2D" uid="uid://krdcm5bgx56o" path="res://sprites/Bush.Shaders_Sprites/bt-bushes.png" id="5_mh0wd"]
 [ext_resource type="Texture2D" uid="uid://drnte5iyy5uue" path="res://sprites/Bush.Shaders_Sprites/bt-flowers.png" id="6_ojvs1"]
 

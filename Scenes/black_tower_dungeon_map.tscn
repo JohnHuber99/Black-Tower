@@ -1,36 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dcb2mgjnpto4f"]
+[gd_scene load_steps=2 format=3 uid="uid://dcb2mgjnpto4f"]
 
-[ext_resource type="Script" path="res://Scripts/Dungeon_Scripts/DungeonRooms.gd" id="1_124m7"]
-[ext_resource type="Script" path="res://Scripts/Camera_Scripts/camera_2d.gd" id="2_edw0u"]
-[ext_resource type="PackedScene" uid="uid://fwh7s1rxc85i" path="res://Rooms/Normal_Room.tscn" id="3_lgvd8"]
-[ext_resource type="PackedScene" uid="uid://beqodim8out42" path="res://Rooms/Long_Room.tscn" id="4_k2qfu"]
-[ext_resource type="PackedScene" uid="uid://cp7k1vt1f3ge5" path="res://Rooms/Big_Room.tscn" id="5_jolqb"]
-[ext_resource type="PackedScene" uid="uid://cyxsij02d8ebb" path="res://Rooms/Boss_Room.tscn" id="6_digsl"]
-[ext_resource type="PackedScene" uid="uid://b3ladofhl585s" path="res://Rooms/Door.tscn" id="7_chgra"]
-[ext_resource type="PackedScene" uid="uid://c3elyorobl4bn" path="res://Rooms/Starting_Room.tscn" id="8_rjmds"]
+[ext_resource type="Script" uid="uid://dw6xegy0houh4" path="res://Scripts/Dungeon_Scripts/overworld_map_generator.gd" id="1_wu5a3"]
 
 [node name="Black Tower Dungeon Map" type="Node2D"]
 
-[node name="DungeonRooms" type="Node2D" parent="."]
-script = ExtResource("1_124m7")
+[node name="Overworld_Map_Generator" type="Node" parent="."]
+script = ExtResource("1_wu5a3")
 
-[node name="Camera2D" type="Camera2D" parent="DungeonRooms"]
-script = ExtResource("2_edw0u")
-
-[node name="Normal Room" parent="." instance=ExtResource("3_lgvd8")]
-visible = false
-
-[node name="Long Room" parent="." instance=ExtResource("4_k2qfu")]
-visible = false
-
-[node name="Big Room" parent="." instance=ExtResource("5_jolqb")]
-visible = false
-
-[node name="Boss_Room" parent="." instance=ExtResource("6_digsl")]
-visible = false
-
-[node name="Door" parent="." instance=ExtResource("7_chgra")]
-visible = false
-
-[node name="StartingRoom" parent="." instance=ExtResource("8_rjmds")]
-visible = false
+[node name="Dungeon_Generator" type="Node" parent="."]

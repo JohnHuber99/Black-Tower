@@ -2,12 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://sprites/Tilemaps_Sprites/BT_Tile_Placeholders.png" id="1_bu3m2"]
 [ext_resource type="Texture2D" uid="uid://dxgpqhgixf3df" path="res://sprites/Tilemaps_Sprites/bt-tiles-1alt.png" id="2_6hxfx"]
-[ext_resource type="Script" path="res://Scripts/Player_Scripts/Player_Dungeon_Spawn.gd" id="2_6kdjq"]
+[ext_resource type="Script" uid="uid://by4s0xcvscd05" path="res://Scripts/Player_Scripts/Player_Dungeon_Spawn.gd" id="2_6kdjq"]
 [ext_resource type="Texture2D" uid="uid://byb3n8mayv5ee" path="res://sprites/Tilemaps_Sprites/bt-tiles-2.png" id="3_kxaeg"]
 [ext_resource type="Texture2D" uid="uid://bs8bj1a6wlevl" path="res://sprites/Tilemaps_Sprites/bt-tiles-22.png" id="4_8uvhx"]
 [ext_resource type="Texture2D" uid="uid://krdcm5bgx56o" path="res://sprites/Bush.Shaders_Sprites/bt-bushes.png" id="5_ya1nu"]
-[ext_resource type="Shader" path="res://Rooms/bushes_temp.gdshader" id="6_04yf4"]
-[ext_resource type="Shader" path="res://Rooms/bushes_temp_real.gdshader" id="6_8hpev"]
+[ext_resource type="Shader" uid="uid://biq2tsb06dlld" path="res://Rooms/bushes_temp.gdshader" id="6_04yf4"]
+[ext_resource type="Shader" uid="uid://biqtcmw7rel8t" path="res://Rooms/bushes_temp_real.gdshader" id="6_8hpev"]
 [ext_resource type="Texture2D" uid="uid://drnte5iyy5uue" path="res://sprites/Bush.Shaders_Sprites/bt-flowers.png" id="6_hyl4t"]
 [ext_resource type="Texture2D" uid="uid://bo3l6vy2ksjgf" path="res://sprites/Projectile_Sprites/Grenade.png" id="7_kt6p1"]
 
@@ -181,12 +181,12 @@ shader_parameter/distortion = 0.027
 shader_parameter/texture_noise_system = true
 shader_parameter/noise_speed = 0.5
 shader_parameter/noise_direction = -1
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_2d8ts")
 shader_parameter/worley_noise_system = false
 shader_parameter/worley_cell_density = 25.0
 shader_parameter/worley_speed = 2.0
 shader_parameter/edge_and_mask = false
 shader_parameter/alpha_value = 1.0
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_2d8ts")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1skxm"]
 
@@ -203,12 +203,12 @@ shader_parameter/distortion = 0.056
 shader_parameter/texture_noise_system = true
 shader_parameter/noise_speed = 3.0
 shader_parameter/noise_direction = -1
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_ndsk8")
 shader_parameter/worley_noise_system = false
 shader_parameter/worley_cell_density = 10.0
 shader_parameter/worley_speed = 2.0
 shader_parameter/edge_and_mask = false
 shader_parameter/alpha_value = 1.0
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_ndsk8")
 
 [node name="StartingRoom" type="Node2D"]
 
