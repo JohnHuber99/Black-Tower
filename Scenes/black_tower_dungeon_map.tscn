@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dcb2mgjnpto4f"]
+[gd_scene load_steps=3 format=3 uid="uid://dcb2mgjnpto4f"]
 
+[ext_resource type="PackedScene" uid="uid://bq47ijfw2npje" path="res://Scenes/Overworld_Map_Scenes/map_room.tscn" id="1_mo3fk"]
 [ext_resource type="Script" uid="uid://dw6xegy0houh4" path="res://Scripts/Dungeon_Scripts/overworld_map_generator.gd" id="1_wu5a3"]
 
 [node name="Black Tower Dungeon Map" type="Node2D"]
+
+[node name="MapRoom" parent="." instance=ExtResource("1_mo3fk")]
 
 [node name="Overworld_Map_Generator" type="Node" parent="."]
 script = ExtResource("1_wu5a3")

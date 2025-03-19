@@ -10,7 +10,7 @@ const PATHS := 6
 const MONSTER_ROOM_WEIGHT := 10.0
 const SHOP_ROOM_WEIGHT := 2.5
 const CAMPFIRE_ROOM_WEIGHT := 4
-const ELITE_MONSTER_ROOM_WEIGHT := 5
+const ELITE_MONSTER_ROOM_WEIGHT := 3
 
 var random_room_type_weights = {
 	Room.Type.MONSTER: 0.0,
@@ -22,8 +22,8 @@ var random_room_type_weights = {
 var random_room_type_total_weight := 0
 var map_data: Array[Array]
 
-func _ready() -> void:
-	generate_map()
+#func _ready() -> void:
+	#generate_map()
 
 func generate_map() -> Array[Array]:
 	map_data = _generate_initial_grid()
@@ -47,7 +47,7 @@ func generate_map() -> Array[Array]:
 		print(used_rooms)
 		i += 1
 	
-	return []
+	return map_data
 
 func _generate_initial_grid() -> Array[Array]:
 	var result: Array[Array] = []
@@ -139,11 +139,12 @@ func _setup_boss_room() -> void:
 
 func _setup_random_room_weights() -> void:
 	random_room_type_weights[Room.Type.MONSTER] = MONSTER_ROOM_WEIGHT
-	random_room_type_weights[Room.Type.ELITE_MONSTER] = MONSTER_ROOM_WEIGHT + ELITE_MONSTER_ROOM_WEIGHT 
-	random_room_type_weights[Room.Type.CAMPFIRE] =  MONSTER_ROOM_WEIGHT + ELITE_MONSTER_ROOM_WEIGHT + CAMPFIRE_ROOM_WEIGHT
-	random_room_type_weights[Room.Type.SHOP] =  MONSTER_ROOM_WEIGHT + ELITE_MONSTER_ROOM_WEIGHT + CAMPFIRE_ROOM_WEIGHT + SHOP_ROOM_WEIGHT
-	
-	random_room_type_total_weight = random_room_type_weights[Room.Type.SHOP]
+	random_room_type_weights[Room.Type.ELITE_MONSTER] = ELITE_MONSTER_ROOM_WEIGHT
+	random_room_type_weights[Room.Type.CAMPFIRE] = CAMPFIRE_ROOM_WEIGHT
+	random_room_type_weights[Room.Type.SHOP] = SHOP_ROOM_WEIGHT
+
+	# Calculate the total weight correctly
+	random_room_type_total_weight = MONSTER_ROOM_WEIGHT + ELITE_MONSTER_ROOM_WEIGHT + CAMPFIRE_ROOM_WEIGHT + SHOP_ROOM_WEIGHT
 
 func _setup_room_types() -> void:
 	#first floor is always a battle
@@ -172,21 +173,25 @@ func _setup_room_randomly(room_to_set: Room) -> void:
 	var campfire_below_4 := true
 	var consecutive_campfire := true
 	var consecutive_shop := true
+	var consecutive_elite_monster := true
 	var campfire_on_13 := true
 	
 	var type_candidate: Room.Type
 	
-	while campfire_below_4 or campfire_on_13 or consecutive_campfire or consecutive_shop:
+	while campfire_below_4 or campfire_on_13 or consecutive_campfire or consecutive_shop or consecutive_elite_monster:
 		type_candidate = _get_random_room_type_by_weight()
 		
 		var is_campfire := type_candidate == Room.Type.CAMPFIRE
 		var has_campfire_parent := _room_has_parent_of_type(room_to_set, Room.Type.CAMPFIRE)
 		var is_shop := type_candidate == Room.Type.SHOP
 		var has_shop_parent := _room_has_parent_of_type(room_to_set, Room.Type.SHOP)
+		var is_elite_monster := type_candidate == Room.Type.ELITE_MONSTER
+		var has_elite_monster_parent := _room_has_parent_of_type(room_to_set, Room.Type.ELITE_MONSTER)
 		
 		campfire_below_4 = is_campfire and room_to_set.row < 3
 		consecutive_campfire = is_campfire and has_campfire_parent
 		consecutive_shop = is_shop and has_shop_parent
+		consecutive_elite_monster = is_elite_monster and has_elite_monster_parent
 		campfire_on_13 = is_campfire and room_to_set.row == 12
 		
 	room_to_set.type = type_candidate
@@ -218,10 +223,12 @@ func _room_has_parent_of_type(room: Room, type: Room.Type) -> bool:
 
 func _get_random_room_type_by_weight() -> Room.Type:
 	var roll := randf_range(0.0, random_room_type_total_weight)
-	
-	for type: Room.Type in random_room_type_weights:
-		if random_room_type_weights[type] > roll:
+	var cumulative_weight := 0.0
+
+	for type in random_room_type_weights.keys():
+		cumulative_weight += random_room_type_weights[type]
+		if roll <= cumulative_weight:
 			return type
-			
+	
 	return Room.Type.MONSTER
 	

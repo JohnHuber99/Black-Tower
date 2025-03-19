@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxjgqk7x8nbqb"]
+
+[ext_resource type="Script" uid="uid://drcpx7ilgtqkt" path="res://overworld_map.gd" id="1_def1s"]
+[ext_resource type="Script" uid="uid://dw6xegy0houh4" path="res://Scripts/Dungeon_Scripts/overworld_map_generator.gd" id="2_bciwr"]
+
+[sub_resource type="Gradient" id="Gradient_6msql"]
+colors = PackedColorArray(0.197937, 0.197937, 0.197937, 1, 0.56489, 0.407431, 0.23294, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0racp"]
+gradient = SubResource("Gradient_6msql")
+width = 50
+
+[node name="OverworldMap" type="Node2D"]
+script = ExtResource("1_def1s")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Lines" type="Node2D" parent="Visuals"]
+unique_name_in_owner = true
+
+[node name="Rooms" type="Node2D" parent="Visuals"]
+unique_name_in_owner = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(356, 200)
+
+[node name="OverworldMapGenerator" type="Node" parent="."]
+script = ExtResource("2_bciwr")
+
+[node name="MapBackground" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Background" type="TextureRect" parent="MapBackground"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_0racp")
