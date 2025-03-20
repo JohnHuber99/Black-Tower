@@ -60,9 +60,11 @@ func _input(event):
 	# Change to next spell
 	if event.is_action("scroll_down") && current_spell_index < spells.size() - 1:
 		current_spell_index += 1
+		ui.set_active_spell(current_spell_index)
 	# Change to previous spell
 	if event.is_action("scroll_up") && current_spell_index > 0:
 		current_spell_index -= 1
+		ui.set_active_spell(current_spell_index)
 	
 	# Cast a spell
 	if !animating and event.is_action_pressed("spell"):
@@ -207,6 +209,7 @@ func _ready():
 	ui.set_health(health.MAX_HEALTH, health.MAX_HEALTH)
 	ui.set_spell_0(spells[0])
 	ui.set_spell_1(spells[1])
+	ui.set_active_spell(current_spell_index)
 
 func _launch():
 		if isThrowing: return

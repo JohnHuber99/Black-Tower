@@ -12,6 +12,7 @@ extends Node2D
 @onready var slot1 = $SpellSlot1
 @onready var spell0 = $SpellSlot0/Spell0
 @onready var spell1 = $SpellSlot1/Spell1
+@onready var selector = $SpellSelector
 
 func _flash(node):
 	for i in range(flash_amount):
@@ -49,3 +50,9 @@ func set_ready(slot):
 		slot0.play("ready")
 	if slot == 1:
 		slot1.play("ready")
+		
+func set_active_spell(slot):
+	if slot == 0:
+		selector.position = slot0.position
+	if slot == 1:
+		selector.position = slot1.position

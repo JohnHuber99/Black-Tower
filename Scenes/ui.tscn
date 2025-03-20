@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ooqf0bpcg3ow"]
+[gd_scene load_steps=14 format=3 uid="uid://ooqf0bpcg3ow"]
 
 [ext_resource type="Texture2D" uid="uid://b0krf7d1p6e8f" path="res://sprites/UI/bt-healthbar.png" id="1_1xnp1"]
 [ext_resource type="Script" uid="uid://es4r7mrxubun" path="res://Scripts/ui.gd" id="1_x1l0w"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://d255s3nap3ax5" path="res://sprites/UI/Flask.png" id="8_7p0h2"]
 [ext_resource type="Texture2D" uid="uid://caixwiq1feb8v" path="res://sprites/UI/Smelling_Salts_Bottle.png" id="9_n0dls"]
 [ext_resource type="PackedScene" uid="uid://cnccq6grmbluf" path="res://Scenes/pause.tscn" id="10_nt8jn"]
+[ext_resource type="Texture2D" uid="uid://bx01davfpcwb8" path="res://sprites/UI/spell-selector-temp.png" id="11_g0wmg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wdavg"]
 animations = [{
@@ -53,7 +54,8 @@ animations = [{
 script = ExtResource("1_x1l0w")
 
 [node name="Health" type="Sprite2D" parent="."]
-position = Vector2(-293, 149)
+position = Vector2(-271, 148.25)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_1xnp1")
 
 [node name="Label" type="Label" parent="Health"]
@@ -67,7 +69,8 @@ text = "/"
 horizontal_alignment = 1
 
 [node name="Mana" type="Sprite2D" parent="."]
-position = Vector2(-294, 128)
+position = Vector2(-271, 119.25)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_7ayfc")
 
 [node name="Label" type="Label" parent="Mana"]
@@ -79,15 +82,17 @@ theme_override_fonts/font = ExtResource("2_7uyga")
 theme_override_font_sizes/font_size = 12
 text = "/"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Exp" type="Sprite2D" parent="."]
-position = Vector2(-243, 139)
+position = Vector2(-196, 133.25)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("4_d46xy")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="SpellSlot0" type="AnimatedSprite2D" parent="."]
-position = Vector2(315, 102)
+position = Vector2(316, 106)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_wdavg")
 animation = &"ready"
@@ -98,7 +103,7 @@ sprite_frames = SubResource("SpriteFrames_sr5hu")
 animation = &"grenade"
 
 [node name="SpellSlot1" type="AnimatedSprite2D" parent="."]
-position = Vector2(316, 146)
+position = Vector2(317, 150)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_wdavg")
 animation = &"ready"
@@ -110,3 +115,7 @@ animation = &"smelling_salts"
 
 [node name="Pause" parent="." instance=ExtResource("10_nt8jn")]
 position = Vector2(2, -3)
+
+[node name="SpellSelector" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("11_g0wmg")
