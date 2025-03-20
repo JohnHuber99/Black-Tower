@@ -13,6 +13,10 @@ const LONG_ROOM = preload("res://Rooms/Long_Room.tscn")
 const BIG_ROOM = preload("res://Rooms/Big_Room.tscn")
 const BOSS_ROOM = preload("res://Rooms/Big_Room.tscn")
 const DOOR = preload("res://Rooms/Door.tscn")
+const DOOR_UP = preload("res://Rooms/door_up.tscn")
+const DOOR_DOWN = preload("res://Rooms/door_down.tscn")
+const DOOR_RIGHT = preload("res://Rooms/door_right.tscn")
+const DOOR_LEFT = preload("res://Rooms/door_left.tscn")
 const STARTING_ROOM = preload("res://Rooms/Starting_Room.tscn")
 
 # Dungeon Grid Conditions
@@ -191,30 +195,33 @@ func spawn_dungeon():
 		var room_world_pos = Vector2(room_pos.x * room_size, room_pos.y * room_size)
 
 		# Iterate through every value called, neighbor, stored in the key room_pos
-		for neighbor in room_connections[room_pos]:            
-			# Create Door in Godot Scene
-			var door_instance = DOOR.instantiate()
-			
+		for neighbor in room_connections[room_pos]:            	
 			# Find the corresponding room for the neighbor position
 			var room_instance = rooms.get(room_pos)
 			if room_instance:
-				room_instance.add_child(door_instance)  # Add the door as a child of the room instance
-
-			# Determine door placement coordinates
-			var offset = neighbor - room_pos
-			
-			if offset == Vector2.UP: #up door
-				door_instance.global_position = room_world_pos + Vector2(room_size / 2, 0) - Vector2(0, room_size - tile_size)
-				door_instance.type = "up"
-			elif offset == Vector2.DOWN: #down door
-				door_instance.global_position = room_world_pos - Vector2(0, tile_size) + Vector2(room_size / 2, room_size) - Vector2(0, room_size - tile_size)
-				door_instance.type = "down"
-			elif offset == Vector2.LEFT: #left door
-				door_instance.global_position = room_world_pos + Vector2(0, room_size / 2) - Vector2(0, room_size - tile_size)
-				door_instance.type = "left"
-			elif offset == Vector2.RIGHT: #right door
-				door_instance.global_position = room_world_pos - Vector2(tile_size, 0) + Vector2(room_size, room_size / 2) - Vector2(0, room_size - tile_size)
-				door_instance.type = "right"
+				# Determine door placement coordinates
+				var offset = neighbor - room_pos
+				
+				if offset == Vector2.UP: #up door
+					var door_instance = DOOR_UP.instantiate()
+					room_instance.add_child(door_instance)  
+					door_instance.global_position = room_world_pos + Vector2(room_size / 2, 0) - Vector2(0, room_size - tile_size*4)
+					door_instance.type = "up"
+				elif offset == Vector2.DOWN: #down door
+					var door_instance = DOOR_DOWN.instantiate()
+					room_instance.add_child(door_instance)
+					door_instance.global_position = room_world_pos - Vector2(0, tile_size) + Vector2(room_size / 2, room_size) - Vector2(0, room_size - tile_size)
+					door_instance.type = "down"
+				elif offset == Vector2.LEFT: #left door
+					var door_instance = DOOR_LEFT.instantiate()
+					room_instance.add_child(door_instance)
+					door_instance.global_position = room_world_pos + Vector2(0, room_size / 2) - Vector2(0, room_size - tile_size)
+					door_instance.type = "left"
+				elif offset == Vector2.RIGHT: #right door
+					var door_instance = DOOR_RIGHT.instantiate()
+					room_instance.add_child(door_instance)
+					door_instance.global_position = room_world_pos - Vector2(tile_size, 0) + Vector2(room_size, room_size / 2) - Vector2(0, room_size - tile_size)
+					door_instance.type = "right"
 
 func is_room_in_big_list(position: Vector2) -> bool:
 	for big_room in big_room_list:

@@ -9,6 +9,6 @@ func _on_body_entered(body):
 		match get_parent().type:
 			"right": player.global_position += Vector2(58, 0)
 			"left": player.global_position += Vector2(-58, 0)
-			"up": player.global_position += Vector2(0, -58)
-			"down": player.global_position += Vector2(0, 58)
+			"up": player.global_position += Vector2(0, -110)
+			"down": player.global_position += Vector2(0, 110)
 				
