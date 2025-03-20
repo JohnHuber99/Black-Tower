@@ -223,7 +223,7 @@ func _launch():
 		get_parent().add_child(grenade)
 		grenade.global_position = global_position
 		
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.1, false).timeout
 		
 		isThrowing = false
 
@@ -242,7 +242,7 @@ func knockback(direction: Vector2, magnitude):
 func cooldown_spell(spell):
 	can_cast[spell] = false
 	ui.set_cooldown(spell)
-	await get_tree().create_timer(spell_cooldowns[spell]).timeout  # Wait for the set time
+	await get_tree().create_timer(spell_cooldowns[spell], false).timeout  # Wait for the set time
 	can_cast[spell] = true
 	ui.set_ready(spell)
 

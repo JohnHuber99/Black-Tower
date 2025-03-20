@@ -79,7 +79,7 @@ func handle_player_collision():
 
 func pause_slime():
 	is_waiting = true  # Stop movement
-	await get_tree().create_timer(wait_time).timeout  # Wait for the set time
+	await get_tree().create_timer(wait_time, false).timeout  # Wait for the set time
 	is_waiting = false  # Resume movement
 
 func _process(delta):
@@ -102,6 +102,7 @@ func _process(delta):
 		is_dashing = true
 		sprite.play("pause")
 		await sprite.animation_finished
+		last_direction = (player.global_position - global_position).normalized()
 		sprite.play("attack")
 		await sprite.animation_finished
 		await pause_slime()

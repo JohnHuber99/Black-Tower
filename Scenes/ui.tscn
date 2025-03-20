@@ -1,7 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://ooqf0bpcg3ow"]
+[gd_scene load_steps=13 format=3 uid="uid://ooqf0bpcg3ow"]
 
 [ext_resource type="Texture2D" uid="uid://b0krf7d1p6e8f" path="res://sprites/UI/bt-healthbar.png" id="1_1xnp1"]
-[ext_resource type="Script" path="res://Scripts/ui.gd" id="1_x1l0w"]
+[ext_resource type="Script" uid="uid://es4r7mrxubun" path="res://Scripts/ui.gd" id="1_x1l0w"]
 [ext_resource type="FontFile" uid="uid://vx8hmoh8k8op" path="res://04B_03__.TTF" id="2_7uyga"]
 [ext_resource type="Texture2D" uid="uid://clmq08ii0j1x5" path="res://sprites/UI/bt-manabar.png" id="3_7ayfc"]
 [ext_resource type="Texture2D" uid="uid://5lrruy7gim1" path="res://sprites/UI/bt-expbar-bg.png" id="4_d46xy"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c4klvpboib01q" path="res://sprites/UI/bt-box1.png" id="7_g26kp"]
 [ext_resource type="Texture2D" uid="uid://d255s3nap3ax5" path="res://sprites/UI/Flask.png" id="8_7p0h2"]
 [ext_resource type="Texture2D" uid="uid://caixwiq1feb8v" path="res://sprites/UI/Smelling_Salts_Bottle.png" id="9_n0dls"]
+[ext_resource type="PackedScene" uid="uid://cnccq6grmbluf" path="res://Scenes/pause.tscn" id="10_nt8jn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wdavg"]
 animations = [{
@@ -106,3 +107,6 @@ animation = &"ready"
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_sr5hu")
 animation = &"smelling_salts"
+
+[node name="Pause" parent="." instance=ExtResource("10_nt8jn")]
+position = Vector2(2, -3)
