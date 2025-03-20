@@ -205,7 +205,7 @@ func spawn_dungeon():
 				if offset == Vector2.UP: #up door
 					var door_instance = DOOR_UP.instantiate()
 					room_instance.add_child(door_instance)  
-					door_instance.global_position = room_world_pos + Vector2(room_size / 2, 0) - Vector2(10, room_size - tile_size*4)
+					door_instance.global_position = room_world_pos + Vector2(room_size / 2, 0) - Vector2(9, room_size - tile_size*4)
 					door_instance.type = "up"
 				elif offset == Vector2.DOWN: #down door
 					var door_instance = DOOR_DOWN.instantiate()
