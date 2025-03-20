@@ -215,12 +215,12 @@ func spawn_dungeon():
 				elif offset == Vector2.LEFT: #left door
 					var door_instance = DOOR_LEFT.instantiate()
 					room_instance.add_child(door_instance)
-					door_instance.global_position = room_world_pos + Vector2(0, room_size / 2) - Vector2(0, room_size - tile_size)
+					door_instance.global_position = room_world_pos + Vector2(0, room_size / 2) - Vector2(0, room_size - tile_size*3)
 					door_instance.type = "left"
 				elif offset == Vector2.RIGHT: #right door
 					var door_instance = DOOR_RIGHT.instantiate()
 					room_instance.add_child(door_instance)
-					door_instance.global_position = room_world_pos - Vector2(tile_size, 0) + Vector2(room_size, room_size / 2) - Vector2(0, room_size - tile_size)
+					door_instance.global_position = room_world_pos - Vector2(tile_size, 0) + Vector2(room_size, room_size / 2) - Vector2(0, room_size - tile_size*3)
 					door_instance.type = "right"
 
 func is_room_in_big_list(position: Vector2) -> bool:
