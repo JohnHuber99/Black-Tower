@@ -1,20 +1,20 @@
 [gd_scene load_steps=29 format=4 uid="uid://fwh7s1rxc85i"]
 
-[ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://sprites/Tilemaps_Sprites/BT_Tile_Placeholders.png" id="1_w3ckf"]
-[ext_resource type="Script" uid="uid://uhf160oax2pj" path="res://Scripts/Enemy_Scripts/enemy_dungeon_spawn.gd" id="2_uhrl0"]
-[ext_resource type="Texture2D" uid="uid://dxgpqhgixf3df" path="res://sprites/Tilemaps_Sprites/bt-tiles-1alt.png" id="2_vrhnp"]
-[ext_resource type="Texture2D" uid="uid://byb3n8mayv5ee" path="res://sprites/Tilemaps_Sprites/bt-tiles-2.png" id="3_dxk3n"]
-[ext_resource type="Texture2D" uid="uid://bs8bj1a6wlevl" path="res://sprites/Tilemaps_Sprites/bt-tiles-22.png" id="4_2ptq4"]
-[ext_resource type="Script" uid="uid://b6gnwxoa44un1" path="res://Scripts/Enemy_Scripts/EnemyActivation.gd" id="4_xhdgs"]
-[ext_resource type="Texture2D" uid="uid://krdcm5bgx56o" path="res://sprites/Bush.Shaders_Sprites/bt-bushes.png" id="5_mh0wd"]
-[ext_resource type="Texture2D" uid="uid://drnte5iyy5uue" path="res://sprites/Bush.Shaders_Sprites/bt-flowers.png" id="6_ojvs1"]
-[ext_resource type="Texture2D" uid="uid://bsyq57ru3gqpv" path="res://sprites/UpdatedDungeonTilemap/downdoor.png" id="9_20emx"]
-[ext_resource type="Texture2D" uid="uid://b311sglmsa1ge" path="res://sprites/UpdatedDungeonTilemap/sidedoors.png" id="10_wo447"]
-[ext_resource type="Texture2D" uid="uid://g2bb53cgjq2m" path="res://sprites/UpdatedDungeonTilemap/updoor.png" id="11_jwin2"]
-[ext_resource type="Texture2D" uid="uid://2cf66g8tjfwn" path="res://sprites/UpdatedDungeonTilemap/wall-textures.png" id="12_brs4d"]
+[ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://Dungeon/Tilemaps_Sprites/BT_Tile_Placeholders.png" id="1_n2rw4"]
+[ext_resource type="Texture2D" uid="uid://dxgpqhgixf3df" path="res://Dungeon/Tilemaps_Sprites/bt-tiles-1alt.png" id="2_nqmk6"]
+[ext_resource type="Texture2D" uid="uid://byb3n8mayv5ee" path="res://Dungeon/Tilemaps_Sprites/bt-tiles-2.png" id="3_b7t67"]
+[ext_resource type="Texture2D" uid="uid://bs8bj1a6wlevl" path="res://Dungeon/Tilemaps_Sprites/bt-tiles-22.png" id="4_uxhkp"]
+[ext_resource type="Texture2D" uid="uid://krdcm5bgx56o" path="res://Dungeon/Tilemaps_Sprites/Bush.Shaders_Sprites/bt-bushes.png" id="5_4gfdy"]
+[ext_resource type="Texture2D" uid="uid://drnte5iyy5uue" path="res://Dungeon/Tilemaps_Sprites/Bush.Shaders_Sprites/bt-flowers.png" id="6_y8rc3"]
+[ext_resource type="Script" uid="uid://uhf160oax2pj" path="res://Slime_Enemy/Enemy_Scripts/enemy_dungeon_spawn.gd" id="7_7tkne"]
+[ext_resource type="Script" uid="uid://b6gnwxoa44un1" path="res://Slime_Enemy/Enemy_Scripts/EnemyActivation.gd" id="8_u4uuo"]
+[ext_resource type="Texture2D" uid="uid://bsyq57ru3gqpv" path="res://Dungeon/Tilemaps_Sprites/UpdatedDungeonTilemap/downdoor.png" id="9_47faf"]
+[ext_resource type="Texture2D" uid="uid://b311sglmsa1ge" path="res://Dungeon/Tilemaps_Sprites/UpdatedDungeonTilemap/sidedoors.png" id="10_kfvui"]
+[ext_resource type="Texture2D" uid="uid://g2bb53cgjq2m" path="res://Dungeon/Tilemaps_Sprites/UpdatedDungeonTilemap/updoor.png" id="11_fxisa"]
+[ext_resource type="Texture2D" uid="uid://2cf66g8tjfwn" path="res://Dungeon/Tilemaps_Sprites/UpdatedDungeonTilemap/wall-textures.png" id="12_mrm6s"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cd7eb"]
-texture = ExtResource("1_w3ckf")
+texture = ExtResource("1_n2rw4")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -53,7 +53,7 @@ texture = ExtResource("1_w3ckf")
 3:5/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bthge"]
-texture = ExtResource("2_vrhnp")
+texture = ExtResource("2_nqmk6")
 1:0/0 = 0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(6.875, 8, 8, 8, 8, -8, -8, -8, -8, 8, 8, 8)
 2:0/0 = 0
@@ -89,7 +89,7 @@ texture = ExtResource("2_vrhnp")
 2:6/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cvmdp"]
-texture = ExtResource("3_dxk3n")
+texture = ExtResource("3_b7t67")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -119,7 +119,7 @@ texture = ExtResource("3_dxk3n")
 2:5/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cfgpc"]
-texture = ExtResource("4_2ptq4")
+texture = ExtResource("4_uxhkp")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -149,13 +149,13 @@ texture = ExtResource("4_2ptq4")
 2:5/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a47tr"]
-texture = ExtResource("5_mh0wd")
+texture = ExtResource("5_4gfdy")
 0:0/0 = 0
 1:0/0 = 0
 0:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rj2gp"]
-texture = ExtResource("6_ojvs1")
+texture = ExtResource("6_y8rc3")
 0:0/0 = 0
 1:0/0 = 0
 
@@ -169,7 +169,7 @@ sources/4 = SubResource("TileSetAtlasSource_a47tr")
 sources/5 = SubResource("TileSetAtlasSource_rj2gp")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sf7h4"]
-texture = ExtResource("1_w3ckf")
+texture = ExtResource("1_n2rw4")
 2:0/0 = 0
 3:0/0 = 0
 4:0/0 = 0
@@ -208,7 +208,7 @@ texture = ExtResource("1_w3ckf")
 3:2/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xu4xd"]
-texture = ExtResource("2_vrhnp")
+texture = ExtResource("2_nqmk6")
 1:0/0 = 0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
 2:0/0 = 0
@@ -252,14 +252,14 @@ sources/1 = SubResource("TileSetAtlasSource_xu4xd")
 size = Vector2(400, 400)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w71s8"]
-texture = ExtResource("9_20emx")
+texture = ExtResource("9_47faf")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qrt0u"]
-texture = ExtResource("10_wo447")
+texture = ExtResource("10_kfvui")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -286,7 +286,7 @@ texture = ExtResource("10_wo447")
 3:5/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dcixt"]
-texture = ExtResource("11_jwin2")
+texture = ExtResource("11_fxisa")
 0:0/0 = 0
 1:0/0 = 0
 0:1/0 = 0
@@ -295,7 +295,7 @@ texture = ExtResource("11_jwin2")
 1:2/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wtjnx"]
-texture = ExtResource("12_brs4d")
+texture = ExtResource("12_mrm6s")
 2:3/0 = 0
 2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
 3:3/0 = 0
@@ -717,10 +717,10 @@ tile_set = SubResource("TileSet_7ugto")
 
 [node name="EnemyDungeonSpawn" type="Marker2D" parent="."]
 position = Vector2(219, -201)
-script = ExtResource("2_uhrl0")
+script = ExtResource("7_7tkne")
 
 [node name="RoomArea" type="Area2D" parent="."]
-script = ExtResource("4_xhdgs")
+script = ExtResource("8_u4uuo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomArea"]
 position = Vector2(216, -216)

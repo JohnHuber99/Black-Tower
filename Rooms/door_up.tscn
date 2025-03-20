@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=4 uid="uid://c0300v384musm"]
 
-[ext_resource type="Script" uid="uid://c8h5yac3cvh0r" path="res://Scripts/Dungeon_Scripts/door.gd" id="1_gqtwc"]
-[ext_resource type="Texture2D" uid="uid://g2bb53cgjq2m" path="res://sprites/UpdatedDungeonTilemap/updoor.png" id="2_lq2bd"]
-[ext_resource type="Texture2D" uid="uid://bsyq57ru3gqpv" path="res://sprites/UpdatedDungeonTilemap/downdoor.png" id="3_1l21r"]
-[ext_resource type="Script" uid="uid://mlff0amp6t5w" path="res://Scripts/Dungeon_Scripts/doorCode.gd" id="3_1p1h4"]
-[ext_resource type="Texture2D" uid="uid://2cf66g8tjfwn" path="res://sprites/UpdatedDungeonTilemap/wall-textures.png" id="3_lq2bd"]
+[ext_resource type="Script" uid="uid://c8h5yac3cvh0r" path="res://Dungeon/Door/door.gd" id="1_gqtwc"]
+[ext_resource type="Texture2D" uid="uid://g2bb53cgjq2m" path="res://Dungeon/Tilemaps_Sprites/UpdatedDungeonTilemap/updoor.png" id="2_lq2bd"]
+[ext_resource type="Texture2D" uid="uid://bsyq57ru3gqpv" path="res://Dungeon/Tilemaps_Sprites/UpdatedDungeonTilemap/downdoor.png" id="3_1l21r"]
+[ext_resource type="Script" uid="uid://mlff0amp6t5w" path="res://Dungeon/Door/doorCode.gd" id="3_1p1h4"]
+[ext_resource type="Texture2D" uid="uid://2cf66g8tjfwn" path="res://Dungeon/Tilemaps_Sprites/UpdatedDungeonTilemap/wall-textures.png" id="3_lq2bd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1l21r"]
 texture = ExtResource("2_lq2bd")

@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=4 uid="uid://cyxsij02d8ebb"]
 
-[ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://sprites/Tilemaps_Sprites/BT_Tile_Placeholders.png" id="1_e64e1"]
-[ext_resource type="Texture2D" uid="uid://dxgpqhgixf3df" path="res://sprites/Tilemaps_Sprites/bt-tiles-1alt.png" id="2_eb2n0"]
-[ext_resource type="Script" uid="uid://b6gnwxoa44un1" path="res://Scripts/Enemy_Scripts/EnemyActivation.gd" id="3_2lnw7"]
+[ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://Dungeon/Tilemaps_Sprites/BT_Tile_Placeholders.png" id="1_e64e1"]
+[ext_resource type="Texture2D" uid="uid://dxgpqhgixf3df" path="res://Dungeon/Tilemaps_Sprites/bt-tiles-1alt.png" id="2_eb2n0"]
+[ext_resource type="Script" uid="uid://b6gnwxoa44un1" path="res://Slime_Enemy/Enemy_Scripts/EnemyActivation.gd" id="3_2lnw7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_clxhl"]
 texture = ExtResource("1_e64e1")

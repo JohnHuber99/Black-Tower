@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bj01ed115fp0e"]
 
-[ext_resource type="Script" uid="uid://c8h5yac3cvh0r" path="res://Scripts/Dungeon_Scripts/door.gd" id="1_4qw6k"]
-[ext_resource type="Texture2D" uid="uid://bsyq57ru3gqpv" path="res://sprites/UpdatedDungeonTilemap/downdoor.png" id="2_jbh0s"]
-[ext_resource type="Script" uid="uid://mlff0amp6t5w" path="res://Scripts/Dungeon_Scripts/doorCode.gd" id="3_kqshn"]
+[ext_resource type="Script" uid="uid://c8h5yac3cvh0r" path="res://Dungeon/Door/door.gd" id="1_4qw6k"]
+[ext_resource type="Texture2D" uid="uid://bsyq57ru3gqpv" path="res://Dungeon/Tilemaps_Sprites/UpdatedDungeonTilemap/downdoor.png" id="2_jbh0s"]
+[ext_resource type="Script" uid="uid://mlff0amp6t5w" path="res://Dungeon/Door/doorCode.gd" id="3_kqshn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e5rgq"]
 texture = ExtResource("2_jbh0s")

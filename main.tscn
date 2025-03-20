@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8einl6jaoe3j"]
+
+[ext_resource type="Script" uid="uid://dmru7ohnl1p0k" path="res://Dungeon/Dungeon_Scripts/DungeonRooms.gd" id="1_bo1nx"]
+
+[node name="Main" type="Node2D"]
+
+[node name="DungeonRooms" type="Node2D" parent="."]
+script = ExtResource("1_bo1nx")
