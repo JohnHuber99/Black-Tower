@@ -21,16 +21,13 @@ func _ready() -> void:
 	#generate_new_map()
 	#unlock_floor(0)
 	
-	# Start the camera at the bottom
-	camera_2d.position.y = 200
-	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("map_scroll_up"):
 		camera_2d.position.y -= SCROLL_SPEED
 	elif event.is_action_pressed("map_scroll_down"):
 		camera_2d.position.y += SCROLL_SPEED
 	
-	camera_2d.position.y = clamp(camera_2d.position.y, -camera_edge_y + 500, 200)
+	camera_2d.position.y = clamp(camera_2d.position.y, -camera_edge_y, 200)
 	
 func generate_new_map() -> void:
 	floors_climbed = 0

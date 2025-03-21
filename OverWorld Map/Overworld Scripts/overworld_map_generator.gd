@@ -4,8 +4,8 @@ extends Node
 const X_DIST := 30
 const Y_DIST := 25
 const PLACEMENT_RANDOMNESS := 5
-const FLOORS := 15
-const MAP_WIDTH := 7
+const FLOORS := 8
+const MAP_WIDTH := 4
 const PATHS := 6
 const MONSTER_ROOM_WEIGHT := 10.0
 const SHOP_ROOM_WEIGHT := 2.5
@@ -153,12 +153,12 @@ func _setup_room_types() -> void:
 			room.type = Room.Type.MONSTER
 	
 	#9th floor is always a treasure
-	for room: Room in map_data[8]:
+	for room: Room in map_data[4]:
 		if room.next_rooms.size() > 0:
 			room.type = Room.Type.TREASURE
 	
 	#last floor before the boss is always a campfire
-	for room: Room in map_data[13]:
+	for room: Room in map_data[6]:
 		if room.next_rooms.size() > 0:
 			room.type = Room.Type.CAMPFIRE
 	
