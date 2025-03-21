@@ -129,7 +129,6 @@ func spawn_dungeon():
 				match room_type:
 					START: 
 						room_instance = STARTING_ROOM.instantiate() 
-						room_name = "Start Room"
 					NORMAL: 
 						room_instance = NORMAL_ROOM.instantiate() 
 						room_name = "Normal Room %d" % normal_room_name_count

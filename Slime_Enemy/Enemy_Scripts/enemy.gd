@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 class_name Enemy
 
+signal is_defeated
+
 @export var speed = 150
 @export var dash_speed = 5
 @export var attack_proximity = 100
@@ -118,6 +120,7 @@ func _on_health_component_health_change(character_newHealth: Variant) -> void:
 	is_damaged = false
 	
 func _on_health_component_destroyed() -> void:
+	is_defeated.emit()
 	sprite.play("death")
 	death_explosion.emitting = true;
 	await sprite.animation_finished

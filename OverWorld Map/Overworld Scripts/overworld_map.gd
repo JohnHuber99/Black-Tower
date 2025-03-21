@@ -60,6 +60,7 @@ func unlock_next_rooms() -> void:
 			map_room.available = true
 
 func show_map() -> void:
+	print("MapShowing")
 	show()
 	camera_2d.enabled = true
 	
