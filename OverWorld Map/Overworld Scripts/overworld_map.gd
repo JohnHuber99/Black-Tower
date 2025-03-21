@@ -2,8 +2,8 @@ class_name OverworldMap
 extends Node2D
 
 const SCROLL_SPEED := 15
-const MAP_ROOM = preload("res://Scenes/Overworld_Map_Scenes/map_room.tscn")
-const MAP_LINE = preload("res://Scenes/Overworld_Map_Scenes/map_line.tscn")
+const MAP_ROOM = preload("res://OverWorld Map/Overworld_Map_Scenes/map_room.tscn")
+const MAP_LINE = preload("res://OverWorld Map/Overworld_Map_Scenes/map_line.tscn")
 
 @onready var map_generator: OverworldMapGenerator = get_node("OverworldMapGenerator")
 @onready var lines: Node2D = get_node("Visuals/Lines")
@@ -18,8 +18,8 @@ var camera_edge_y: float
 
 func _ready() -> void:
 	camera_edge_y = OverworldMapGenerator.Y_DIST * (OverworldMapGenerator.FLOORS - 1)
-	generate_new_map()
-	unlock_floor(0)
+	#generate_new_map()
+	#unlock_floor(0)
 	
 	# Start the camera at the bottom
 	camera_2d.position.y = 200
@@ -107,4 +107,4 @@ func _on_map_room_selected(room: Room) -> void:
 	
 	last_room = room
 	floors_climbed += 1
-	#Events.map_exited.emit(room)
+	Events.overworld_map_exited.emit(room)

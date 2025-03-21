@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbon7gihi754n"]
+
+[ext_resource type="Script" uid="uid://bigj36v4b2u7h" path="res://Main_Menu/main_menu.gd" id="1_82v7h"]
+[ext_resource type="FontFile" uid="uid://vx8hmoh8k8op" path="res://04B_03__.TTF" id="2_xqi02"]
+[ext_resource type="Texture2D" uid="uid://b0v0l2xmkn0xg" path="res://Main_Menu/BlackTowerPlaceHolderMainScreen.png" id="3_p477q"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ijq4r"]
+font = ExtResource("2_xqi02")
+font_size = 56
+outline_size = 9
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Main Menu" type="Node"]
+script = ExtResource("1_82v7h")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.484
+anchor_top = 0.117
+anchor_right = 0.484
+anchor_bottom = 0.117
+offset_left = -159.608
+offset_top = 42.2
+offset_right = 183.392
+offset_bottom = 98.2
+grow_horizontal = 2
+grow_vertical = 2
+text = "Black Tower"
+label_settings = SubResource("LabelSettings_ijq4r")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="BlackTowerPlaceHolderMainScreen" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(356, 200)
+scale = Vector2(1.07716, 0.985222)
+texture = ExtResource("3_p477q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.533
+anchor_right = 0.5
+anchor_bottom = 0.533
+offset_left = -81.0
+offset_top = -29.2
+offset_right = 45.0
+offset_bottom = 36.8
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PlayGame" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Play Game"
+
+[node name="Exit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[connection signal="pressed" from="VBoxContainer/PlayGame" to="." method="_on_play_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]

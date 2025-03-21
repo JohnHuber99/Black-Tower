@@ -5,12 +5,12 @@ signal selected(room: Room)
 
 const ICONS := {
 	Room.Type.NOT_ASSIGNED: [null, Vector2.ONE],
-	Room.Type.MONSTER: [preload("res://sprites/Overwrold Tilemaps/Overworld Map Icons/icon_sword.png"), Vector2.ONE],
-	Room.Type.ELITE_MONSTER: [preload("res://sprites/Overwrold Tilemaps/Overworld Map Icons/icon_beetle.png"), Vector2.ONE],
-	Room.Type.SHOP: [preload("res://sprites/Overwrold Tilemaps/Overworld Map Icons/icon_bag.png"), Vector2(0.6, 0.6)],
-	Room.Type.CAMPFIRE: [preload("res://sprites/Overwrold Tilemaps/Overworld Map Icons/icon_heart.png"), Vector2(0.6, 0.6)],
-	Room.Type.TREASURE: [preload("res://sprites/Overwrold Tilemaps/Overworld Map Icons/icon_chest.png"), Vector2.ONE],
-	Room.Type.BOSS: [preload("res://sprites/Overwrold Tilemaps/Overworld Map Icons/icon_skull.png"), Vector2.ONE]
+	Room.Type.MONSTER: [preload("res://OverWorld Map/Overwrold Tilemaps/Overworld Map Icons/icon_sword.png"), Vector2.ONE],
+	Room.Type.ELITE_MONSTER: [preload("res://OverWorld Map/Overwrold Tilemaps/Overworld Map Icons/icon_beetle.png"), Vector2.ONE],
+	Room.Type.SHOP: [preload("res://OverWorld Map/Overwrold Tilemaps/Overworld Map Icons/icon_bag.png"), Vector2(0.6, 0.6)],
+	Room.Type.CAMPFIRE: [preload("res://OverWorld Map/Overwrold Tilemaps/Overworld Map Icons/icon_heart.png"), Vector2(0.6, 0.6)],
+	Room.Type.TREASURE: [preload("res://OverWorld Map/Overwrold Tilemaps/Overworld Map Icons/icon_chest.png"), Vector2.ONE],
+	Room.Type.BOSS: [preload("res://OverWorld Map/Overwrold Tilemaps/Overworld Map Icons/icon_skull.png"), Vector2.ONE]
 }
 
 @onready var sprite_2d: Sprite2D = get_node("Visuals/Sprite2D")
@@ -45,6 +45,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 		return
 	
 	room.selected = true
+	Events.overworld_map_exited.emit(room)
 	animation_player.play("select_overworld_icon")
 
 # Called by the AnimationPlayer when the
