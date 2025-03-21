@@ -45,10 +45,10 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 		return
 	
 	room.selected = true
-	Events.overworld_map_exited.emit(room)
 	animation_player.play("select_overworld_icon")
 
 # Called by the AnimationPlayer when the
 # "select" animation finishes.
 func _on_map_room_selected() -> void:
+	print("Emitting Map Room Selected")
 	selected.emit(room)

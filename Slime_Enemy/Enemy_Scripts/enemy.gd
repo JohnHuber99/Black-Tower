@@ -42,8 +42,8 @@ func _physics_process(delta: float) -> void:
 	elif sprite.animation == "attack":
 		slime_dash()
 
-	if get_node_or_null("/root/Main/player"):  # Check if player node exists
-		player = get_node("/root/Main/player")
+	if get_node_or_null("/root/Run/CurrentView/Main/player"):  # Check if player node exists
+		player = get_node("/root/Run/CurrentView/Main/player")
 	
 	# Handle collision with the player
 	if collision and sprite.animation == "attack":
@@ -90,8 +90,8 @@ func _process(delta):
 		return
 	
 	# This should be whatever the player instance is
-	if (get_node("/root/Main/player") != null):
-		player = get_node("/root/Main/player")
+	if (get_node("/root/Run/CurrentView/Main/player") != null):
+		player = get_node("/root/Run/CurrentView/Main/player")
 	
 	var x_distance = global_position.x - player.global_position.x
 	var y_distance = global_position.y - player.global_position.y

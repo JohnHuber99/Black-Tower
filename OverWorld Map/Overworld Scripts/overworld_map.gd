@@ -104,5 +104,6 @@ func _on_map_room_selected(room: Room) -> void:
 			map_room.available = false
 	
 	last_room = room
-	floors_climbed += 1
 	Events.overworld_map_exited.emit(room)
+	floors_climbed += 1
+	
