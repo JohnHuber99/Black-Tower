@@ -2,8 +2,8 @@ class_name OverworldMap
 extends Node2D
 
 const SCROLL_SPEED := 15
-const MAP_ROOM = preload("res://Scenes/Overworld_Map_Scenes/map_room.tscn")
-const MAP_LINE = preload("res://Scenes/Overworld_Map_Scenes/map_line.tscn")
+const MAP_ROOM = preload("res://OverWorld Map/Overworld_Map_Scenes/map_room.tscn")
+const MAP_LINE = preload("res://OverWorld Map/Overworld_Map_Scenes/map_line.tscn")
 
 @onready var map_generator: OverworldMapGenerator = get_node("OverworldMapGenerator")
 @onready var lines: Node2D = get_node("Visuals/Lines")
