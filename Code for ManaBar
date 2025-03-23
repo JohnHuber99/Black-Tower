@@ -1,0 +1,62 @@
+extends CharacterBody2D
+
+const Mana_Base = 100
+const Mana_maxBar = 100
+
+var currentMana_Bar = Mana_Base
+var regeneration_Bar = 4
+const Plague_Grenade_Cost = 18
+const Smelling_Salts_cost = 20
+
+
+@onready var manaBar = $ManaBar
+@onready var flash = $Flash
+
+var isManaFlashing = false
+
+func _process(delta):
+	manaRegenerate_Time(delta)
+	manabar_signal()
+	
+func manabar_signal():
+	manaBar.value = currentMana_Bar
+	
+	var FlashDecision = currentMana_Bar < Plague_Grenade_Cost or currentMana_Bar < Smelling_Salts_cost
+	if FlashDecision and !isManaFlashing:
+		start_flashing()
+	elif !FlashDecision and isManaFlashing:
+		stop_flashing()
+
+func _input(event):
+	if event.is_action_pressed("use_plague_grenade"):
+		plague_grenade()
+	elif event.is.action_pressed("use_smelling_salts"):
+		smelling_salts()
+							
+
+func manaRegenerate_Time(delta):
+	if currentMana_Bar < Mana_maxBar:
+		currentMana_Bar += regeneration_Bar * delta
+		currentMana_Bar = clamp(currentMana_Bar, 0, Mana_maxBar)
+		
+func start_flashing():
+	isManaFlashing = true
+	flash.start()
+	
+func stop_flashing():
+	isManaFlashing = false
+	flash.stop()
+	manaBar.modulate = Color(0, 0, 1)
+		
+
+func plague_grenade():
+	if currentMana_Bar >= Plague_Grenade_Cost:
+		currentMana_Bar -= Plague_Grenade_Cost
+	else:
+		print("You don't have enough mana to use the Plague Grenade")
+
+func smelling_salts():
+	if currentMana_Bar >= Smelling_Salts_cost:
+		currentMana_Bar -= Smelling_Salts_cost
+	else:
+		print("You don't have enough mana to use Smelling salts")
