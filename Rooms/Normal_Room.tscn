@@ -1,7 +1,7 @@
 [gd_scene load_steps=30 format=4 uid="uid://fwh7s1rxc85i"]
 
 [ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://Dungeon/Tilemaps_Sprites/BT_Tile_Placeholders.png" id="1_n2rw4"]
-[ext_resource type="Script" path="res://Rooms/normalRoomCleared.gd" id="1_wo447"]
+[ext_resource type="Script" uid="uid://di67cndapct6i" path="res://Rooms/normalRoomCleared.gd" id="1_wo447"]
 [ext_resource type="Texture2D" uid="uid://dxgpqhgixf3df" path="res://Dungeon/Tilemaps_Sprites/bt-tiles-1alt.png" id="2_nqmk6"]
 [ext_resource type="Texture2D" uid="uid://byb3n8mayv5ee" path="res://Dungeon/Tilemaps_Sprites/bt-tiles-2.png" id="3_b7t67"]
 [ext_resource type="Texture2D" uid="uid://bs8bj1a6wlevl" path="res://Dungeon/Tilemaps_Sprites/bt-tiles-22.png" id="4_uxhkp"]

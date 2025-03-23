@@ -159,7 +159,8 @@ func spawn_dungeon():
 				if room_instance:
 					add_child(room_instance)
 					room_instance.global_position = Vector2(x * room_size, y * room_size)
-					room_instance.name = room_name  # Rename the room
+					if !room_name.is_empty():
+						room_instance.name = room_name  # Rename the room
 					
 					# Store rooms in the dictionary
 					if room_type == NORMAL or room_type == START or room_type == TREASURE or room_type == SHOP:
