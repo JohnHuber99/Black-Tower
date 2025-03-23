@@ -7,8 +7,9 @@ extends CharacterBody2D
 @export var direction_change_accel = 2000
 @export var spells = ["grenade", "smelling_salts"]
 @export var spell_cooldowns = [7, 12] # spell cooldown is seconds
-@export var knife_damage = 10
-@export var boosted_knife_damage = 20
+@export var attack_damage = 10
+@export var heavy_damage = 30
+@export var boosted_damage = 2 # multiplying factor
 @export var max_buff_duration = 10
 @export var iframes = 60
 @export var attack_chain_window = 20
@@ -19,6 +20,7 @@ extends CharacterBody2D
 @onready var ui = $Camera2D/Ui
 const GRENADE = preload("res://Spells/Plague Grenade/grenade2.tscn")
 const KNIFE = preload("res://PD Basic Attack/knife.tscn")
+const SPINNING_KNIFE = preload("res://PD Heavy Attack/spinning_knife.tscn")
 const SALTS = preload("res://Spells/Smelling Salts/smelling_salts.tscn")
 var isThrowing = false
 
@@ -34,6 +36,8 @@ var iframe_timer = 0
 
 var attack_chain = 0
 var chain_timer = 0
+
+var attack_held_down = false
 
 signal spell_key_released
 signal launch_vapor(x, y)
@@ -88,14 +92,23 @@ func _input(event):
 	if event.is_action_released("spell"):
 		spell_key_released.emit()
 		
-	if !animating and event.is_action("attack"):
+	if !animating and event.is_action_pressed("attack"):
 		# Attacking animation is playing
 		animating = true
+		attack_held_down = true
 		
 		await attack_animation()
 		
+		# If still held down, start heavy
+		if attack_held_down:
+			await heavy_animation()
+		
 		# Casting animations finished
 		animating = false
+		
+	if event.is_action_released("attack"):
+		attack_held_down = false
+		
 
 func _physics_process(delta):
 	if health.is_defeated:
@@ -185,24 +198,31 @@ func attack_animation():
 	if attack_chain == 0:
 		sprite.play("basic_attack_1")
 		await sprite.animation_finished
-		_fire()
+		_fire("basic")
 		sprite.play("basic_attack_2")
 		await sprite.animation_finished
 		chain_timer = attack_chain_window
 		attack_chain = 1
 	# Second knife throw
 	elif attack_chain == 1:
-		_fire()
+		_fire("basic")
 		sprite.play("basic_attack_3")
 		await sprite.animation_finished
 		chain_timer = attack_chain_window
 		attack_chain = 2
 	# Third knife throw
 	else:
-		_fire()
+		_fire("basic")
 		sprite.play("basic_attack_4")
 		await sprite.animation_finished
 		attack_chain = 0
+
+func heavy_animation():
+	sprite.play("heavy_attack_start")
+	await sprite.animation_finished
+	_fire("heavy")
+	sprite.play("heavy_attack_finish")
+	await sprite.animation_finished
 
 func _ready():
 	z_index = 1
@@ -230,13 +250,21 @@ func _launch():
 		
 		isThrowing = false
 
-func _fire() :
-	var knife = KNIFE.instantiate()
-	if stats_boosted:
-		knife.damage = boosted_knife_damage
+func _fire(type) :
+	var knife
+	var damage
+	# Set knife based on attack type
+	if (type == "heavy"):
+		knife = SPINNING_KNIFE.instantiate()
+		damage = heavy_damage
 	else:
-		knife.damage = knife_damage
-	
+		knife = KNIFE.instantiate()
+		damage = attack_damage
+	# Boost damage if buffed
+	if stats_boosted:
+		knife.damage = damage * boosted_damage
+	else:
+		knife.damage = damage
 	add_child(knife)
 	
 func knockback(direction: Vector2, magnitude):

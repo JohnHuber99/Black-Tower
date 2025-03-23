@@ -1,0 +1,109 @@
+[gd_scene load_steps=17 format=3 uid="uid://b0byspxg3cijr"]
+
+[ext_resource type="Script" uid="uid://3ablxl0xlxlt" path="res://PD Heavy Attack/spinning_knife.gd" id="1_7gwid"]
+[ext_resource type="Texture2D" uid="uid://bm2drvtrv1dn8" path="res://PD Heavy Attack/Spinning_Knife-Sheet.png" id="2_7gwid"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7gwid"]
+radius = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dggh2"]
+atlas = ExtResource("2_7gwid")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_syerj"]
+atlas = ExtResource("2_7gwid")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qpow7"]
+atlas = ExtResource("2_7gwid")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_veqdo"]
+atlas = ExtResource("2_7gwid")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsuss"]
+atlas = ExtResource("2_7gwid")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljovy"]
+atlas = ExtResource("2_7gwid")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mk1sm"]
+atlas = ExtResource("2_7gwid")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3em5y"]
+atlas = ExtResource("2_7gwid")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhyc1"]
+atlas = ExtResource("2_7gwid")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wku6e"]
+atlas = ExtResource("2_7gwid")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtxnh"]
+atlas = ExtResource("2_7gwid")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b06j8"]
+atlas = ExtResource("2_7gwid")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rmvgq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dggh2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_syerj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qpow7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_veqdo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsuss")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ljovy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mk1sm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3em5y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hhyc1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wku6e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gtxnh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b06j8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Spinning Knife" type="CharacterBody2D"]
+z_index = 4
+script = ExtResource("1_7gwid")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7gwid")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rmvgq")

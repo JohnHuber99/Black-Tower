@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byu22pipcx4kf"
-path="res://.godot/imported/Plague_Doctor_Heavy_Attack_v1-Sheet.png-c2a5af02fa4522fddc211bd6d15202eb.ctex"
+uid="uid://bm2drvtrv1dn8"
+path="res://.godot/imported/Spinning_Knife-Sheet.png-e7e0ec19913ddbc8af55fa416189fa4f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/Player_Sprites/Plague_Doctor_Heavy_Attack_v1-Sheet.png"
-dest_files=["res://.godot/imported/Plague_Doctor_Heavy_Attack_v1-Sheet.png-c2a5af02fa4522fddc211bd6d15202eb.ctex"]
+source_file="res://PD Heavy Attack/Spinning_Knife-Sheet.png"
+dest_files=["res://.godot/imported/Spinning_Knife-Sheet.png-e7e0ec19913ddbc8af55fa416189fa4f.ctex"]
 
 [params]
 
