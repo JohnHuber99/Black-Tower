@@ -158,6 +158,7 @@ func grenade_animation():
 	# Plays first half of throwing animation once
 	sprite.play("throw_start")
 	await sprite.animation_finished
+	can_move = true
 	
 	# Throwing idle if held down, finish if released
 	if (Input.is_action_pressed("spell")):
@@ -166,6 +167,9 @@ func grenade_animation():
 	sprite.play("throw_finish")
 	_launch()
 	await sprite.animation_finished
+	
+	can_move = true
+	animating = false
 	
 func smelling_salts_animation():
 	# Locks turning
@@ -238,8 +242,8 @@ func _launch():
 		isThrowing = true
 		
 		var startPosition = global_position
-		var direction = -1 if sprite.flip_h else 1
-		var targetPosition = Vector2(startPosition.x + 300 * direction, startPosition.y) - global_position
+		var mouse_position = get_global_mouse_position()
+		var targetPosition = mouse_position - global_position
 		
 		var grenade = GRENADE.instantiate()
 		grenade.targetPosition = targetPosition

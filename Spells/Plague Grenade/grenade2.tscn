@@ -103,7 +103,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h8oi1"]
-radius = 5.0
+radius = 52.3259
 
 [node name="Grenade2" type="Path2D"]
 z_index = 1
@@ -114,6 +114,8 @@ script = ExtResource("1_6lrgy")
 rotation = -0.785398
 sprite_frames = SubResource("SpriteFrames_g4oid")
 animation = &"explosion"
+frame = 11
+frame_progress = 1.0
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 rotation = -0.785398

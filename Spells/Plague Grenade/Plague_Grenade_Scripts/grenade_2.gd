@@ -1,6 +1,6 @@
 extends Path2D
 
-@export var speed = 500
+@export var speed = 600
 @export var targetPosition: Vector2
 
 @onready var path_follow_2d = $PathFollow2D
@@ -10,8 +10,10 @@ extends Path2D
 func _ready():
 	curve.clear_points()
 	curve.add_point(global_position)
-	curve.add_point((global_position + targetPosition) / 2 + Vector2(0, -abs(targetPosition.x) / 3))
-	curve.add_point(targetPosition)
+	var distance = targetPosition.length()
+	var arc_height = -min(distance / 4, 100)
+	curve.add_point((global_position + targetPosition) / 2 + Vector2(0, arc_height))
+	curve.add_point(global_position + targetPosition)
 	
 	path_follow_2d.progress = 0
 	path_follow_2d.loop = false
