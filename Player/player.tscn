@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=3 uid="uid://b4uixgwclv3j8"]
+[gd_scene load_steps=105 format=3 uid="uid://b4uixgwclv3j8"]
 
 [ext_resource type="Script" path="res://Player/Player_Scripts/player.gd" id="1_p5o4e"]
 [ext_resource type="Texture2D" uid="uid://byu22pipcx4kf" path="res://PD Heavy Attack/Plague_Doctor_Heavy_Attack_v1-Sheet.png" id="2_gu6f8"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://ooqf0bpcg3ow" path="res://UI/ui.tscn" id="11_gpjlu"]
 [ext_resource type="PackedScene" uid="uid://bwicqk1gug5b" path="res://Health_Component/Health Component.tscn" id="12_8mwp6"]
 [ext_resource type="FontFile" uid="uid://vx8hmoh8k8op" path="res://04B_03__.TTF" id="13_qemgg"]
+[ext_resource type="PackedScene" uid="uid://cmfy8u2a3sgcm" path="res://Mana_Component/Mana Component.tscn" id="14_gu6f8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tx1dd"]
 radius = 9.0
@@ -748,5 +749,8 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
+[node name="Mana Component" parent="." instance=ExtResource("14_gu6f8")]
+
 [connection signal="destroyed" from="Health Component" to="." method="_on_health_component_destroyed"]
 [connection signal="health_change" from="Health Component" to="." method="_on_health_component_health_change"]
+[connection signal="manabar_signal" from="Mana Component" to="." method="_on_mana_component_manabar_signal"]

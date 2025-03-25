@@ -14,6 +14,8 @@ extends Node2D
 @onready var spell1 = $SpellSlot1/Spell1
 @onready var selector = $SpellSelector
 
+var isManaFlashing = false
+
 func _flash(node):
 	for i in range(flash_amount):
 		node.modulate = Color(10, 10, 10, 10)
@@ -27,11 +29,11 @@ func _ready() -> void:
 	slot1.play("ready")
 
 func set_health(current, max):
-	health.text = str(current, "/", max)
+	health.text = str(int(current), "/", int(max))
 	_flash(health_bar)
 
 func set_mana(current, max):
-	mana.text = str(current, "/", max)
+	mana.text = str(int(current), "/", int(max))
 	
 func set_spell_0(spell):
 	spell0.play(spell)
@@ -56,3 +58,9 @@ func set_active_spell(slot):
 		selector.position = slot0.position
 	if slot == 1:
 		selector.position = slot1.position
+
+func flash_mana():
+	if !isManaFlashing:
+		isManaFlashing = true
+		await _flash(mana_bar)
+		isManaFlashing = false
