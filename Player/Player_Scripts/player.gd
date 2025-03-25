@@ -17,6 +17,7 @@ extends CharacterBody2D
 @onready var death_label = $"CanvasLayer/DeathLabel"
 @onready var sprite = $PlayerSprite
 @onready var health = $"Health Component"
+@onready var mana = $"Mana Component"
 @onready var ui = $Camera2D/Ui
 const GRENADE = preload("res://Spells/Plague Grenade/grenade2.tscn")
 const KNIFE = preload("res://PD Basic Attack/knife.tscn")
@@ -77,10 +78,10 @@ func _input(event):
 		can_move = false
 		
 		# Play casting animation based on spell
-		if (spells[current_spell_index] == "grenade" and can_cast[current_spell_index]):
+		if (spells[current_spell_index] == "grenade" and can_cast[current_spell_index] and mana.plague_grenade()):
 			cooldown_spell(current_spell_index)
 			await grenade_animation()
-		elif (spells[current_spell_index] == "smelling_salts" and can_cast[current_spell_index]):
+		elif (spells[current_spell_index] == "smelling_salts" and can_cast[current_spell_index] and mana.smelling_salts()):
 			cooldown_spell(current_spell_index)
 			await smelling_salts_animation()
 		
@@ -100,7 +101,7 @@ func _input(event):
 		await attack_animation()
 		
 		# If still held down, start heavy
-		if attack_held_down:
+		if attack_held_down and mana.heavy_attack():
 			await heavy_animation()
 		
 		# Casting animations finished
@@ -291,3 +292,10 @@ func _on_health_component_destroyed() -> void:
 	sprite.play("death")
 	death_label.parse_bbcode("[center][color=red]You Died![/color]\nPress [color=yellow]'R'[/color] to Restart[/center]")
 	death_label.visible = true  # Show the message
+
+func _on_mana_component_manabar_signal() -> void:
+	ui.set_mana(mana.currentMana_Bar, mana.Mana_maxBar)
+	
+	var FlashDecision = mana.currentMana_Bar < mana.Plague_Grenade_Cost or mana.currentMana_Bar < mana.Smelling_Salts_cost
+	if FlashDecision:
+		ui.flash_mana()

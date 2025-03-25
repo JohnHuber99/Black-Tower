@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmfy8u2a3sgcm"]
+
+[ext_resource type="Script" uid="uid://iqni56h6op2t" path="res://Mana_Component/mana_component.gd" id="1_siavr"]
+
+[node name="Mana Component" type="Node2D"]
+script = ExtResource("1_siavr")
