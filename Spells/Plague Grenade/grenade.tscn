@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dkypinx6hg7rj"]
+[gd_scene load_steps=15 format=3 uid="uid://cabpu52ee2psa"]
 
 [ext_resource type="Texture2D" uid="uid://c1ws253rbg7hr" path="res://Spells/Plague Grenade/Plague Grenade Sprites/explosion.png" id="1_3p54v"]
 [ext_resource type="Texture2D" uid="uid://bo3l6vy2ksjgf" path="res://Spells/Plague Grenade/Plague Grenade Sprites/Grenade.png" id="1_n7hr6"]
@@ -90,7 +90,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_21l12")
 }],
-"loop": true,
+"loop": false,
 "name": &"Plague explosion",
 "speed": 10.0
 }, {
@@ -108,6 +108,4 @@ script = SubResource("GDScript_2wynp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_mxes0")
-animation = &"Plague grenade"
-autoplay = "Plague grenade"
-frame_progress = 0.799937
+animation = &"Plague explosion"

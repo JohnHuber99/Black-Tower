@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Black Tower"
-run/main_scene="uid://bbon7gihi754n"
-config/features=PackedStringArray("4.4", "Forward Plus")
+run/main_scene="res://Main_Menu/Main_Menu.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
 
 [autoload]
 

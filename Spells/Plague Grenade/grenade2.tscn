@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5qbyprgjcbsh"]
+[gd_scene load_steps=19 format=3 uid="uid://c5qbyprgjcbsh"]
 
-[ext_resource type="Script" uid="uid://gr5vlqc7lcwt" path="res://Spells/Plague Grenade/Plague_Grenade_Scripts/grenade_2.gd" id="1_6lrgy"]
+[ext_resource type="Script" path="res://Spells/Plague Grenade/Plague_Grenade_Scripts/grenade_2.gd" id="1_6lrgy"]
 [ext_resource type="Texture2D" uid="uid://bo3l6vy2ksjgf" path="res://Spells/Plague Grenade/Plague Grenade Sprites/Grenade.png" id="2_g541h"]
+[ext_resource type="Texture2D" uid="uid://c1ws253rbg7hr" path="res://Spells/Plague Grenade/Plague Grenade Sprites/explosion.png" id="3_kasfg"]
 
 [sub_resource type="Curve2D" id="Curve2D_2n66k"]
 _data = {
@@ -9,12 +10,110 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_i233w"]
+atlas = ExtResource("3_kasfg")
+region = Rect2(0, 0, 107, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kses"]
+atlas = ExtResource("3_kasfg")
+region = Rect2(107, 0, 107, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ab16"]
+atlas = ExtResource("3_kasfg")
+region = Rect2(214, 0, 107, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnk85"]
+atlas = ExtResource("3_kasfg")
+region = Rect2(0, 103, 107, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t86sb"]
+atlas = ExtResource("3_kasfg")
+region = Rect2(107, 103, 107, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tydh"]
+atlas = ExtResource("3_kasfg")
+region = Rect2(214, 103, 107, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nko11"]
+atlas = ExtResource("3_kasfg")
+region = Rect2(0, 206, 107, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gohrn"]
+atlas = ExtResource("3_kasfg")
+region = Rect2(107, 206, 107, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ow5uk"]
+atlas = ExtResource("3_kasfg")
+region = Rect2(214, 206, 107, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlh73"]
+atlas = ExtResource("3_kasfg")
+region = Rect2(0, 309, 107, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mxq2k"]
+atlas = ExtResource("3_kasfg")
+region = Rect2(107, 309, 107, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7xak"]
+atlas = ExtResource("3_kasfg")
+region = Rect2(214, 309, 107, 103)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4oid"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i233w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1kses")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ab16")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vnk85")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t86sb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tydh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nko11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gohrn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ow5uk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlh73")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mxq2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7xak")
+}],
+"loop": false,
+"name": &"explosion",
+"speed": 8.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_h8oi1"]
 radius = 5.0
 
 [node name="Grenade2" type="Path2D"]
+z_index = 1
 curve = SubResource("Curve2D_2n66k")
 script = ExtResource("1_6lrgy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = -0.785398
+sprite_frames = SubResource("SpriteFrames_g4oid")
+animation = &"explosion"
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 rotation = -0.785398

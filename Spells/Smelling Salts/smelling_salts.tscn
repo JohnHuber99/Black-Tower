@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://bvgwejagd78pn"]
 
 [ext_resource type="Texture2D" uid="uid://dl2bg7wg7kpiv" path="res://Spells/Smelling Salts/Vapor-Sheet.png" id="1_ic36b"]
-[ext_resource type="Script" uid="uid://dmespoe2nllf2" path="res://Spells/Smelling Salts/smelling_salts.gd" id="1_vb1i7"]
+[ext_resource type="Script" path="res://Spells/Smelling Salts/smelling_salts.gd" id="1_vb1i7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ac86f"]
 atlas = ExtResource("1_ic36b")
