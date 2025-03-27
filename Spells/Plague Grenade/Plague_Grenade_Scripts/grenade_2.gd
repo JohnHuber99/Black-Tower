@@ -2,7 +2,7 @@ extends Path2D
 
 @export var speed = 600
 @export var targetPosition: Vector2
-@export var damage = 50 
+@export var damage = 30 
 
 @onready var path_follow_2d = $PathFollow2D
 @onready var grenade_sprite = $PathFollow2D/Area2D/Sprite2D
