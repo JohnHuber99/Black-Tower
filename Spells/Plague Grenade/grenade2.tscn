@@ -103,7 +103,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h8oi1"]
-radius = 52.3259
+radius = 48.1041
 
 [node name="Grenade2" type="Path2D"]
 z_index = 1
@@ -111,7 +111,9 @@ curve = SubResource("Curve2D_2n66k")
 script = ExtResource("1_6lrgy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0.198653, 0.198653)
 rotation = -0.785398
+scale = Vector2(1, 1.00546)
 sprite_frames = SubResource("SpriteFrames_g4oid")
 animation = &"explosion"
 frame = 11
