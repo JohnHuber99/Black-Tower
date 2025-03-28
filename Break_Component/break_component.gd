@@ -2,7 +2,7 @@ extends Node
 
 class_name BreakComponent
 
-@export var MAX_BREAK_BAR: int = 30
+@export var MAX_BREAK_BAR: int = 50
 var current_break_bar: int
 var is_broken: bool = false
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b2cvygcw3s5xt"]
+[gd_scene load_steps=15 format=3 uid="uid://dkypinx6hg7rj"]
 
 [ext_resource type="Texture2D" uid="uid://c1ws253rbg7hr" path="res://Spells/Plague Grenade/Plague Grenade Sprites/explosion.png" id="1_3p54v"]
 [ext_resource type="Texture2D" uid="uid://bo3l6vy2ksjgf" path="res://Spells/Plague Grenade/Plague Grenade Sprites/Grenade.png" id="1_n7hr6"]

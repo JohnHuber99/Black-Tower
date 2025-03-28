@@ -7,7 +7,7 @@ signal is_defeated
 @export var speed = 150
 @export var dash_speed = 5
 @export var attack_proximity = 100
-@export var damage = 20
+@export var damage = 10
 @export var knockback = 400
 @export var wait_time: float = 0.5  # Time (in seconds) to wait after collision
 @export var break_factor: float = 0.5  # Factor by which stats are reduced when broken
@@ -129,6 +129,8 @@ func _on_health_component_destroyed() -> void:
 	queue_free()
 
 func _on_enemy_activated() -> void:
+	health.MAX_HEALTH = 100
+	health.current_health = 100
 	global_position = get_parent().global_position
 	enemyActivation = true
 

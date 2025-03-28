@@ -3,8 +3,8 @@ extends CharacterBody2D
 class_name SpinningKnife
 
 @export var SPEED = 200 # Value is subject to change 
-@export var damage = 30
-@export var break_effect = 30
+@export var damage = 15
+@export var break_effect = 20
 
 @onready var sprite = $AnimatedSprite2D
 
