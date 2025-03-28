@@ -10,6 +10,7 @@ signal is_defeated
 @export var damage = 20
 @export var knockback = 400
 @export var wait_time: float = 0.5  # Time (in seconds) to wait after collision
+@export var break_factor: float = 0.5  # Factor by which stats are reduced when broken
 var is_waiting: bool = false  # Flag to track if waiting
 var is_dashing: bool = false
 var is_damaged: bool = false
@@ -20,6 +21,7 @@ var last_direction
 
 @onready var sprite = $AnimatedSprite2D
 @onready var health = $"Health Component"
+@onready var break_bar = $"Break Component"
 @onready var death_explosion = $CPUParticles2D
 var player
 
@@ -133,3 +135,12 @@ func _on_enemy_activated() -> void:
 func _on_enemy_deactivated() -> void:
 	enemyActivation = false
 	global_position = get_parent().global_position
+
+
+func _on_break_component_broken() -> void:
+	death_explosion.emitting = true;
+	speed *= break_factor
+	attack_proximity *= break_factor
+	dash_speed *= break_factor
+	damage *= break_factor
+	knockback *= break_factor
