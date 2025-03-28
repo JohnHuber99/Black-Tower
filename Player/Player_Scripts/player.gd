@@ -7,8 +7,6 @@ extends CharacterBody2D
 @export var direction_change_accel = 2000
 @export var spells = ["grenade", "smelling_salts"]
 @export var spell_cooldowns = [7, 12] # spell cooldown is seconds
-@export var attack_damage = 10
-@export var heavy_damage = 30
 @export var boosted_damage = 2 # multiplying factor
 @export var max_buff_duration = 10
 @export var iframes = 60
@@ -257,19 +255,15 @@ func _launch():
 
 func _fire(type) :
 	var knife
-	var damage
 	# Set knife based on attack type
 	if (type == "heavy"):
 		knife = SPINNING_KNIFE.instantiate()
-		damage = heavy_damage
 	else:
 		knife = KNIFE.instantiate()
-		damage = attack_damage
 	# Boost damage if buffed
 	if stats_boosted:
-		knife.damage = damage * boosted_damage
-	else:
-		knife.damage = damage
+		knife.damage *= boosted_damage
+		knife.break_effect *= boosted_damage
 	add_child(knife)
 	
 func knockback(direction: Vector2, magnitude):

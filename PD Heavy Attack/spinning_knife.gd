@@ -3,11 +3,12 @@ extends CharacterBody2D
 class_name SpinningKnife
 
 @export var SPEED = 200 # Value is subject to change 
+@export var damage = 30
+@export var break_effect = 30
 
 @onready var sprite = $AnimatedSprite2D
 
 var dir : float
-var damage
 
 func _ready():
 	look_at(get_global_mouse_position())
@@ -22,4 +23,5 @@ func _physics_process(delta):
 		var collider = collision.get_collider()
 		if (collider is Enemy):
 			collider.health.damage_taken(damage)
+			collider.break_bar.break_taken(break_effect)
 		queue_free()

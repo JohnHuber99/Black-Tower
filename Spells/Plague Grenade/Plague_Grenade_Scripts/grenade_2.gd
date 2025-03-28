@@ -2,7 +2,8 @@ extends Path2D
 
 @export var speed = 600
 @export var targetPosition: Vector2
-@export var damage = 30 
+@export var damage = 30
+@export var break_effect = 30
 
 @onready var path_follow_2d = $PathFollow2D
 @onready var grenade_sprite = $PathFollow2D/Area2D/Sprite2D
@@ -54,4 +55,5 @@ func _on_explosion_frame_changed(): # Damage enemies only on 2-5 frames of explo
 		for body in area_2d.get_overlapping_bodies():
 			if body is Enemy and body not in damaged_enemies:
 				body.health.damage_taken(damage)
+				body.break_bar.break_taken(break_effect)
 				damaged_enemies.append(body)
