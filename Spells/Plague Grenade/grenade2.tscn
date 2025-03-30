@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://c5qbyprgjcbsh"]
 
-[ext_resource type="Script" uid="uid://gr5vlqc7lcwt" path="res://Spells/Plague Grenade/Plague_Grenade_Scripts/grenade_2.gd" id="1_6lrgy"]
+[ext_resource type="Script" path="res://Spells/Plague Grenade/Plague_Grenade_Scripts/grenade_2.gd" id="1_6lrgy"]
 [ext_resource type="Texture2D" uid="uid://bo3l6vy2ksjgf" path="res://Spells/Plague Grenade/Plague Grenade Sprites/Grenade.png" id="2_g541h"]
 [ext_resource type="Texture2D" uid="uid://c1ws253rbg7hr" path="res://Spells/Plague Grenade/Plague Grenade Sprites/explosion.png" id="3_kasfg"]
 

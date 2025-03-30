@@ -126,7 +126,14 @@ func _on_health_component_destroyed() -> void:
 	sprite.play("death")
 	death_explosion.emitting = true;
 	await sprite.animation_finished
+	spawn_coin()
 	queue_free()
+
+func spawn_coin() -> void:
+	var coin_scene = preload("res://Gold_Component/Coin Component.tscn")  # Adjust path to your Coin scene
+	var coin_instance = coin_scene.instantiate()
+	get_parent().add_child(coin_instance)
+	coin_instance.global_position = global_position  # Place coin at enemy's position
 
 func _on_enemy_activated() -> void:
 	health.MAX_HEALTH = 100

@@ -11,6 +11,7 @@ extends CharacterBody2D
 @export var max_buff_duration = 10
 @export var iframes = 60
 @export var attack_chain_window = 20
+@export var total_coins: int = 0
 
 @onready var death_label = $"CanvasLayer/DeathLabel"
 @onready var sprite = $PlayerSprite
@@ -297,3 +298,6 @@ func _on_mana_component_manabar_signal() -> void:
 	var FlashDecision = mana.currentMana_Bar < mana.Plague_Grenade_Cost or mana.currentMana_Bar < mana.Smelling_Salts_cost
 	if FlashDecision:
 		ui.flash_mana()
+
+func collect_coin(value: int):
+	total_coins += value
