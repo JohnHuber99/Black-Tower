@@ -9,6 +9,7 @@ class_name SpinningKnife
 @onready var sprite = $AnimatedSprite2D
 
 var dir : float
+var corruption
 
 func _ready():
 	look_at(get_global_mouse_position())
@@ -23,5 +24,5 @@ func _physics_process(delta):
 		var collider = collision.get_collider()
 		if (collider is Enemy):
 			collider.health.damage_taken(damage)
-			collider.break_bar.break_taken(break_effect)
+			collider.break_bar.break_taken(break_effect, corruption)
 		queue_free()

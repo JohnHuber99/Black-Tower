@@ -20,5 +20,5 @@ func _physics_process(delta):
 		var collider = collision.get_collider()
 		if (collider is Enemy):
 			collider.health.damage_taken(damage)
-			collider.break_bar.break_taken(break_effect)
+			collider.break_bar.break_taken(break_effect, null)
 		queue_free()

@@ -11,6 +11,9 @@ signal is_defeated
 @export var knockback = 400
 @export var wait_time: float = 0.5  # Time (in seconds) to wait after collision
 @export var break_factor: float = 0.5  # Factor by which stats are reduced when broken
+@export var dot_taken = 10 # How much damage over time is taken from plague
+@export var dot_interval = 3 # How often damage over time from plague is taken in seconds
+
 var is_waiting: bool = false  # Flag to track if waiting
 var is_dashing: bool = false
 var is_damaged: bool = false
@@ -18,6 +21,8 @@ var enemyActivation = false
 var enemy_area : Node  
 var collision : Object 
 var last_direction
+var take_dot = false
+var break_damage_multiplier = 1
 
 @onready var sprite = $AnimatedSprite2D
 @onready var health = $"Health Component"
@@ -86,6 +91,12 @@ func pause_slime():
 	await get_tree().create_timer(wait_time, false).timeout  # Wait for the set time
 	is_waiting = false  # Resume movement
 
+func damage_over_time():
+	take_dot = false
+	health.damage_taken(dot_taken)
+	await get_tree().create_timer(dot_interval, false).timeout
+	take_dot = true
+
 func _process(delta):
 	# Stops moving during damage taken animation
 	if is_waiting or health.is_defeated or is_damaged:
@@ -114,6 +125,10 @@ func _process(delta):
 	else:
 		if !sprite.is_playing():
 			sprite.play("default")
+	
+	# Take dot if corrupted by plague
+	if take_dot:
+		damage_over_time()
 
 func _on_health_component_health_change(character_newHealth: Variant) -> void:
 	is_damaged = true
@@ -148,8 +163,19 @@ func _on_enemy_deactivated() -> void:
 
 func _on_break_component_broken() -> void:
 	death_explosion.emitting = true;
-	speed *= break_factor
-	attack_proximity *= break_factor
-	dash_speed *= break_factor
-	damage *= break_factor
-	knockback *= break_factor
+	pause_slime()
+
+
+func _on_break_component_break_damage(amount: Variant, type: Variant) -> void:
+	if type == "plague_festering_boils":
+		break_damage_multiplier /= break_factor
+		take_dot = true
+	if type == "plague_rattlejoint_ache":
+		speed *= break_factor
+		dash_speed *= break_factor
+		take_dot = true
+	if type == "plague_withering_cough":
+		damage *= break_factor
+		knockback *= break_factor
+		take_dot = true
+	health.damage_taken(amount * break_damage_multiplier)

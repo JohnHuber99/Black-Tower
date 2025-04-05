@@ -1,6 +1,6 @@
 [gd_scene load_steps=49 format=3 uid="uid://beu0skyadwt6x"]
 
-[ext_resource type="Script" uid="uid://bwkqflwu8gxce" path="res://Slime_Enemy/Enemy_Scripts/enemy.gd" id="1_23p0l"]
+[ext_resource type="Script" path="res://Slime_Enemy/Enemy_Scripts/enemy.gd" id="1_23p0l"]
 [ext_resource type="Texture2D" uid="uid://1u6knarlmyas" path="res://Slime_Enemy/Enemy_Sprites/Enemy_Slime_Basic_Attack_v2-Sheet.png" id="2_duelt"]
 [ext_resource type="Texture2D" uid="uid://d31hcycry1q20" path="res://Slime_Enemy/Enemy_Sprites/Enemy_Slime_Death_v3-Sheet.png" id="3_i3q4c"]
 [ext_resource type="Texture2D" uid="uid://305ocla3pksv" path="res://Slime_Enemy/Enemy_Sprites/Enemy_Sprite-Sheet.png" id="4_cbnif"]
@@ -342,4 +342,5 @@ scale_amount_curve = SubResource("Curve_01rfr")
 
 [connection signal="destroyed" from="Health Component" to="." method="_on_health_component_destroyed"]
 [connection signal="health_change" from="Health Component" to="." method="_on_health_component_health_change"]
+[connection signal="break_damage" from="Break Component" to="." method="_on_break_component_break_damage"]
 [connection signal="broken" from="Break Component" to="." method="_on_break_component_broken"]

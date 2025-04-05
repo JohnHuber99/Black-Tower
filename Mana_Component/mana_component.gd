@@ -4,10 +4,10 @@ const Mana_Base = 100
 const Mana_maxBar = 100
 
 var currentMana_Bar = Mana_Base
-var regeneration_Bar = 2
-const Plague_Grenade_Cost = 22
-const Smelling_Salts_cost = 30
-const heavy_attack_cost = 20
+var regeneration_Bar = 3
+const Plague_Grenade_Cost = 18
+const Smelling_Salts_cost = 22
+const heavy_attack_cost = 10
 
 signal manabar_signal
 

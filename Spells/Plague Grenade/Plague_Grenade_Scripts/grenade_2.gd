@@ -12,6 +12,7 @@ extends Path2D
 @onready var collision_shape = $PathFollow2D/Area2D/CollisionShape2D
 
 var damaged_enemies = [] # Only damage enemies once in hurtbox. Not over time
+var corruption
 
 func _ready():
 	curve.clear_points()
@@ -55,5 +56,5 @@ func _on_explosion_frame_changed(): # Damage enemies only on 2-5 frames of explo
 		for body in area_2d.get_overlapping_bodies():
 			if body is Enemy and body not in damaged_enemies:
 				body.health.damage_taken(damage)
-				body.break_bar.break_taken(break_effect)
+				body.break_bar.break_taken(break_effect, corruption)
 				damaged_enemies.append(body)

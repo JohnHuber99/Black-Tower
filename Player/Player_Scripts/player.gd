@@ -12,6 +12,7 @@ extends CharacterBody2D
 @export var iframes = 60
 @export var attack_chain_window = 20
 @export var total_coins: int = 0
+@export var corruption = ["plague_festering_boils", "plague_rattlejoint_ache", "plague_withering_cough"]
 
 @onready var death_label = $"CanvasLayer/DeathLabel"
 @onready var sprite = $PlayerSprite
@@ -38,6 +39,8 @@ var attack_chain = 0
 var chain_timer = 0
 
 var attack_held_down = false
+
+var current_corruption = corruption[1] # Set this to whatever the default plague should be (0, 1, or 2)
 
 signal spell_key_released
 signal launch_vapor(x, y)
@@ -246,6 +249,7 @@ func _launch():
 		
 		var grenade = GRENADE.instantiate()
 		grenade.targetPosition = targetPosition
+		grenade.corruption = current_corruption
 		
 		get_parent().add_child(grenade)
 		grenade.global_position = global_position
@@ -259,6 +263,7 @@ func _fire(type) :
 	# Set knife based on attack type
 	if (type == "heavy"):
 		knife = SPINNING_KNIFE.instantiate()
+		knife.corruption = current_corruption
 	else:
 		knife = KNIFE.instantiate()
 	# Boost damage if buffed
