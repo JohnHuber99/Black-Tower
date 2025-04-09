@@ -1,6 +1,6 @@
-[gd_scene load_steps=49 format=3 uid="uid://beu0skyadwt6x"]
+[gd_scene load_steps=49 format=3 uid="uid://etsn8pr76ul5"]
 
-[ext_resource type="Script" path="res://Slime_Enemy/Enemy_Scripts/enemy.gd" id="1_23p0l"]
+[ext_resource type="Script" path="res://Enemy/Enemy_Scripts/enemy.gd" id="1_23p0l"]
 [ext_resource type="Texture2D" uid="uid://1u6knarlmyas" path="res://Slime_Enemy/Enemy_Sprites/Enemy_Slime_Basic_Attack_v2-Sheet.png" id="2_duelt"]
 [ext_resource type="Texture2D" uid="uid://d31hcycry1q20" path="res://Slime_Enemy/Enemy_Sprites/Enemy_Slime_Death_v3-Sheet.png" id="3_i3q4c"]
 [ext_resource type="Texture2D" uid="uid://305ocla3pksv" path="res://Slime_Enemy/Enemy_Sprites/Enemy_Sprite-Sheet.png" id="4_cbnif"]
@@ -8,8 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bwicqk1gug5b" path="res://Health_Component/Health Component.tscn" id="6_mrtqe"]
 [ext_resource type="PackedScene" uid="uid://bkka2jvcu2lis" path="res://Break_Component/Break Component.tscn" id="7_urkfh"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_0830c"]
-radius = 11.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rxuim"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_imgxb"]
 atlas = ExtResource("2_duelt")
@@ -313,8 +312,8 @@ point_count = 2
 z_index = 4
 script = ExtResource("1_23p0l")
 
-[node name="SlimeHitBox" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_0830c")
+[node name="HitBox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rxuim")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0)

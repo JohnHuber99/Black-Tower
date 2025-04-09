@@ -35,6 +35,10 @@ func _ready() -> void:
 	enemy_area.connect("enemy_activated", _on_enemy_activated)
 	enemy_area.connect("enemy_deactivated", _on_enemy_deactivated)
 
+# Override in subclass
+func handle_physics_process(delta: float) -> void:
+	pass
+
 func _physics_process(delta: float) -> void:
 	if health.is_defeated:
 		return
@@ -43,40 +47,14 @@ func _physics_process(delta: float) -> void:
 	if is_waiting or !enemyActivation:
 		sprite.play("default")
 		return  # Stop movement if in waiting state
-	
-	if sprite.animation == "default" and !is_dashing:
-		slime_movement(delta)
-	elif sprite.animation == "attack":
-		slime_dash()
 
 	if get_node_or_null("/root/Run/CurrentView/Main/player"):  # Check if player node exists
 		player = get_node("/root/Run/CurrentView/Main/player")
-	
-	# Handle collision with the player
-	if collision and sprite.animation == "attack":
-		var collider = collision.get_collider()
-		if collider == player:
-			handle_player_collision()
-
-func slime_movement(delta) -> void:
-		# Calculate direction towards the player
-	last_direction = (player.global_position - global_position).normalized()
-
-	# Set motion vector
-	var motion = last_direction * speed * delta
-	
-	# Move and detect collisions
-	collision = move_and_collide(motion)
-
-func slime_dash() -> void:
-	# Set motion vector
-	var motion = last_direction * dash_speed
-	
-	# Move and detect collisions
-	collision =  move_and_collide(motion)
+		
+	handle_physics_process(delta)
 	
 
-func handle_player_collision():
+func handle_damage_player():
 	if player.iframe_timer > 0:
 		return
 	
@@ -86,16 +64,15 @@ func handle_player_collision():
 	
 	player.health.damage_taken(damage)
 
-func pause_slime():
-	is_waiting = true  # Stop movement
-	await get_tree().create_timer(wait_time, false).timeout  # Wait for the set time
-	is_waiting = false  # Resume movement
-
 func damage_over_time():
 	take_dot = false
 	health.damage_taken(dot_taken)
 	await get_tree().create_timer(dot_interval, false).timeout
 	take_dot = true
+
+# Override in subclass
+func handle_process(delta: float) -> void:
+	pass
 
 func _process(delta):
 	# Stops moving during damage taken animation
@@ -112,23 +89,11 @@ func _process(delta):
 	# Face toward player
 	sprite.flip_h = x_distance > 0
 	
-	# Attack if close enough to player
-	if (global_position.distance_to(player.global_position) < attack_proximity and !is_dashing):
-		is_dashing = true
-		sprite.play("pause")
-		await sprite.animation_finished
-		last_direction = (player.global_position - global_position).normalized()
-		sprite.play("attack")
-		await sprite.animation_finished
-		await pause_slime()
-		is_dashing = false
-	else:
-		if !sprite.is_playing():
-			sprite.play("default")
-	
 	# Take dot if corrupted by plague
 	if take_dot:
 		damage_over_time()
+	
+	handle_process(delta)
 
 func _on_health_component_health_change(character_newHealth: Variant) -> void:
 	is_damaged = true
@@ -160,10 +125,14 @@ func _on_enemy_deactivated() -> void:
 	enemyActivation = false
 	global_position = get_parent().global_position
 
+func pause_enemy():
+	is_waiting = true  # Stop movement
+	await get_tree().create_timer(wait_time, false).timeout  # Wait for the set time
+	is_waiting = false  # Resume movement
 
 func _on_break_component_broken() -> void:
 	death_explosion.emitting = true;
-	pause_slime()
+	pause_enemy()
 
 
 func _on_break_component_break_damage(amount: Variant, type: Variant) -> void:
