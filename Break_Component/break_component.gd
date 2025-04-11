@@ -8,6 +8,7 @@ var is_broken: bool = false
 
 signal broken
 signal break_damage(amount, type)
+signal break_change(newBreak)
 
 func _ready():
 	current_break_bar = MAX_BREAK_BAR
@@ -18,6 +19,7 @@ func break_taken(amount: int, type):
 			break_damage.emit(amount, type)
 		return
 	current_break_bar = max(0, current_break_bar - amount)
+	break_change.emit(current_break_bar)
 	
 	if current_break_bar <= 0:
 		await destroy()

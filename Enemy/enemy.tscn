@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://etsn8pr76ul5"]
+[gd_scene load_steps=52 format=3 uid="uid://etsn8pr76ul5"]
 
 [ext_resource type="Script" path="res://Enemy/Enemy_Scripts/enemy.gd" id="1_23p0l"]
 [ext_resource type="Texture2D" uid="uid://1u6knarlmyas" path="res://Slime_Enemy/Enemy_Sprites/Enemy_Slime_Basic_Attack_v2-Sheet.png" id="2_duelt"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://dvbuxicu3vb5t" path="res://Slime_Enemy/Enemy_Sprites/Enemy_Slime_Hurt-Sheetv4.png" id="5_dmowf"]
 [ext_resource type="PackedScene" uid="uid://bwicqk1gug5b" path="res://Health_Component/Health Component.tscn" id="6_mrtqe"]
 [ext_resource type="PackedScene" uid="uid://bkka2jvcu2lis" path="res://Break_Component/Break Component.tscn" id="7_urkfh"]
+[ext_resource type="Texture2D" uid="uid://ccay1f86qeecr" path="res://Enemy/Enemy_Sprites/stats_frame.png" id="8_0nws4"]
+[ext_resource type="Texture2D" uid="uid://f74ludgjujfr" path="res://Enemy/Enemy_Sprites/hp_bar.png" id="9_vn0j3"]
+[ext_resource type="Texture2D" uid="uid://bvihacj6ehx3j" path="res://Enemy/Enemy_Sprites/break_bar.png" id="10_hg2f7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rxuim"]
 
@@ -318,7 +321,6 @@ shape = SubResource("RectangleShape2D_rxuim")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_7duco")
-animation = &"pause"
 autoplay = "default"
 
 [node name="Health Component" parent="." instance=ExtResource("6_mrtqe")]
@@ -339,7 +341,19 @@ scale_amount_curve = SubResource("Curve_01rfr")
 
 [node name="Break Component" parent="." instance=ExtResource("7_urkfh")]
 
+[node name="BarFrame" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(0, -24)
+texture = ExtResource("8_0nws4")
+
+[node name="HealthBar" type="Sprite2D" parent="BarFrame"]
+texture = ExtResource("9_vn0j3")
+
+[node name="BreakBar" type="Sprite2D" parent="BarFrame"]
+texture = ExtResource("10_hg2f7")
+
 [connection signal="destroyed" from="Health Component" to="." method="_on_health_component_destroyed"]
 [connection signal="health_change" from="Health Component" to="." method="_on_health_component_health_change"]
+[connection signal="break_change" from="Break Component" to="." method="_on_break_component_break_change"]
 [connection signal="break_damage" from="Break Component" to="." method="_on_break_component_break_damage"]
 [connection signal="broken" from="Break Component" to="." method="_on_break_component_broken"]

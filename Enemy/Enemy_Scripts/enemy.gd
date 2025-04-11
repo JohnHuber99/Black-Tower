@@ -4,6 +4,8 @@ class_name Enemy
 
 signal is_defeated
 
+@export var max_health = 100
+@export var max_break_bar = 50
 @export var speed = 150
 @export var dash_speed = 5
 @export var attack_proximity = 100
@@ -28,6 +30,8 @@ var break_damage_multiplier = 1
 @onready var health = $"Health Component"
 @onready var break_bar = $"Break Component"
 @onready var death_explosion = $CPUParticles2D
+@onready var health_ui = $BarFrame/HealthBar
+@onready var break_ui = $BarFrame/BreakBar
 var player
 
 func _ready() -> void:
@@ -97,6 +101,7 @@ func _process(delta):
 
 func _on_health_component_health_change(character_newHealth: Variant) -> void:
 	is_damaged = true
+	health_ui.scale.x = float(character_newHealth) / max_health
 	sprite.play("hurt")
 	await sprite.animation_finished
 	is_damaged = false
@@ -116,8 +121,10 @@ func spawn_coin() -> void:
 	coin_instance.global_position = global_position  # Place coin at enemy's position
 
 func _on_enemy_activated() -> void:
-	health.MAX_HEALTH = 100
-	health.current_health = 100
+	health.MAX_HEALTH = max_health
+	health.current_health = max_health
+	break_bar.MAX_BREAK_BAR = max_break_bar
+	break_bar.current_break_bar = max_break_bar
 	global_position = get_parent().global_position
 	enemyActivation = true
 
@@ -134,7 +141,6 @@ func _on_break_component_broken() -> void:
 	death_explosion.emitting = true;
 	pause_enemy()
 
-
 func _on_break_component_break_damage(amount: Variant, type: Variant) -> void:
 	if type == "plague_festering_boils":
 		break_damage_multiplier /= break_factor
@@ -148,3 +154,6 @@ func _on_break_component_break_damage(amount: Variant, type: Variant) -> void:
 		knockback *= break_factor
 		take_dot = true
 	health.damage_taken(amount * break_damage_multiplier)
+
+func _on_break_component_break_change(newBreak: Variant) -> void:
+	break_ui.scale.x = float(newBreak) / max_break_bar
