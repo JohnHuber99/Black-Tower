@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbon7gihi754n"]
+[gd_scene load_steps=6 format=3 uid="uid://bbon7gihi754n"]
 
-[ext_resource type="Script" uid="uid://bigj36v4b2u7h" path="res://Main_Menu/main_menu.gd" id="1_82v7h"]
+[ext_resource type="Script" path="res://Main_Menu/main_menu.gd" id="1_82v7h"]
 [ext_resource type="FontFile" uid="uid://vx8hmoh8k8op" path="res://04B_03__.TTF" id="2_xqi02"]
 [ext_resource type="Texture2D" uid="uid://b0v0l2xmkn0xg" path="res://Main_Menu/BlackTowerPlaceHolderMainScreen.png" id="3_p477q"]
+[ext_resource type="AudioStream" uid="uid://bekmcj2cku6xt" path="res://Music/black_tower_title.mp3" id="4_o21w7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ijq4r"]
 font = ExtResource("2_xqi02")
@@ -56,6 +57,11 @@ text = "Play Game"
 [node name="Exit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Exit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_o21w7")
+autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="VBoxContainer/PlayGame" to="." method="_on_play_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
