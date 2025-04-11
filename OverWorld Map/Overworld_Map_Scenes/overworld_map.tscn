@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cxjgqk7x8nbqb"]
 
-[ext_resource type="Script" uid="uid://drcpx7ilgtqkt" path="res://OverWorld Map/Overworld Scripts/overworld_map.gd" id="1_def1s"]
-[ext_resource type="Script" uid="uid://dw6xegy0houh4" path="res://OverWorld Map/Overworld Scripts/overworld_map_generator.gd" id="2_bciwr"]
+[ext_resource type="Script" path="res://OverWorld Map/Overworld Scripts/overworld_map.gd" id="1_def1s"]
+[ext_resource type="Script" path="res://OverWorld Map/Overworld Scripts/overworld_map_generator.gd" id="2_bciwr"]
 
 [sub_resource type="Gradient" id="Gradient_6msql"]
 colors = PackedColorArray(0.197937, 0.197937, 0.197937, 1, 0.56489, 0.407431, 0.23294, 1)
