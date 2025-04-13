@@ -270,7 +270,8 @@ func _fire(type) :
 	if stats_boosted:
 		knife.damage *= boosted_damage
 		knife.break_effect *= boosted_damage
-	add_child(knife)
+	knife.global_position = global_position
+	get_parent().add_child(knife)
 	
 func knockback(direction: Vector2, magnitude):
 	velocity = direction * magnitude

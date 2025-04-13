@@ -11,7 +11,7 @@ var dir : float
 func _ready():
 	look_at(get_global_mouse_position())
 	dir = rotation
-	add_collision_exception_with(get_parent())
+	add_collision_exception_with(get_parent().get_node("player"))
 	
 func _physics_process(delta):
 	velocity = Vector2(SPEED,0).rotated(dir)

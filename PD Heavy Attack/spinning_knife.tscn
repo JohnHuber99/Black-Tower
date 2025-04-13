@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bm2drvtrv1dn8" path="res://PD Heavy Attack/Spinning_Knife-Sheet.png" id="2_7gwid"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7gwid"]
-radius = 16.0
+radius = 15.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dggh2"]
 atlas = ExtResource("2_7gwid")
