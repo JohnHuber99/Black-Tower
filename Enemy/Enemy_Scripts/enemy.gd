@@ -32,6 +32,8 @@ var break_damage_multiplier = 1
 @onready var death_explosion = $CPUParticles2D
 @onready var health_ui = $BarFrame/HealthBar
 @onready var break_ui = $BarFrame/BreakBar
+@onready var bar_ui = $BarFrame
+
 var player
 
 func _ready() -> void:
@@ -108,6 +110,7 @@ func _on_health_component_health_change(character_newHealth: Variant) -> void:
 	
 func _on_health_component_destroyed() -> void:
 	is_defeated.emit()
+	bar_ui.visible = false
 	sprite.play("death")
 	death_explosion.emitting = true;
 	await sprite.animation_finished
@@ -126,6 +129,7 @@ func _on_enemy_activated() -> void:
 	break_bar.MAX_BREAK_BAR = max_break_bar
 	break_bar.current_break_bar = max_break_bar
 	global_position = get_parent().global_position
+	bar_ui.visible = true
 	enemyActivation = true
 
 func _on_enemy_deactivated() -> void:
