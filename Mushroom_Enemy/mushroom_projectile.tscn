@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dc0lquftqbx1h"]
+
+[ext_resource type="Script" uid="uid://crudonb58d28a" path="res://Mushroom_Enemy/mushroom_projectile.gd" id="1_jd515"]
+
+[node name="MushroomProjectile" type="Node2D"]
+script = ExtResource("1_jd515")

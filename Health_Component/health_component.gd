@@ -5,6 +5,7 @@ class_name HealthComponent
 @export var MAX_HEALTH: int = 60
 var current_health: int
 var is_defeated: bool = false
+var damage_resistance: float = 1.0
 
 signal health_change(character_newHealth)
 signal destroyed
@@ -15,7 +16,8 @@ func _ready():
 func damage_taken(amount: int):
 	if is_defeated:
 		return
-	current_health = max(0, current_health - amount)
+	var adjusted_damage = int(amount * damage_resistance)
+	current_health = max(0, current_health - adjusted_damage)
 	health_change.emit(current_health)
 	
 	if current_health <= 0:
