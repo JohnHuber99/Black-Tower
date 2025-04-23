@@ -1,0 +1,22 @@
+extends Area2D
+
+
+@export var item: String = "Rusty Armor"
+@export var playerHealth_increase: int = 15
+
+signal item_collected(item)
+
+func _on_body_entered(body):
+	if body.name == "Player":
+		playerCollected_item()
+
+func playerCollected_item():
+	emit_signal("item_collected", item)
+	apply_newPlayerHealth()
+	queue_free()
+	
+
+func apply_newPlayerHealth():
+	var player = get_node("/root/Player")
+	player.increase_health(playerHealth_increase)
+	print("Player collected rusty armor! Player new Health increased by 15.")
