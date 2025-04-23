@@ -1,7 +1,7 @@
 extends Node
 
 const RUN_SCENE = preload("res://Run/run.tscn")
-const DUNGEON_SCENE = preload("res://main.tscn")
+const DUNGEON_SCENE = preload("res://dungeon.tscn")
 const OVERWORLD_MAP_SCENE = preload("res://OverWorld Map/Overworld_Map_Scenes/overworld_map.tscn")
 
 func _ready() -> void:

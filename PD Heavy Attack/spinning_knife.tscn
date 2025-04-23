@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://b0byspxg3cijr"]
 
-[ext_resource type="Script" path="res://PD Heavy Attack/spinning_knife.gd" id="1_7gwid"]
+[ext_resource type="Script" uid="uid://3ablxl0xlxlt" path="res://PD Heavy Attack/spinning_knife.gd" id="1_7gwid"]
 [ext_resource type="Texture2D" uid="uid://bm2drvtrv1dn8" path="res://PD Heavy Attack/Spinning_Knife-Sheet.png" id="2_7gwid"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7gwid"]

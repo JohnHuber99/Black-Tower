@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq4ppt832r4r"]
+
+[ext_resource type="Script" uid="uid://c6gljtwqjy6n6" path="res://shop_rooms.gd" id="1_viryw"]
+
+[node name="Main" type="Node2D"]
+
+[node name="ShopRooms" type="Node2D" parent="."]
+script = ExtResource("1_viryw")

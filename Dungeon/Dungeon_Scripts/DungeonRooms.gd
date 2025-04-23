@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name DungeonRooms
+
 # Loading Room Objects
 @export var MAX_BIG_ROOMS = 1 #Original value is 1
 @export var MAX_LONG_ROOMS = 2 #Original value is 2

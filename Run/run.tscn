@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://j1wudtcx7fr2"]
 
-[ext_resource type="Script" path="res://Run/run.gd" id="1_6oxp3"]
+[ext_resource type="Script" uid="uid://bnfqitnctg68j" path="res://Run/run.gd" id="1_6oxp3"]
 [ext_resource type="PackedScene" uid="uid://cxjgqk7x8nbqb" path="res://OverWorld Map/Overworld_Map_Scenes/overworld_map.tscn" id="2_qvybc"]
 
 [node name="Run" type="Node"]

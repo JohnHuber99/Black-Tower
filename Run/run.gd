@@ -1,7 +1,9 @@
 class_name Run
 extends Node
 
-const DUNGEON_SCENE = preload("res://main.tscn")
+const DUNGEON_SCENE = preload("res://dungeon.tscn")
+const SHOP_SCENE = preload("res://shop.tscn")
+const TREASURE_SCENE = preload("res://treasure.tscn")
 
 @onready var current_view: Node = $CurrentView
 @onready var overworld_map: OverworldMap = $OverworldMap
@@ -50,10 +52,10 @@ func _on_overworld_map_exited(room: Room) -> void:
 		Room.Type.ELITE_MONSTER:
 			_change_view(DUNGEON_SCENE)
 		Room.Type.TREASURE:
-			_change_view(DUNGEON_SCENE)
+			_change_view(TREASURE_SCENE)
 		Room.Type.CAMPFIRE:
 			_change_view(DUNGEON_SCENE)
 		Room.Type.SHOP:
-			_change_view(DUNGEON_SCENE)
+			_change_view(SHOP_SCENE)
 		Room.Type.BOSS:
 			_change_view(DUNGEON_SCENE)

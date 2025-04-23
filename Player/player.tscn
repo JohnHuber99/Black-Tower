@@ -1,6 +1,6 @@
 [gd_scene load_steps=105 format=3 uid="uid://b4uixgwclv3j8"]
 
-[ext_resource type="Script" path="res://Player/Player_Scripts/player.gd" id="1_p5o4e"]
+[ext_resource type="Script" uid="uid://bckauqi7hchmr" path="res://Player/Player_Scripts/player.gd" id="1_p5o4e"]
 [ext_resource type="Texture2D" uid="uid://byu22pipcx4kf" path="res://PD Heavy Attack/Plague_Doctor_Heavy_Attack_v1-Sheet.png" id="2_gu6f8"]
 [ext_resource type="Texture2D" uid="uid://kpqela8cflr" path="res://PD Basic Attack/Throw_2.png" id="3_dkpta"]
 [ext_resource type="Texture2D" uid="uid://cmov0iwtw5j3e" path="res://Player/Player_Sprites/Death.png" id="4_lfmf2"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dduk3h7bwwde0" path="res://Spells/Smelling Salts/PlagueDoctorSprite_SmellingSaltsSpell-Sheet.png" id="7_o28un"]
 [ext_resource type="Texture2D" uid="uid://dhbo1pdw7f62m" path="res://Spells/Plague Grenade/Plague Grenade Sprites/grenade_throw.png" id="8_n471f"]
 [ext_resource type="Texture2D" uid="uid://bat4rjdsewfqn" path="res://Spells/Plague Grenade/Plague Grenade Sprites/Throwing_Idle.png" id="9_7emwf"]
-[ext_resource type="Script" path="res://Camera/Camera_Scripts/PlayerCamera.gd" id="10_hshwv"]
+[ext_resource type="Script" uid="uid://cej8auhwlwqxq" path="res://Camera/Camera_Scripts/PlayerCamera.gd" id="10_hshwv"]
 [ext_resource type="PackedScene" uid="uid://ooqf0bpcg3ow" path="res://UI/ui.tscn" id="11_gpjlu"]
 [ext_resource type="PackedScene" uid="uid://bwicqk1gug5b" path="res://Health_Component/Health Component.tscn" id="12_8mwp6"]
 [ext_resource type="FontFile" uid="uid://vx8hmoh8k8op" path="res://04B_03__.TTF" id="13_qemgg"]
