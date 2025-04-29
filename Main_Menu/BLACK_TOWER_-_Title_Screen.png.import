@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0v0l2xmkn0xg"
-path="res://.godot/imported/BlackTowerPlaceHolderMainScreen.png-1065de3e4e4435b873895b4ae1d61544.ctex"
+uid="uid://cd1xlelfic7n8"
+path="res://.godot/imported/BLACK_TOWER_-_Title_Screen.png-af24d17c5e11ab1524dd10c82e515e33.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Main_Menu/BlackTowerPlaceHolderMainScreen.png"
-dest_files=["res://.godot/imported/BlackTowerPlaceHolderMainScreen.png-1065de3e4e4435b873895b4ae1d61544.ctex"]
+source_file="res://Main_Menu/BLACK_TOWER_-_Title_Screen.png"
+dest_files=["res://.godot/imported/BLACK_TOWER_-_Title_Screen.png-af24d17c5e11ab1524dd10c82e515e33.ctex"]
 
 [params]
 
