@@ -1,7 +1,7 @@
 class_name OverworldMapGenerator
 extends Node
 
-const X_DIST := 30
+const X_DIST := 25
 const Y_DIST := 25
 const PLACEMENT_RANDOMNESS := 5
 const FLOORS := 8

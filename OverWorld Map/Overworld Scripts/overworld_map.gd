@@ -11,6 +11,7 @@ const MAP_LINE = preload("res://OverWorld Map/Overworld_Map_Scenes/map_line.tscn
 @onready var visuals: Node2D = get_node("Visuals")
 @onready var camera_2d: Camera2D = get_node("Camera2D")
 
+var map_vertical_offset: float = 32.0 #higher number means lower the map
 var map_data: Array[Array]
 var floors_climbed: int
 var last_room: Room
@@ -46,8 +47,10 @@ func create_map() -> void:
 	_spawn_room(map_data[OverworldMapGenerator.FLOORS-1][middle])
 	
 	var map_width_pixels := OverworldMapGenerator.X_DIST * (OverworldMapGenerator.MAP_WIDTH - 1)
-	visuals.position.x = (get_viewport_rect().size.x - map_width_pixels) / 2
-	visuals.position.y = get_viewport_rect().size.y / 2
+	var vp_size := get_viewport_rect().size
+	var map_w_px := OverworldMapGenerator.X_DIST * (OverworldMapGenerator.MAP_WIDTH  - 1)
+	var map_h_px := OverworldMapGenerator.Y_DIST * (OverworldMapGenerator.FLOORS - 1)
+	visuals.position = (vp_size - Vector2(map_w_px, map_h_px)) * 0.5 + Vector2(0, map_vertical_offset)
 	
 func unlock_floor(which_floor: int = floors_climbed) -> void:
 	for map_room: MapRoom in rooms.get_children():
