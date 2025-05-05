@@ -1,7 +1,8 @@
-[gd_scene load_steps=53 format=3 uid="uid://bxjeyt1d7jann"]
+[gd_scene load_steps=54 format=3 uid="uid://bxjeyt1d7jann"]
 
 [ext_resource type="PackedScene" uid="uid://etsn8pr76ul5" path="res://Enemy/enemy.tscn" id="1_6awoa"]
 [ext_resource type="Script" uid="uid://c2b0cop085rbk" path="res://Mushroom_Enemy/mushroom_enemy.gd" id="2_44vsd"]
+[ext_resource type="PackedScene" uid="uid://dc0lquftqbx1h" path="res://Mushroom_Enemy/mushroom_projectile.tscn" id="3_7pawe"]
 [ext_resource type="Texture2D" uid="uid://blmrpuqc0bt8d" path="res://Mushroom_Enemy/Enemy_Sprites/Mushroom_Basic_Attack-Sheet.png" id="3_im65v"]
 [ext_resource type="Texture2D" uid="uid://d31hcycry1q20" path="res://Slime_Enemy/Enemy_Sprites/Enemy_Slime_Death_v3-Sheet.png" id="4_im65v"]
 [ext_resource type="Texture2D" uid="uid://cbuh10skkf0tj" path="res://Mushroom_Enemy/Enemy_Sprites/Mushroom Enemy Sprite-Sheet.png" id="5_7pawe"]
@@ -296,7 +297,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_uomn1")
 }],
-"loop": false,
+"loop": true,
 "name": &"default",
 "speed": 8.0
 }, {
@@ -346,12 +347,13 @@ animations = [{
 
 [node name="Mushroom_Enemy" instance=ExtResource("1_6awoa")]
 script = ExtResource("2_44vsd")
-projectile_scene = null
+projectile_scene = ExtResource("3_7pawe")
 shoot_cooldown = 2.0
+hunker_cooldown = 1.0
 defense_duration = 1.5
 damage_resistance = 0.5
 speed = 100
+attack_proximity = 150
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_7yuu6")
-animation = &"attack"

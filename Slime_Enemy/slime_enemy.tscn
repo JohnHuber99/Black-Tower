@@ -11,6 +11,3 @@ script = ExtResource("2_8vt15")
 
 [node name="HitBox" parent="." index="0"]
 shape = SubResource("CircleShape2D_p53ah")
-
-[node name="AnimatedSprite2D" parent="." index="1"]
-animation = &"death"

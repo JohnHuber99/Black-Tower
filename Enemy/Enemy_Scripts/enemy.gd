@@ -82,7 +82,7 @@ func handle_process(delta: float) -> void:
 
 func _process(delta):
 	# Stops moving during damage taken animation
-	if is_waiting or health.is_defeated or is_damaged:
+	if !enemyActivation or is_waiting or health.is_defeated or is_damaged:
 		return
 	
 	# This should be whatever the player instance is
