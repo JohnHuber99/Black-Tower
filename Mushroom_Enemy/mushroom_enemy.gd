@@ -13,10 +13,10 @@ func handle_physics_process(delta: float) -> void:
 		move_toward_player(delta)
 
 func handle_process(delta: float) -> void:
-	if global_position.distance_to(player.global_position) < attack_proximity and can_shoot and !is_hunkering:
+	if global_position.distance_to(player.global_position) < attack_proximity and can_shoot:
 		hunker_and_shoot()
 	else:
-		if !sprite.is_playing():
+		if !sprite.is_playing() and !is_hunkering:
 			sprite.play("default")
 
 func move_toward_player(delta: float) -> void:
@@ -32,19 +32,19 @@ func hunker_and_shoot() -> void:
 
 	# Enter defense mode
 	health.damage_resistance = damage_resistance  
-
-	await get_tree().create_timer(defense_duration).timeout
-
-	# Shoot projectile
-	shoot_projectile()
+	await get_tree().create_timer(defense_duration, false).timeout
 
 	# Exit defense mode
 	health.damage_resistance = 1.0
-	sprite.play("default")
 	is_hunkering = false
+	
+	# Shoot projectile
+	sprite.play("attack")
+	await sprite.animation_finished
+	shoot_projectile()
 
 	# Cooldown before next attack
-	await get_tree().create_timer(shoot_cooldown).timeout
+	await get_tree().create_timer(shoot_cooldown, false).timeout
 	can_shoot = true
 
 func shoot_projectile():
