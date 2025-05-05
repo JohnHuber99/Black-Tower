@@ -9,8 +9,8 @@ func _on_body_entered(body):
 	var room = get_parent().get_parent()
 	if body.is_in_group("player") and room.get_is_cleared():  # Ensure the player is in a "player" group
 		match get_parent().type:
-			"right": player.global_position += Vector2(58, 0)
-			"left": player.global_position += Vector2(-58, 0)
+			"right": player.global_position += Vector2(65, 0)
+			"left": player.global_position += Vector2(-65, 0)
 			"up": player.global_position += Vector2(0, -110)
 			"down": player.global_position += Vector2(0, 110)
 				
