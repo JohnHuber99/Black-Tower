@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbon7gihi754n"]
+[gd_scene load_steps=3 format=3 uid="uid://bbon7gihi754n"]
 
 [ext_resource type="Script" uid="uid://bigj36v4b2u7h" path="res://Main_Menu/main_menu.gd" id="1_82v7h"]
 [ext_resource type="Texture2D" uid="uid://cd1xlelfic7n8" path="res://Main_Menu/BLACK_TOWER_-_Title_Screen.png" id="3_nrxv3"]
-[ext_resource type="AudioStream" uid="uid://bekmcj2cku6xt" path="res://Music/black_tower_title.mp3" id="4_o21w7"]
 
 [node name="Main Menu" type="Node"]
 script = ExtResource("1_82v7h")
@@ -14,11 +13,6 @@ layer = -1
 position = Vector2(356, 201)
 scale = Vector2(1.12, 1.12)
 texture = ExtResource("3_nrxv3")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_o21w7")
-autoplay = true
-parameters/looping = true
 
 [node name="PlayGame" type="Button" parent="."]
 modulate = Color(1, 1, 1, 0.196078)

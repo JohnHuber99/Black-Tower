@@ -6,6 +6,7 @@ const OVERWORLD_MAP_SCENE = preload("res://OverWorld Map/Overworld_Map_Scenes/ov
 
 func _ready() -> void:
 	get_tree().paused = false
+	MusicManager.play_music("main_menu")
 
 func _on_play_game_pressed() -> void:
 	get_tree().change_scene_to_packed(RUN_SCENE)

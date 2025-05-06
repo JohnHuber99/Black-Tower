@@ -294,6 +294,7 @@ func _on_health_component_health_change(character_newHealth: Variant) -> void:
 	can_move = true
 
 func _on_health_component_destroyed() -> void:
+	MusicManager.play_music("death")
 	sprite.play("death")
 	death_label.parse_bbcode("[center][color=red]You Died![/color]\nPress [color=yellow]'R'[/color] to Restart[/center]")
 	death_label.visible = true  # Show the message

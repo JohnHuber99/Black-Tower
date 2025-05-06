@@ -19,6 +19,7 @@ var camera_edge_y: float
 
 func _ready() -> void:
 	camera_edge_y = OverworldMapGenerator.Y_DIST * (OverworldMapGenerator.FLOORS - 1)
+	MusicManager.play_music("map")
 	#generate_new_map()
 	#unlock_floor(0)
 	
