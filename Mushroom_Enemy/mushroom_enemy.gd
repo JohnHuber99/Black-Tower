@@ -50,9 +50,11 @@ func hunker() -> void:
 func shoot():
 	can_shoot = false
 	# Shoot projectile
-	sprite.play("attack")
+	sprite.play("attack_1")
 	await sprite.animation_finished
 	shoot_projectile()
+	sprite.play("attack_2")
+	await sprite.animation_finished
 
 	# Cooldown before next attack
 	await get_tree().create_timer(shoot_cooldown, false).timeout
