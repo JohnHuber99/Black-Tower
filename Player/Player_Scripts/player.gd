@@ -14,7 +14,6 @@ extends CharacterBody2D
 @export var total_coins: int = 0
 @export var corruption = ["plague_festering_boils", "plague_rattlejoint_ache", "plague_withering_cough"]
 
-@onready var death_label = $"CanvasLayer/DeathLabel"
 @onready var sprite = $PlayerSprite
 @onready var health = $"Health Component"
 @onready var mana = $"Mana Component"
@@ -296,8 +295,8 @@ func _on_health_component_health_change(character_newHealth: Variant) -> void:
 func _on_health_component_destroyed() -> void:
 	MusicManager.play_music("death")
 	sprite.play("death")
-	death_label.parse_bbcode("[center][color=red]You Died![/color]\nPress [color=yellow]'R'[/color] to Restart[/center]")
-	death_label.visible = true  # Show the message
+	await sprite.animation_finished
+	ui.show_game_over()
 
 func _on_mana_component_manabar_signal() -> void:
 	ui.set_mana(mana.currentMana_Bar, mana.Mana_maxBar)

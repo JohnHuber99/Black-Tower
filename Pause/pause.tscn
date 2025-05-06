@@ -41,6 +41,28 @@ theme_override_fonts/font = ExtResource("2_l2mpd")
 text = "Main Menu"
 metadata/_edit_use_anchors_ = true
 
+[node name="CanvasLayer" type="CanvasLayer" parent="Menu"]
+
+[node name="DeathLabel" type="RichTextLabel" parent="Menu/CanvasLayer"]
+custom_minimum_size = Vector2(60, 0)
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = -70.0
+offset_right = 34.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("2_l2mpd")
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+
 [connection signal="pressed" from="Menu/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Menu/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="Menu/MainMenu" to="." method="_on_main_menu_pressed"]

@@ -119,3 +119,5 @@ position = Vector2(2, -3)
 [node name="SpellSelector" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
 texture = ExtResource("11_g0wmg")
+
+[connection signal="game_over" from="." to="Pause" method="_on_ui_game_over"]

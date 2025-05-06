@@ -16,6 +16,8 @@ extends Node2D
 
 var isManaFlashing = false
 
+signal game_over
+
 func _flash(node):
 	for i in range(flash_amount):
 		node.modulate = Color(10, 10, 10, 10)
@@ -64,3 +66,7 @@ func flash_mana():
 		isManaFlashing = true
 		await _flash(mana_bar)
 		isManaFlashing = false
+
+func show_game_over():
+	game_over.emit()
+	

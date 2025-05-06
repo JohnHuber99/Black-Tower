@@ -1,4 +1,4 @@
-[gd_scene load_steps=105 format=3 uid="uid://b4uixgwclv3j8"]
+[gd_scene load_steps=104 format=3 uid="uid://b4uixgwclv3j8"]
 
 [ext_resource type="Script" uid="uid://bckauqi7hchmr" path="res://Player/Player_Scripts/player.gd" id="1_p5o4e"]
 [ext_resource type="Texture2D" uid="uid://byu22pipcx4kf" path="res://PD Heavy Attack/Plague_Doctor_Heavy_Attack_v1-Sheet.png" id="2_gu6f8"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://cej8auhwlwqxq" path="res://Camera/Camera_Scripts/PlayerCamera.gd" id="10_hshwv"]
 [ext_resource type="PackedScene" uid="uid://ooqf0bpcg3ow" path="res://UI/ui.tscn" id="11_gpjlu"]
 [ext_resource type="PackedScene" uid="uid://bwicqk1gug5b" path="res://Health_Component/Health Component.tscn" id="12_8mwp6"]
-[ext_resource type="FontFile" uid="uid://vx8hmoh8k8op" path="res://04B_03__.TTF" id="13_qemgg"]
 [ext_resource type="PackedScene" uid="uid://cmfy8u2a3sgcm" path="res://Mana_Component/Mana Component.tscn" id="14_gu6f8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tx1dd"]
@@ -727,27 +726,6 @@ script = ExtResource("10_hshwv")
 [node name="Ui" parent="Camera2D" instance=ExtResource("11_gpjlu")]
 
 [node name="Health Component" parent="." instance=ExtResource("12_8mwp6")]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="DeathLabel" type="RichTextLabel" parent="CanvasLayer"]
-custom_minimum_size = Vector2(60, 0)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -180.0
-offset_right = 28.0
-offset_bottom = -146.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/normal_font = ExtResource("13_qemgg")
-bbcode_enabled = true
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
 
 [node name="Mana Component" parent="." instance=ExtResource("14_gu6f8")]
 
