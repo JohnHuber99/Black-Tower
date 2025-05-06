@@ -5,6 +5,7 @@ class_name BreakComponent
 @export var MAX_BREAK_BAR: int = 50
 var current_break_bar: int
 var is_broken: bool = false
+var damage_resistance: float = 1.0
 
 signal broken
 signal break_damage(amount, type)
@@ -18,7 +19,8 @@ func break_taken(amount: int, type):
 		if type != null:
 			break_damage.emit(amount, type)
 		return
-	current_break_bar = max(0, current_break_bar - amount)
+	var adjusted_damage = int(amount * damage_resistance)
+	current_break_bar = max(0, current_break_bar - adjusted_damage)
 	break_change.emit(current_break_bar)
 	
 	if current_break_bar <= 0:

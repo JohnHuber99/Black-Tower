@@ -35,7 +35,7 @@ texture = ExtResource("2_edchn")
 sources/0 = SubResource("TileSetAtlasSource_7741b")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1twu7"]
-size = Vector2(15, 12)
+size = Vector2(21, 12)
 
 [node name="Door_Right" type="Node2D"]
 script = ExtResource("1_31agj")
@@ -48,5 +48,5 @@ tile_set = SubResource("TileSet_mw8oy")
 script = ExtResource("3_2qvgf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(6.5, -24)
+position = Vector2(3.5, -24)
 shape = SubResource("RectangleShape2D_1twu7")
