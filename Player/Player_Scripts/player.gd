@@ -18,6 +18,7 @@ extends CharacterBody2D
 @onready var health = $"Health Component"
 @onready var mana = $"Mana Component"
 @onready var ui = $Camera2D/Ui
+@onready var sfx_player = $SFXPlayer
 const GRENADE = preload("res://Spells/Plague Grenade/grenade2.tscn")
 const KNIFE = preload("res://PD Basic Attack/knife.tscn")
 const SPINNING_KNIFE = preload("res://PD Heavy Attack/spinning_knife.tscn")
@@ -38,6 +39,11 @@ var attack_chain = 0
 var chain_timer = 0
 
 var attack_held_down = false
+
+var throw_sounds = {
+	"knife": preload("res://Player/throw_1.mp3"),
+	"spinning_knife": preload("res://Player/throw_2.mp3"),
+}
 
 var current_corruption = corruption[1] # Set this to whatever the default plague should be (0, 1, or 2)
 
@@ -206,6 +212,7 @@ func attack_animation():
 		await sprite.animation_finished
 		_fire("basic")
 		sprite.play("basic_attack_2")
+		play_throw_sound("knife")
 		await sprite.animation_finished
 		chain_timer = attack_chain_window
 		attack_chain = 1
@@ -213,6 +220,7 @@ func attack_animation():
 	elif attack_chain == 1:
 		_fire("basic")
 		sprite.play("basic_attack_3")
+		play_throw_sound("knife")
 		await sprite.animation_finished
 		chain_timer = attack_chain_window
 		attack_chain = 2
@@ -220,6 +228,7 @@ func attack_animation():
 	else:
 		_fire("basic")
 		sprite.play("basic_attack_4")
+		play_throw_sound("knife")
 		await sprite.animation_finished
 		attack_chain = 0
 
@@ -228,6 +237,7 @@ func heavy_animation():
 	await sprite.animation_finished
 	_fire("heavy")
 	sprite.play("heavy_attack_finish")
+	play_throw_sound("spinning_knife")
 	await sprite.animation_finished
 
 func _ready():
@@ -307,3 +317,9 @@ func _on_mana_component_manabar_signal() -> void:
 
 func collect_coin(value: int):
 	total_coins += value
+
+func play_throw_sound(object_type: String):
+	if throw_sounds.has(object_type):
+		sfx_player.stream = throw_sounds[object_type]
+		sfx_player.play()
+	

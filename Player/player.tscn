@@ -718,7 +718,7 @@ shape = SubResource("CapsuleShape2D_tx1dd")
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(2, -2)
 sprite_frames = SubResource("SpriteFrames_chjaw")
-animation = &"heavy_attack_start"
+animation = &"basic_attack_4"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("10_hshwv")
@@ -728,6 +728,8 @@ script = ExtResource("10_hshwv")
 [node name="Health Component" parent="." instance=ExtResource("12_8mwp6")]
 
 [node name="Mana Component" parent="." instance=ExtResource("14_gu6f8")]
+
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="destroyed" from="Health Component" to="." method="_on_health_component_destroyed"]
 [connection signal="health_change" from="Health Component" to="." method="_on_health_component_health_change"]
