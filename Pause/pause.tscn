@@ -45,7 +45,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="DeathLabel" type="RichTextLabel" parent="Menu/CanvasLayer"]
 custom_minimum_size = Vector2(60, 0)
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

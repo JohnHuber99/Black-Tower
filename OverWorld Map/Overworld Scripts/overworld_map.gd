@@ -65,6 +65,7 @@ func unlock_next_rooms() -> void:
 
 func show_map() -> void:
 	print("MapShowing")
+	MusicManager.play_music("map")
 	show()
 	camera_2d.enabled = true
 	
