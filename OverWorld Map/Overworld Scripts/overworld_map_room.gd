@@ -7,8 +7,8 @@ const ICONS := {
 	Room.Type.NOT_ASSIGNED: [null, Vector2(0.5,0.5)],
 	Room.Type.MONSTER: [preload("res://OverWorld Map/Overwrold Tilemaps/Overworld Map Icons/icon_sword2.png"), Vector2(0.5,0.5)],
 	Room.Type.ELITE_MONSTER: [preload("res://OverWorld Map/Overwrold Tilemaps/Overworld Map Icons/icon_beetle2.png"), Vector2(0.5,0.5)],
-	Room.Type.SHOP: [preload("res://OverWorld Map/Overwrold Tilemaps/Overworld Map Icons/icon_bag.png"), Vector2(0.6, 0.6)],
-	Room.Type.CAMPFIRE: [preload("res://OverWorld Map/Overwrold Tilemaps/Overworld Map Icons/icon_heart2.png"), Vector2(0.6, 0.6)],
+	Room.Type.SHOP: [preload("res://OverWorld Map/Overwrold Tilemaps/Overworld Map Icons/icon_bag2.png"), Vector2(0.5, 0.5)],
+	Room.Type.CAMPFIRE: [preload("res://OverWorld Map/Overwrold Tilemaps/Overworld Map Icons/icon_heart2.png"), Vector2(0.5, 0.5)],
 	Room.Type.TREASURE: [preload("res://OverWorld Map/Overwrold Tilemaps/Overworld Map Icons/icon_chest2.png"), Vector2(0.5,0.5)],
 	Room.Type.BOSS: [preload("res://OverWorld Map/Overwrold Tilemaps/Overworld Map Icons/icon_skull2.png"), Vector2(0.5,0.5)]
 }

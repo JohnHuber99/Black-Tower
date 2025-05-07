@@ -10,6 +10,7 @@ const MAP_LINE = preload("res://OverWorld Map/Overworld_Map_Scenes/map_line.tscn
 @onready var rooms: Node2D = get_node("Visuals/Rooms")
 @onready var visuals: Node2D = get_node("Visuals")
 @onready var camera_2d: Camera2D = get_node("Camera2D")
+@onready var bg_sprite: Sprite2D = $MapBackground/Sprite2D
 
 var map_vertical_offset: float = 32.0 #higher number means lower the map
 var map_data: Array[Array]
@@ -19,6 +20,7 @@ var camera_edge_y: float
 
 func _ready() -> void:
 	camera_edge_y = OverworldMapGenerator.Y_DIST * (OverworldMapGenerator.FLOORS - 1)
+	bg_sprite.visible = true
 	MusicManager.play_music("map")
 	#generate_new_map()
 	#unlock_floor(0)
@@ -66,10 +68,12 @@ func unlock_next_rooms() -> void:
 func show_map() -> void:
 	print("MapShowing")
 	MusicManager.play_music("map")
+	bg_sprite.visible = true
 	show()
 	camera_2d.enabled = true
 	
 func hide_map() -> void:
+	bg_sprite.visible = false
 	hide()
 	camera_2d.enabled = false
 	
