@@ -1,6 +1,6 @@
-[gd_scene load_steps=42 format=4 uid="uid://c3elyorobl4bn"]
+[gd_scene load_steps=46 format=4 uid="uid://c3elyorobl4bn"]
 
-[ext_resource type="Script" uid="uid://ccre00tnsulrg" path="res://Rooms/startingRoomCleared.gd" id="1_3jknl"]
+[ext_resource type="Script" path="res://Rooms/startingRoomCleared.gd" id="1_3jknl"]
 [ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://Dungeon/Tilemaps_Sprites/BT_Tile_Placeholders.png" id="1_bu3m2"]
 [ext_resource type="Texture2D" uid="uid://dxgpqhgixf3df" path="res://Dungeon/Tilemaps_Sprites/bt-tiles-1alt.png" id="2_6hxfx"]
 [ext_resource type="Script" uid="uid://by4s0xcvscd05" path="res://Player/Player_Scripts/Player_Dungeon_Spawn.gd" id="2_6kdjq"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://2cf66g8tjfwn" path="res://Dungeon/Tilemaps_Sprites/UpdatedDungeonTilemap/wall-textures.png" id="14_btl1q"]
 [ext_resource type="Texture2D" uid="uid://y6ciqw8qplld" path="res://Dungeon/Tilemaps_Sprites/UpdatedDungeonTilemap/bt-walls-new2.png" id="17_btl1q"]
 [ext_resource type="Texture2D" uid="uid://v23w44ksdi4k" path="res://Dungeon/Tilemaps_Sprites/UpdatedDungeonTilemap/bt-walls-new2-export.png" id="18_ab6m5"]
+[ext_resource type="Texture2D" uid="uid://7aujatiw6f7r" path="res://Dungeon/Tilemaps_Sprites/bt-flowers2.png" id="19_kiio3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5cshp"]
 texture = ExtResource("1_bu3m2")
@@ -287,6 +288,23 @@ shader_parameter/texture_noise_system = true
 shader_parameter/noise_speed = 3.0
 shader_parameter/noise_direction = -1
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_ndsk8")
+shader_parameter/worley_noise_system = false
+shader_parameter/worley_cell_density = 10.0
+shader_parameter/worley_speed = 2.0
+shader_parameter/edge_and_mask = false
+shader_parameter/alpha_value = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kiio3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c1q45"]
+shader = ExtResource("6_8hpev")
+shader_parameter/pixel_mode = false
+shader_parameter/pixel_amount = 32.0
+shader_parameter/distortion = 0.028
+shader_parameter/texture_noise_system = true
+shader_parameter/noise_speed = 0.1
+shader_parameter/noise_direction = -1
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_kiio3")
 shader_parameter/worley_noise_system = false
 shader_parameter/worley_cell_density = 10.0
 shader_parameter/worley_speed = 2.0
@@ -984,6 +1002,34 @@ texture_region_size = Vector2i(48, 80)
 7:2/0 = 0
 7:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(24, -40, -24, -40, -24, -20, 24, -20)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0ggo6"]
+texture = ExtResource("19_kiio3")
+texture_region_size = Vector2i(48, 48)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v311a"]
 texture = ExtResource("17_btl1q")
 texture_region_size = Vector2i(48, 80)
@@ -1124,6 +1170,7 @@ sources/2 = SubResource("TileSetAtlasSource_kiio3")
 sources/3 = SubResource("TileSetAtlasSource_c1q45")
 sources/7 = SubResource("TileSetAtlasSource_v311a")
 sources/4 = SubResource("TileSetAtlasSource_pm1bp")
+sources/5 = SubResource("TileSetAtlasSource_0ggo6")
 
 [node name="StartingRoom" type="Node2D"]
 script = ExtResource("1_3jknl")
@@ -1154,6 +1201,11 @@ texture = ExtResource("7_kt6p1")
 [node name="PlayerDungeonSpawn" type="Marker2D" parent="."]
 position = Vector2(220, -203)
 script = ExtResource("2_6kdjq")
+
+[node name="flowers" type="TileMapLayer" parent="."]
+material = SubResource("ShaderMaterial_c1q45")
+tile_map_data = PackedByteArray("AAAIAPf/BQAAAAAAAAATAPL/BQAAAAAAAAAFAO3/BQABAAAAAAAPAPr/BQABAAAAAAAOAPP/BQACAAAAAAALAPD/BQACAAAAAAAOAO7/BQABAAAAAAAOAPD/BQAAAAAAAAAOAO//BQAAAAAAAAANAPH/BQABAAAAAAALAPP/BQABAAAAAAAVAOv/BQAAAAAAAAAMAPL/BQAAAAAAAAAQAPP/BQAAAAAAAAAOAPX/BQAAAAAAAAAPAPT/BQABAAAAAAAPAPL/BQABAAAAAAAOAPL/BQABAAAAAAA=")
+tile_set = SubResource("TileSet_v311a")
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAZAPD/BAAIAAEAAAABAOb/BAADAAAAAAAEAOb/BAAEAAAAAAAHAOb/BAAEAAAAAAAWAOb/BAAEAAAAAAAZAOb/BAAIAAAAAAAKAOb/BAAGAAAAAAANAOb/BAAFAAAAAAAQAOb/BAAGAAAAAAATAOb/BAAEAAAAAAABAOv/BAADAAEAAAABAPD/BAADAAEAAAABAPX/BAADAAEAAAABAPr/BAADAAEAAAAZAOv/BAAIAAEAAAAZAPX/BAAIAAEAAAAZAPr/BAAIAAEAAAABAAEABAADAAIAAAAEAAEABAAEAAIAAAAZAAEABAAIAAIAAAABAPz/BAADAAEAAAAZAPz/BAAIAAEAAAAWAAEABAAGAAIAAAAHAAEABAAEAAIAAAAKAAEABAAEAAIAAAANAAEABAAEAAIAAAAQAAEABAAEAAIAAAATAAEABAAEAAIAAAA=")

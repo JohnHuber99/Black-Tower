@@ -1,7 +1,7 @@
-[gd_scene load_steps=38 format=4 uid="uid://cp7k1vt1f3ge5"]
+[gd_scene load_steps=43 format=4 uid="uid://cp7k1vt1f3ge5"]
 
 [ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://Dungeon/Tilemaps_Sprites/BT_Tile_Placeholders.png" id="1_38i4b"]
-[ext_resource type="Script" uid="uid://dlj5h74838a63" path="res://Rooms/bigRoomCleared.gd" id="1_dxpd7"]
+[ext_resource type="Script" path="res://Rooms/bigRoomCleared.gd" id="1_dxpd7"]
 [ext_resource type="Texture2D" uid="uid://dxgpqhgixf3df" path="res://Dungeon/Tilemaps_Sprites/bt-tiles-1alt.png" id="2_t63bv"]
 [ext_resource type="Texture2D" uid="uid://bsyq57ru3gqpv" path="res://Dungeon/Tilemaps_Sprites/UpdatedDungeonTilemap/downdoor.png" id="3_dw4s1"]
 [ext_resource type="Script" uid="uid://b6gnwxoa44un1" path="res://Enemy/Enemy_Scripts/EnemyActivation.gd" id="3_pyr8e"]
@@ -17,6 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://dlghjcowuew44" path="res://Dungeon/Tilemaps_Sprites/UpdatedDungeonTilemap/bt-grassl1-final.png" id="9_561ki"]
 [ext_resource type="Texture2D" uid="uid://v23w44ksdi4k" path="res://Dungeon/Tilemaps_Sprites/UpdatedDungeonTilemap/bt-walls-new2-export.png" id="14_uadu3"]
 [ext_resource type="Texture2D" uid="uid://y6ciqw8qplld" path="res://Dungeon/Tilemaps_Sprites/UpdatedDungeonTilemap/bt-walls-new2.png" id="15_bpg01"]
+[ext_resource type="Texture2D" uid="uid://7aujatiw6f7r" path="res://Dungeon/Tilemaps_Sprites/bt-flowers2.png" id="15_k0qxm"]
+[ext_resource type="Shader" uid="uid://biqtcmw7rel8t" path="res://Rooms/bushes_temp_real.gdshader" id="17_uuc15"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_71u8r"]
 texture = ExtResource("1_38i4b")
@@ -1018,6 +1020,34 @@ texture_region_size = Vector2i(48, 80)
 7:2/0 = 0
 7:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(24, -40, -24, -40, -24, -20, 24, -20)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8dgo1"]
+texture = ExtResource("15_k0qxm")
+texture_region_size = Vector2i(48, 48)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_767cu"]
 texture = ExtResource("15_bpg01")
 texture_region_size = Vector2i(48, 80)
@@ -1158,6 +1188,24 @@ sources/2 = SubResource("TileSetAtlasSource_lg562")
 sources/3 = SubResource("TileSetAtlasSource_sj5fc")
 sources/7 = SubResource("TileSetAtlasSource_767cu")
 sources/4 = SubResource("TileSetAtlasSource_4x1co")
+sources/5 = SubResource("TileSetAtlasSource_8dgo1")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kiio3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c1q45"]
+shader = ExtResource("17_uuc15")
+shader_parameter/pixel_mode = false
+shader_parameter/pixel_amount = 32.0
+shader_parameter/distortion = 0.028
+shader_parameter/texture_noise_system = true
+shader_parameter/noise_speed = 0.1
+shader_parameter/noise_direction = -1
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_kiio3")
+shader_parameter/worley_noise_system = false
+shader_parameter/worley_cell_density = 10.0
+shader_parameter/worley_speed = 2.0
+shader_parameter/edge_and_mask = false
+shader_parameter/alpha_value = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rscgm"]
 size = Vector2(833, 832)
@@ -1179,6 +1227,11 @@ tile_set = SubResource("TileSet_7ugto")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAABAMv/BAADAAAAAAAEAMv/BAAEAAAAAAAHAMv/BAAEAAAAAAANAMv/BAAEAAAAAAAQAMv/BAAEAAAAAAATAMv/BAAEAAAAAAAWAMv/BAAEAAAAAAAZAMv/BAAEAAAAAAAcAMv/BAAEAAAAAAAlAMv/BAAEAAAAAAAoAMv/BAAEAAAAAAAuAMv/BAAEAAAAAAAxAMv/BAAEAAAAAAA0AMv/BAAIAAAAAAA0APz/BAAIAAEAAAA0APf/BAAIAAEAAAA0APL/BAAIAAEAAAA0AO3/BAAIAAEAAAA0AOj/BAAIAAEAAAA0AOP/BAAIAAEAAAA0AN7/BAAIAAEAAAA0ANn/BAAIAAEAAAA0ANT/BAAIAAEAAAA0AND/BAAIAAEAAAABAPz/BAADAAEAAAABAPf/BAADAAEAAAABAPL/BAADAAEAAAABAO3/BAADAAEAAAABAOj/BAADAAEAAAABAOP/BAADAAEAAAABAN7/BAADAAEAAAABANn/BAADAAEAAAABANT/BAADAAEAAAABAND/BAADAAEAAAABAAEABAADAAIAAAAEAAEABAAEAAIAAAAHAAEABAAEAAIAAAAKAAEABAAEAAIAAAANAAEABAAEAAIAAAAQAAEABAAEAAIAAAATAAEABAAEAAIAAAAWAAEABAAEAAIAAAAZAAEABAAEAAIAAAAcAAEABAAEAAIAAAAfAAEABAAEAAIAAAAiAAEABAAEAAIAAAAlAAEABAAEAAIAAAAoAAEABAAEAAIAAAArAAEABAAEAAIAAAAuAAEABAAEAAIAAAAwAAEABAAEAAIAAAA0AAEABAAIAAIAAAAxAAEABAAHAAIAAAAKAMv/BAAFAAAAAAAfAMv/BAAFAAAAAAAiAMv/BAAHAAAAAAArAMv/BAAGAAAAAAA=")
+tile_set = SubResource("TileSet_hh8ot")
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="."]
+material = SubResource("ShaderMaterial_c1q45")
+tile_map_data = PackedByteArray("AAAQAOT/BQAAAAAAAAAiAN3/BQAAAAAAAAAiAN7/BQABAAAAAAAjAN7/BQAAAAAAAAAkAN3/BQAAAAAAAAAjAN3/BQABAAAAAAAhAN//BQAAAAAAAAAhAOD/BQAAAAAAAAAiAOD/BQABAAAAAAAjAOD/BQACAAAAAAAjAN//BQAAAAAAAAAkAN//BQAAAAAAAAAiAN//BQABAAAAAAAjAOH/BQABAAAAAAAiAOH/BQACAAAAAAAjAOL/BQABAAAAAAAkAOL/BQABAAAAAAAmAOL/BQABAAAAAAAlAOD/BQACAAAAAAAkAOD/BQACAAAAAAAhAOL/BQACAAAAAAAgAOL/BQACAAAAAAAgAOP/BQACAAAAAAAgAOT/BQACAAAAAAAhAOT/BQACAAAAAAAiAOP/BQACAAAAAAAjAOP/BQACAAAAAAAkAOP/BQACAAAAAAAlAOL/BQACAAAAAAAmAOH/BQACAAAAAAAmAN//BQACAAAAAAAfAN//BQACAAAAAAAfAOL/BQACAAAAAAAkAOX/BQACAAAAAAAmAOb/BQABAAAAAAAhAOr/BQABAAAAAAAdAOT/BQABAAAAAAAdAOj/BQAAAAAAAAAbAOD/BQAAAAAAAAAqAOH/BQACAAAAAAApAN3/BQACAAAAAAAmANf/BQABAAAAAAAdANj/BQABAAAAAAAIANL/BQAAAAAAAAAHANL/BQABAAAAAAAHANP/BQABAAAAAAAIANP/BQABAAAAAAAJANP/BQACAAAAAAAIANT/BQABAAAAAAAHANT/BQAAAAAAAAAHANX/BQAAAAAAAAAIANX/BQAAAAAAAAAJANX/BQAAAAAAAAAJANT/BQAAAAAAAAAKANT/BQAAAAAAAAAJANL/BQAAAAAAAAAEANT/BQAAAAAAAAAGANX/BQACAAAAAAAJANf/BQACAAAAAAAIANH/BQACAAAAAAAMANX/BQACAAAAAAAQANX/BQACAAAAAAAGAM//BQACAAAAAAAVANL/BQABAAAAAAADAOj/BQABAAAAAAAGAOr/BQABAAAAAAAFAOv/BQABAAAAAAAFAOz/BQABAAAAAAAHAOv/BQABAAAAAAATAPT/BQAAAAAAAAAVAPP/BQAAAAAAAAAXAPX/BQAAAAAAAAAUAPX/BQAAAAAAAAAUAPT/BQAAAAAAAAArAPL/BQAAAAAAAAArAPT/BQAAAAAAAAAsAPT/BQAAAAAAAAAiAPz/BQABAAAAAAAkAPz/BQACAAAAAAAkAP3/BQAAAAAAAAAkAPv/BQACAAAAAAAlAPr/BQACAAAAAAAlAPn/BQACAAAAAAAkAPr/BQABAAAAAAAjAPr/BQACAAAAAAAgAPz/BQACAAAAAAAiAPv/BQABAAAAAAAiAP3/BQABAAAAAAAlAPz/BQABAAAAAAAmAPv/BQABAAAAAAAsAPz/BQABAAAAAAAHAPr/BQABAAAAAAAJAPn/BQABAAAAAAAJAPv/BQABAAAAAAA=")
 tile_set = SubResource("TileSet_hh8ot")
 
 [node name="RoomArea" type="Area2D" parent="."]
