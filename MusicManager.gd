@@ -4,7 +4,7 @@ var music_tracks = {
 	"main_menu": preload("res://Music/black_tower_title.mp3"),
 	"map": preload("res://Music/map.mp3"),
 	"death": preload("res://Music/game_over_loop.mp3"),
-	"tutorial": preload("res://Music/tutorial.mp3")
+	"wander": preload("res://Music/wander_wip.ogg")
 }
 
 @onready var music_player: AudioStreamPlayer = $MusicPlayer
