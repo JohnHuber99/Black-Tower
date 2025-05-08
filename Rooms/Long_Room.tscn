@@ -1,6 +1,6 @@
 [gd_scene load_steps=42 format=4 uid="uid://beqodim8out42"]
 
-[ext_resource type="Script" path="res://Rooms/longRoomCleared.gd" id="1_4q6ok"]
+[ext_resource type="Script" uid="uid://fegkocdmvea2" path="res://Rooms/longRoomCleared.gd" id="1_4q6ok"]
 [ext_resource type="Texture2D" uid="uid://cmuu5ivjqf4ul" path="res://Dungeon/Tilemaps_Sprites/BT_Tile_Placeholders.png" id="1_roouo"]
 [ext_resource type="Texture2D" uid="uid://dxgpqhgixf3df" path="res://Dungeon/Tilemaps_Sprites/bt-tiles-1alt.png" id="2_l7w5w"]
 [ext_resource type="Script" uid="uid://b6gnwxoa44un1" path="res://Enemy/Enemy_Scripts/EnemyActivation.gd" id="3_1qbe7"]
