@@ -43,11 +43,7 @@ var attack_held_down = false
 var throw_sounds = {
 	"knife": preload("res://Player/throw_1.mp3"),
 	"spinning_knife": preload("res://Player/throw_2.mp3"),
-}
 
-var impact_sounds = {
-	"hurt": preload("res://Player/player-hurt.mp3"),
-	"death": preload("res://Player/player-death.mp3")
 }
 
 var current_corruption = corruption[1] # Set this to whatever the default plague should be (0, 1, or 2)
@@ -303,7 +299,6 @@ func _on_health_component_health_change(character_newHealth: Variant) -> void:
 	animating = true
 	iframe_timer = iframes
 	sprite.play("hurt")
-	play_impact_sound("hurt")
 	await sprite.animation_finished
 	animating = false
 	can_move = true
@@ -311,7 +306,6 @@ func _on_health_component_health_change(character_newHealth: Variant) -> void:
 func _on_health_component_destroyed() -> void:
 	MusicManager.play_music("death")
 	sprite.play("death")
-	play_impact_sound("death")
 	await sprite.animation_finished
 	ui.show_game_over()
 
@@ -328,9 +322,4 @@ func collect_coin(value: int):
 func play_throw_sound(object_type: String):
 	if throw_sounds.has(object_type):
 		sfx_player.stream = throw_sounds[object_type]
-		sfx_player.play()
-
-func play_impact_sound(object_type: String):
-	if impact_sounds.has(object_type):
-		sfx_player.stream = impact_sounds[object_type]
 		sfx_player.play()
