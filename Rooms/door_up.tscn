@@ -243,6 +243,7 @@ tile_map_data = PackedByteArray("AAAAAP3/AAAAAAAAAAAAAP7/AAAAAAEAAAAAAP//AAAAAAI
 tile_set = SubResource("TileSet_ik3on")
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="."]
+visible = false
 tile_map_data = PackedByteArray("AAD///z/AAAAAAAAACACAPz/AAADAAAAACAAAPz/AAACAAAAAAABAPz/AAACAAAAAAA=")
 tile_set = SubResource("TileSet_cicpy")
 
