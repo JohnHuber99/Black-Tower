@@ -13,6 +13,7 @@ extends Node2D
 @onready var spell0 = $SpellSlot0/Spell0
 @onready var spell1 = $SpellSlot1/Spell1
 @onready var selector = $SpellSelector
+@onready var coin_label = $Coin/Label
 
 var isManaFlashing = false
 
@@ -29,6 +30,7 @@ func _ready() -> void:
 	z_index = z_layer
 	slot0.play("ready")
 	slot1.play("ready")
+	set_coins(0)
 
 func set_health(current, max):
 	health.text = str(int(current), "/", int(max))
@@ -60,6 +62,9 @@ func set_active_spell(slot):
 		selector.position = slot0.position
 	if slot == 1:
 		selector.position = slot1.position
+
+func set_coins(total_coins):
+	coin_label.text = str(total_coins)
 
 func flash_mana():
 	if !isManaFlashing:

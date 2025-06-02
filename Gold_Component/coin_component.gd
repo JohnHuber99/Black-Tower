@@ -1,11 +1,7 @@
-extends Node
-
+extends Node2D
 class_name CoinComponent
 
 @export var coin_value: int = 1
-var total_coins: int = 0
-
-signal coins_collected(new_total: int)
 
 @onready var sprite = $CoinSpriteAnimation
 @onready var area = $Area2D
@@ -21,11 +17,3 @@ func _on_body_entered(body):
 		sprite.hide()
 		audio_player.play()
 		audio_player.finished.connect(queue_free)
-
-func collect():
-	total_coins += coin_value
-	coins_collected.emit(total_coins)
-
-func reset():
-	total_coins = 0
-	coins_collected.emit(total_coins)

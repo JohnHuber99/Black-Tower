@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ooqf0bpcg3ow"]
+[gd_scene load_steps=15 format=3 uid="uid://ooqf0bpcg3ow"]
 
 [ext_resource type="Texture2D" uid="uid://b0krf7d1p6e8f" path="res://UI/UI Sprites/bt-healthbar.png" id="1_1xnp1"]
 [ext_resource type="Script" uid="uid://es4r7mrxubun" path="res://UI/ui.gd" id="1_x1l0w"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://caixwiq1feb8v" path="res://UI/UI Sprites/Smelling_Salts_Bottle.png" id="9_n0dls"]
 [ext_resource type="PackedScene" uid="uid://cnccq6grmbluf" path="res://Pause/pause.tscn" id="10_nt8jn"]
 [ext_resource type="Texture2D" uid="uid://bx01davfpcwb8" path="res://UI/UI Sprites/spell-selector-temp.png" id="11_g0wmg"]
+[ext_resource type="Texture2D" uid="uid://c1lecdkds75yb" path="res://Gold_Component/Coins/bt-coin1.png" id="12_0w6e5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wdavg"]
 animations = [{
@@ -119,5 +120,18 @@ position = Vector2(2, -3)
 [node name="SpellSelector" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
 texture = ExtResource("11_g0wmg")
+
+[node name="Coin" type="Sprite2D" parent="."]
+position = Vector2(-314.875, 94.875)
+scale = Vector2(1.97222, 1.75)
+texture = ExtResource("12_0w6e5")
+
+[node name="Label" type="Label" parent="Coin"]
+offset_left = 6.02114
+offset_top = -5.07143
+offset_right = 44.0211
+offset_bottom = 17.9286
+theme_override_fonts/font = ExtResource("2_7uyga")
+theme_override_font_sizes/font_size = 11
 
 [connection signal="game_over" from="." to="Pause" method="_on_ui_game_over"]

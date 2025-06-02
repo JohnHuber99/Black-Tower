@@ -19,12 +19,13 @@ extends CharacterBody2D
 @onready var mana = $"Mana Component"
 @onready var ui = $Camera2D/Ui
 @onready var sfx_player = $SFXPlayer
+signal coin_count_changed(new_total: int)
 const GRENADE = preload("res://Spells/Plague Grenade/grenade2.tscn")
 const KNIFE = preload("res://PD Basic Attack/knife.tscn")
 const SPINNING_KNIFE = preload("res://PD Heavy Attack/spinning_knife.tscn")
 const SALTS = preload("res://Spells/Smelling Salts/smelling_salts.tscn")
 var isThrowing = false
-
+var coin_count: int = 0
 var can_move = true
 var can_turn = true
 var animating = false
@@ -248,6 +249,10 @@ func _ready():
 	ui.set_spell_1(spells[1])
 	ui.set_active_spell(current_spell_index)
 
+func collect_coin(value: int) -> void:
+	coin_count += value
+	ui.set_coins(coin_count)
+
 func _launch():
 		if isThrowing: return
 		
@@ -315,9 +320,6 @@ func _on_mana_component_manabar_signal() -> void:
 	var FlashDecision = mana.currentMana_Bar < mana.Plague_Grenade_Cost or mana.currentMana_Bar < mana.Smelling_Salts_cost
 	if FlashDecision:
 		ui.flash_mana()
-
-func collect_coin(value: int):
-	total_coins += value
 
 func play_throw_sound(object_type: String):
 	if throw_sounds.has(object_type):
